@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav {
+    @apply w-full;
+
+    &__logo {
+      &-img {
+        @apply mr-3 h-6 sm:h-10 w-auto;
+      }
+
+      &-text {
+        @apply self-center whitespace-nowrap text-xl font-semibold text-primary dark:text-white;
+      }
+    }
+
+    &__toggle {
+      .output {
+        @apply hidden md:block;
+      }
+
+      button {
+        @apply text-white bg-secondary-brightest hover:bg-secondary active:bg-secondary transition duration-150 ease-in;
+      }
+    }
+
+    &__links {
+      @apply bg-secondary-bright md:bg-inherit p-4 md:p-[initial] rounded mt-4 md:mt-0;
+
+      .nav__link {
+        @apply p-3 md:p-[initial] text-white md:text-primary hover:text-secondary-brightest active:text-secondary-brightest focus:text-secondary-brightest transition duration-150 ease-in font-medium md:font-semibold border-none hover:bg-inherit;
+      }
+
+      .active {
+        @apply text-secondary-brightest;
+      }
+
+      .nav__dropdown {
+        @apply bg-secondary-brightest;
+
+        .nav__link {
+          @apply text-white p-2 hover:bg-secondary font-medium;
+        }
+
+        .active {
+          @apply bg-secondary;
+        }
+      }
+
+      .nav__button {
+        @apply md:hidden text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in mt-4;
+      }
+    }
+  }
+}

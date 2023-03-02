@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .app__flex {
+    @apply flex justify-center items-center;
+  }
+
+  .app__bg {
+    @apply bg-white;
+  }
+
+  img {
+    @apply transition duration-500;
+  }
+
+  .lazy-img {
+    @apply blur-[20px];
+  }
+
+  .features {
+    @apply w-full;
+  }
+
+  .section {
+    @apply py-20 px-4 lg:px-16 transition w-full border-b border-gray-300 lg:overflow-x-auto overflow-x-hidden;
+
+    .section__title {
+      @apply mt-10 mx-auto mb-4 text-start;
+    }
+
+    h2 {
+      @apply text-lg lg:text-xl font-extrabold uppercase text-primary mb-4;
+    }
+
+    h3 {
+      @apply text-2xl lg:text-4xl leading-snug font-semibold text-secondary mb-4;
+    }
+  }
+
+  .section--hidden {
+    @apply opacity-0 translate-y-32;
+  }
+
+  .head-text {
+    @apply text-5xl lg:text-[5.5rem] leading-snug font-bold tracking-wider;
+  }
+
+  .p-text {
+    @apply text-[0.8rem] text-left text-secondary leading-[1.5] large:text-[1.75rem];
+  }
+
+  .bold-text {
+    @apply text-3xl lg:text-[4rem] font-bold text-left large:text-[2rem];
+  }
+
+  .btn--text {
+    @apply inline-block bg-none text-base font-medium text-primary;
+  }
+
+  .copyright {
+    @apply w-full pt-8 px-0 pb-0 flex flex-col justify-end items-end;
+
+    p {
+      @apply uppercase text-gray-300;
+    }
+  }
+
+  .app__container {
+    @apply w-full min-h-screen flex flex-row;
+  }
+
+  .app__wrapper {
+    @apply w-full flex-col py-2 px-4 big:pt-16;
+  }
+
+  .app__social {
+    @apply app__flex flex-col p-4;
+
+    div {
+      @apply w-8 h-8 rounded-full bg-white my-1 mx-auto border border-solid border-primary-darkMode ease-in-out large:w-8 large:h-8 large:my-2 large:mx-0 app__flex;
+
+      svg {
+        @apply w-4 h-4 text-primary hover:text-primary-darkMode large:w-6 large:h-6 transition app__flex;
+      }
+    }
+  }
+
+  .app__navigation {
+    @apply app__flex flex-col p-4;
+
+    .app__navigation-dot {
+      @apply w-[10px] h-[10px] rounded-[50%] bg-gray-400 m-2 transition-colors duration-200 ease-in-out hover:bg-primary-darkMode large:w-5 large:h-5;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .app__navigation,
+    .app__social,
+    .copyright {
+      @apply hidden;
+    }
+
+    .copyright {
+      @apply p-8;
+    }
+  }
+}
