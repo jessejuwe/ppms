@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .info__summary {
+    @apply w-full bg-secondary flex flex-col big:flex-row items-start justify-evenly gap-6 big:gap-0;
+
+    .first-section {
+      @apply h-full;
+
+      article {
+        @apply text-white mb-4 md:mb-14 text-left md:text-justify;
+      }
+
+      .article-span {
+        @apply text-white mb-4 text-justify;
+      }
+    }
+
+    p {
+      @apply text-white mb-4;
+    }
+
+    .horizontal-divider {
+      @apply text-center mx-auto big:hidden;
+    }
+
+    .vertical-divider {
+      @apply hidden big:flex;
+    }
+
+    .second-section {
+      @apply w-full;
+
+      ul {
+        @apply bg-inherit mb-4 p-4 md:w-fit;
+      }
+
+      li {
+        @apply text-white transition duration-150 ease-in;
+      }
+    }
+
+    .section-button {
+      @apply text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in w-fit hover:scale-0 md:hover:scale-95;
+    }
+  }
+
+  .tabbed-section {
+    @apply flex flex-col items-center justify-center gap-4 py-8 bg-primary-brightest;
+
+    h2 {
+      @apply text-lg font-semibold uppercase text-secondary-brightest;
+    }
+
+    h3 {
+      @apply text-2xl leading-tight font-bold text-secondary-bright;
+    }
+
+    .tabs-group {
+      @apply border border-secondary p-6 w-[90%] md:w-4/5 rounded-md transition duration-300 ease-in flex;
+
+      .tabs-group {
+        @apply gap-4 w-full border-none transition duration-300 ease-in justify-center;
+
+        button {
+          @apply text-xs md:text-base text-white bg-secondary border-none transition duration-150 ease-in ring-0 p-3 md:p-4 active:scale-105 md:active:scale-100;
+        }
+      }
+
+      div {
+        div {
+          @apply border-none rounded;
+
+          .tabs-item-group {
+            @apply flex flex-col-reverse md:flex-row items-center justify-center gap-10;
+
+            .tabs-item-info {
+              @apply flex flex-col items-start justify-center max-w-md;
+
+              h2 {
+                @apply text-base md:text-lg font-semibold text-left large:text-[2rem] tracking-tight mb-2;
+              }
+
+              .tabs-description {
+                @apply text-base text-left md:text-justify text-secondary leading-tight md:leading-normal large:text-[1.75rem] mb-4;
+              }
+
+              .sign-up {
+                @apply w-fit text-white bg-secondary-brightest hover:bg-secondary-bright transition duration-150 ease-in hover:scale-0 md:hover:scale-95;
+              }
+            }
+
+            .tabs-item-img {
+              @apply max-w-xs;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .join-us-section {
+    @apply bg-primary-brightest pt-2 pb-16;
+
+    .inner-section {
+      @apply flex flex-col justify-center items-center bg-secondary rounded-md w-[90%] md:w-4/5 py-8 md:p-16;
+
+      h1 {
+        @apply text-white mb-6 text-2xl md:text-5xl leading-none font-bold tracking-tighter;
+      }
+
+      .section-button {
+        @apply text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in md:w-1/3 hover:scale-0 md:hover:scale-95;
+      }
+    }
+  }
+}

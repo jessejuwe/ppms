@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .about__us {
+    @apply p-4 flex flex-col-reverse big:flex-row items-center justify-center h-screen bg-primary-brightest;
+
+    &-info {
+      @apply big:max-w-2xl;
+
+      h2 {
+        @apply text-secondary-brightest;
+      }
+
+      h1 {
+        @apply text-secondary-bright;
+      }
+
+      p {
+        @apply text-secondary max-w-xl text-left md:text-justify tracking-tight mb-4;
+      }
+
+      .sign-up {
+        @apply w-fit text-white bg-secondary-brightest hover:bg-secondary-bright transition duration-150 ease-in hover:scale-0 md:hover:scale-95;
+      }
+    }
+
+    &-img {
+      @apply rounded max-w-xs big:max-w-xl mt-12 mb-5;
+
+      img {
+        @apply rounded;
+      }
+    }
+  }
+}
