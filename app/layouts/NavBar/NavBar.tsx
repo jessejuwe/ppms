@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 import { images } from '../../../constants';
+import { NavLink, DropdownLink } from '@/helpers/nav-helper';
 
 const NavBar: React.FC = () => {
   const [signedIn, setSignedIn] = useState(false);
@@ -31,7 +32,7 @@ const NavBar: React.FC = () => {
 
   if (!signedIn) {
     output = (
-      <Button pill={true} color="primary">
+      <Button pill={true} color="primary" href="/sign-up">
         Sign up
       </Button>
     );
@@ -66,9 +67,14 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <Navbar fluid={true} rounded={true} className="nav">
+      <Navbar fluid={true} rounded={false} className="nav">
         <Navbar.Brand href="/" className="nav__logo">
-          <Image src={images.logo} className="nav__logo-img" alt="PPMS Logo" />
+          <Image
+            src={images.logo}
+            className="nav__logo-img"
+            alt="PPMS Logo"
+            priority
+          />
           <span className="nav__logo-text">PPMS</span>
         </Navbar.Brand>
         <div className="nav__toggle flex md:order-2">
@@ -76,20 +82,17 @@ const NavBar: React.FC = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse className="nav__links">
-          <Navbar.Link
-            href="/"
-            // active={path == '/' && true}
-            className={`nav__link ${path == '/' && 'active'}`}
-          >
-            Home
-          </Navbar.Link>
-          <Navbar.Link
-            href="/about"
-            active={path == '/about' && true}
-            className={`nav__link ${path == '/about' && 'active'}`}
-          >
-            About
-          </Navbar.Link>
+          {NavLink.map((navlink, index) => (
+            <Navbar.Link
+              key={`${navlink.title} ${index}`}
+              href={navlink.to}
+              // active={path === navlink.path && true}
+              className={`nav__link ${path === navlink.path && 'active'}`}
+            >
+              {navlink.title}
+            </Navbar.Link>
+          ))}
+
           <Dropdown
             arrowIcon={true}
             floatingArrow={true}
@@ -99,62 +102,33 @@ const NavBar: React.FC = () => {
             className="nav__dropdown"
             label={
               <Navbar.Link
-                className={`nav__link ${path == '/modules' && 'active'}`}
+                href="/services"
+                className={`nav__link ${path === '/modules' && 'active'}`}
               >
                 Services
               </Navbar.Link>
             }
           >
-            <Navbar.Link
-              href="/modules/epmm"
-              active={path == '/modules/epmm' && true}
-              className={`nav__link ${path == '/modules/epmm' && 'active'}`}
-            >
-              Empowerment Program Management
-            </Navbar.Link>
-            <Dropdown.Divider />
-            <Navbar.Link
-              href="/modules/cspmm"
-              active={path == '/modules/cspmm' && true}
-              className={`nav__link ${path == '/modules/cspmm' && 'active'}`}
-            >
-              Community Support Program Management
-            </Navbar.Link>
-            <Dropdown.Divider />
-            <Navbar.Link
-              href="/modules/espmm"
-              active={path == '/modules/espmm' && true}
-              className={`nav__link ${path == '/modules/espmm' && 'active'}`}
-            >
-              Education Support Program Management
-            </Navbar.Link>
-            <Dropdown.Divider />
-            <Navbar.Link
-              href="/modules/emm"
-              active={path == '/modules/emm' && true}
-              className={`nav__link ${path == '/modules/emm' && 'active'}`}
-            >
-              Emergency Management
-            </Navbar.Link>
-            <Dropdown.Divider />
-            <Navbar.Link
-              href="/modules/pmm"
-              active={path == '/modules/pmm' && true}
-              className={`nav__link ${path == '/modules/pmm' && 'active'}`}
-            >
-              Project Management
-            </Navbar.Link>
-            <Dropdown.Divider />
-            <Navbar.Link
-              href="/modules/simm"
-              active={path == '/modules/simm' && true}
-              className={`nav__link ${path == '/modules/simm' && 'active'}`}
-            >
-              Store-Inventory Management
-            </Navbar.Link>
+            {DropdownLink.map((dropdownLink, index) => (
+              <Navbar.Link
+                key={`${dropdownLink.title} ${index}`}
+                href={dropdownLink.to}
+                active={path === dropdownLink.path && true}
+                className={`nav__link ${
+                  path === dropdownLink.path && 'active'
+                }`}
+              >
+                {dropdownLink.title}
+              </Navbar.Link>
+            ))}
           </Dropdown>
-          <Button className="nav__button" pill={true} color="primary">
-            Get Started
+          <Button
+            className="nav__button"
+            pill={true}
+            color="primary"
+            href="/sign-up"
+          >
+            Sign up
           </Button>
         </Navbar.Collapse>
       </Navbar>

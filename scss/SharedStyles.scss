@@ -24,18 +24,18 @@
   }
 
   .section {
-    @apply py-20 px-4 lg:px-16 transition w-full border-b border-gray-300 lg:overflow-x-auto overflow-x-hidden;
+    @apply py-5 transition w-full;
 
-    .section__title {
-      @apply mt-10 mx-auto mb-4 text-start;
+    &__title {
+      @apply px-4 big:px-[initial] mt-[initial] md:mt-10 mx-auto mb-4 md:max-w-lg big:max-w-md min-h-full;
     }
 
-    h2 {
-      @apply text-lg lg:text-xl font-extrabold uppercase text-primary mb-4;
+    &__description {
+      @apply text-base md:text-lg font-semibold uppercase text-primary mb-4;
     }
 
-    h3 {
-      @apply text-2xl lg:text-4xl leading-snug font-semibold text-secondary mb-4;
+    &__header {
+      @apply text-xl md:text-2xl leading-tight font-bold text-primary-brightest mb-4;
     }
   }
 
@@ -44,15 +44,15 @@
   }
 
   .head-text {
-    @apply text-5xl lg:text-[5.5rem] leading-snug font-bold tracking-wider;
+    @apply text-3xl md:text-4xl big:text-5xl leading-none font-bold tracking-tighter mb-4;
   }
 
   .p-text {
-    @apply text-[0.8rem] text-left text-secondary leading-[1.5] large:text-[1.75rem];
+    @apply text-base text-left text-secondary leading-tight md:leading-normal large:text-[1.75rem];
   }
 
   .bold-text {
-    @apply text-3xl lg:text-[4rem] font-bold text-left large:text-[2rem];
+    @apply text-lg font-semibold text-left large:text-[2rem] tracking-tight;
   }
 
   .btn--text {

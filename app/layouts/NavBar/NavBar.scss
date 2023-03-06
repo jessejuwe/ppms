@@ -4,7 +4,7 @@
 
 @layer components {
   .nav {
-    @apply w-full;
+    @apply w-full fixed z-[999];
 
     &__logo {
       &-img {
@@ -12,17 +12,17 @@
       }
 
       &-text {
-        @apply self-center whitespace-nowrap text-xl font-semibold text-primary dark:text-white;
+        @apply self-center whitespace-nowrap text-xl font-semibold text-secondary-brightest dark:text-white;
       }
     }
 
     &__toggle {
       .output {
         @apply hidden md:block;
-      }
 
-      button {
-        @apply text-white bg-secondary-brightest hover:bg-secondary active:bg-secondary transition duration-150 ease-in;
+        span {
+          @apply text-white bg-secondary-brightest hover:bg-secondary active:bg-secondary transition duration-150 ease-in rounded-[3rem] border-none active:ring-0 focus:ring-0;
+        }
       }
     }
 
@@ -30,7 +30,7 @@
       @apply bg-secondary-bright md:bg-inherit p-4 md:p-[initial] rounded mt-4 md:mt-0;
 
       .nav__link {
-        @apply p-3 md:p-[initial] text-white md:text-primary hover:text-secondary-brightest active:text-secondary-brightest focus:text-secondary-brightest transition duration-150 ease-in font-medium md:font-semibold border-none hover:bg-inherit;
+        @apply p-3 md:p-[initial] text-white md:text-primary hover:text-secondary-brightest active:text-secondary-brightest focus:text-secondary-brightest transition duration-150 ease-in font-medium md:font-semibold border-none hover:bg-inherit cursor-pointer;
       }
 
       .active {
@@ -38,10 +38,10 @@
       }
 
       .nav__dropdown {
-        @apply bg-secondary-brightest;
+        @apply bg-secondary-brightest border-none transition duration-300 ease-in;
 
         .nav__link {
-          @apply text-white p-2 hover:bg-secondary font-medium;
+          @apply text-white p-2 hover:bg-secondary font-medium cursor-pointer;
         }
 
         .active {
