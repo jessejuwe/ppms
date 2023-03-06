@@ -15,40 +15,40 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { NavBar, Footer } from '../exports/exports';
 import '../styles/globals.css';
 
-export const metadata = {
-  title: {
-    default: 'PPMS',
-    template: '%s | PPMS',
-  },
-  description: 'Programs and Project Management System',
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
-    shortcut: '/favicon.ico',
-    apple: [
-      { url: '/apple-touch-icon.png' },
-      { url: '/apple-touch-icon.png', sizes: '180x180' },
-    ],
-  },
-  robots: {
-    index: true,
-  },
-  generator: 'Next.js',
-  applicationName: 'PPMS',
-  referrer: 'origin-when-cross-origin',
-  keywords: ['Program', 'Project', 'Management', 'System'],
-  authors: [
-    { name: 'Sam Juwe' },
-    { name: 'Jesse Juwe', url: 'https://jessejuwe.vercel.app' },
-  ],
-  colorScheme: 'dark',
-  creator: 'Jesse Juwe',
-  publisher: 'Vercel',
-  manifest: '/site.webmanifest',
-};
+// export const metadata = {
+//   title: {
+//     default: 'PPMS',
+//     template: '%s | PPMS',
+//   },
+//   description: 'Programs and Project Management System',
+//   icons: {
+//     icon: [
+//       { url: '/favicon.ico' },
+//       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+//       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+//     ],
+//     shortcut: '/favicon.ico',
+//     apple: [
+//       { url: '/apple-touch-icon.png' },
+//       { url: '/apple-touch-icon.png', sizes: '180x180' },
+//     ],
+//   },
+//   robots: {
+//     index: true,
+//   },
+//   generator: 'Next.js',
+//   applicationName: 'PPMS',
+//   referrer: 'origin-when-cross-origin',
+//   keywords: ['Program', 'Project', 'Management', 'System'],
+//   authors: [
+//     { name: 'Sam Juwe' },
+//     { name: 'Jesse Juwe', url: 'https://jessejuwe.vercel.app' },
+//   ],
+//   colorScheme: 'dark',
+//   creator: 'Jesse Juwe',
+//   publisher: 'Vercel',
+//   manifest: '/site.webmanifest',
+// };
 
 const colors = {
   primary: { 900: '#209CEE', 800: '#5AF', 700: '#5DBBF8' },
