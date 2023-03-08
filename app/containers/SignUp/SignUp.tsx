@@ -13,6 +13,7 @@ import {
   CardHeader,
   Heading,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 
 import { images } from '@/constants';
@@ -74,7 +75,7 @@ const SignUp: React.FC = () => {
               align="center"
               overflow="hidden"
               color="white"
-              background="gray.800"
+              background="blue.700"
               size="sm"
               className="card"
             >
@@ -174,12 +175,19 @@ const SignUp: React.FC = () => {
                 </Formik>
               </CardBody>
               <CardFooter className="card-footer">
-                <Text fontSize="sm">
-                  Already have an account? {}{' '}
-                  <Link href="/sign-in" className="sign-in-text">
-                    Sign in
-                  </Link>
-                </Text>
+                <VStack>
+                  <Text fontSize="sm">
+                    Already have an account? {}{' '}
+                    <Link href="/sign-in" className="sign-in-text">
+                      Sign in
+                    </Link>
+                  </Text>
+                  <Text fontSize="sm">
+                    <Link href="/" className="homepage-text">
+                      Back to homepage
+                    </Link>
+                  </Text>
+                </VStack>
               </CardFooter>
             </Card>
           </motion.div>

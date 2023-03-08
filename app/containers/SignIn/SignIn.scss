@@ -4,10 +4,10 @@
 
 @layer components {
   .sign-in-align {
-    @apply py-8 bg-primary-brightest;
+    @apply py-8 bg-primary-brightest h-screen;
 
     .sign-in-section {
-      @apply h-screen flex flex-col big:flex-row items-center justify-around px-8 gap-6;
+      @apply h-full flex flex-col big:flex-row items-center justify-around px-8 gap-6;
 
       &-img {
         @apply big:max-w-lg hidden big:flex;
@@ -42,6 +42,10 @@
           .card-footer {
             .sign-up-text {
               @apply hover:text-primary-bright cursor-pointer transition-all duration-150 ease-in;
+            }
+
+            .homepage-text {
+              @apply hover:underline cursor-pointer transition-all duration-150 ease-in;
             }
           }
         }

@@ -1,9 +1,9 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button, Tooltip } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
 import {
@@ -13,6 +13,7 @@ import {
   CardHeader,
   Heading,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 
 import { images } from '@/constants';
@@ -66,12 +67,12 @@ const SignIn: React.FC = () => {
               align="center"
               overflow="hidden"
               color="white"
-              background="gray.800"
+              background="blue.700"
               size="sm"
               className="card"
             >
               <CardHeader className="card-header">
-                <Heading textTransform="uppercase">Sign up</Heading>
+                <Heading textTransform="uppercase">Sign in</Heading>
               </CardHeader>
               <CardBody className="card-body">
                 <Formik
@@ -84,40 +85,24 @@ const SignIn: React.FC = () => {
                 >
                   {({ errors, touched, isSubmitting }) => (
                     <Form>
-                      <Tooltip
-                        content="Enter your email address"
-                        placement="top"
-                        style="dark"
-                        animation="duration-300"
-                        trigger="hover"
-                      >
-                        <Field
-                          name="email"
-                          type="email"
-                          placeholder="Email address"
-                          className={`input ${
-                            errors.email && touched.email ? 'error' : ''
-                          }`}
-                          innerRef={inputRef}
-                        />
-                      </Tooltip>
+                      <Field
+                        name="email"
+                        type="email"
+                        placeholder="Email address"
+                        className={`input ${
+                          errors.email && touched.email ? 'error' : ''
+                        }`}
+                        innerRef={inputRef}
+                      />
 
-                      <Tooltip
-                        content="Enter your password"
-                        placement="top"
-                        style="dark"
-                        animation="duration-300"
-                        trigger="hover"
-                      >
-                        <Field
-                          name="password"
-                          type="password"
-                          placeholder="Password"
-                          className={`input ${
-                            errors.password && touched.password ? 'error' : ''
-                          }`}
-                        />
-                      </Tooltip>
+                      <Field
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        className={`input ${
+                          errors.password && touched.password ? 'error' : ''
+                        }`}
+                      />
                       <Button
                         type="submit"
                         color="success"
@@ -130,12 +115,19 @@ const SignIn: React.FC = () => {
                 </Formik>
               </CardBody>
               <CardFooter className="card-footer">
-                <Text fontSize="sm">
-                  Don&apos;t have an account? {}{' '}
-                  <Link href="/sign-up" className="sign-up-text">
-                    Sign in
-                  </Link>
-                </Text>
+                <VStack>
+                  <Text fontSize="sm">
+                    Don&apos;t have an account? {}{' '}
+                    <Link href="/sign-up" className="sign-up-text">
+                      Sign up
+                    </Link>
+                  </Text>
+                  <Text fontSize="sm">
+                    <Link href="/" className="homepage-text">
+                      Back to homepage
+                    </Link>
+                  </Text>
+                </VStack>
               </CardFooter>
             </Card>
           </motion.div>
