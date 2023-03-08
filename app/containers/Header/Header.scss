@@ -22,7 +22,7 @@
       }
 
       .sign-up {
-        @apply w-fit text-white bg-secondary-brightest hover:bg-secondary-bright transition duration-150 ease-in hover:scale-0 md:hover:scale-95;
+        @apply w-fit text-white bg-secondary-brightest hover:bg-secondary-bright transition duration-150 ease-in hover:scale-0 md:hover:scale-95 border-none outline-none active:outline-none focus:outline-none;
       }
     }
 

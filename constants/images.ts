@@ -22,7 +22,7 @@ import moonlight from '../assets/moonlight.svg';
 import services from '../assets/services.svg';
 import posts from '../assets/posts.svg';
 
-import education from '../assets/education.jpg';
+import education from '../assets/education.avif';
 import emergency from '../assets/emergency.jpg';
 import empowerment from '../assets/empowerment.jpg';
 import community from '../assets/community.jpg';

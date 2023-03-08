@@ -21,34 +21,34 @@ export const NavLink: NavLink[] = [
 
 export const DropdownLink: DropdownLink[] = [
   {
-    to: '/modules/epmm',
-    path: '/modules/epmm',
+    to: '/services/epmm',
+    path: '/services/epmm',
     title: 'Empowerment Program Management',
   },
   {
-    to: '/modules/cspmm',
-    path: '/modules/cspmm',
+    to: '/services/cspmm',
+    path: '/services/cspmm',
     title: 'Community Support Program Management',
   },
 
   {
-    to: '/modules/espmm',
-    path: '/modules/espmm',
+    to: '/services/espmm',
+    path: '/services/espmm',
     title: 'Education Support Program Management',
   },
   {
-    to: '/modules/emm',
-    path: '/modules/emm',
+    to: '/services/emm',
+    path: '/services/emm',
     title: 'Emergency Management',
   },
   {
-    to: '/modules/pmm',
-    path: '/modules/pmm',
+    to: '/services/pmm',
+    path: '/services/pmm',
     title: 'Project Management',
   },
   {
-    to: '/modules/simm',
-    path: '/modules/simm',
+    to: '/services/simm',
+    path: '/services/simm',
     title: 'Store-Inventory Management',
   },
 ];

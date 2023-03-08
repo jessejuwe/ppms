@@ -10,5 +10,7 @@ export { default as ModulesPage } from '../app/containers/ModulesPage/ModulesPag
 export { default as Sections } from '../app/containers/Sections/Sections';
 export { default as Service } from '../app/containers/Service/Service';
 export { default as AboutUs } from '../app/containers/AboutUs/AboutUs';
+export { default as Register } from '../app/containers/SignUp/SignUp';
+export { default as Resume } from '../app/containers/SignIn/SignIn';
 
 // exporting RFC default export from React Server Component folder (components)

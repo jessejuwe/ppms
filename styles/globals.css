@@ -1,3 +1,4 @@
+/* importing google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
@@ -13,6 +14,8 @@
 @import '../app/containers/Sections/Sections.scss';
 @import '../app/containers/Service/Service.scss';
 @import '../app/containers/AboutUs/AboutUs.scss';
+@import '../app/containers/SignUp/SignUp.scss';
+@import '../app/containers/SignIn/SignIn.scss';
 
 @tailwind base;
 @tailwind components;

@@ -43,13 +43,13 @@
     }
 
     .modules {
-      @apply grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4 p-8;
+      @apply grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-8 p-8 big:p-12;
 
       .module {
-        @apply w-full bg-white flex-col rounded-lg cursor-pointer transition-all duration-150 ease-linear shadow-lg md:hover:shadow-2xl md:hover:shadow-black/20 md:hover:scale-105 border-none items-center justify-center;
+        @apply w-full bg-white flex-col rounded-lg cursor-pointer transition-all duration-150 ease-linear shadow-lg md:hover:shadow-2xl md:hover:shadow-black/20 md:hover:scale-105 border-none items-center justify-center outline-none;
 
         .module-group {
-          @apply w-full relative;
+          @apply w-full relative h-3/4 bg-transparent;
 
           &-img {
             @apply w-full h-full rounded-t-md object-cover;
@@ -61,7 +61,7 @@
         }
 
         .module-link {
-          @apply p-4 text-center text-secondary font-semibold text-sm md:text-base uppercase hover:underline transition-all duration-150 ease-in;
+          @apply pt-4 pb-0 text-center text-secondary font-semibold text-sm uppercase hover:underline transition-all duration-150 ease-in h-fit;
         }
       }
     }

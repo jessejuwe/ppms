@@ -1,24 +1,28 @@
 'use client';
 
-import { Navbar, Dropdown, Avatar, Button } from 'flowbite-react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 import { usePathname } from 'next/navigation';
+import { Navbar, Dropdown, Avatar, Button } from 'flowbite-react';
 
+import { RootState } from '@/redux/store/store';
+import { authActions } from '@/redux/slices/auth-slice';
 import { images } from '../../../constants';
 import { NavLink, DropdownLink } from '@/helpers/nav-helper';
 
 const NavBar: React.FC = () => {
-  const [signedIn, setSignedIn] = useState(false);
   const [path, setPath] = useState('');
+  // selecting pieces of data from the store
+  const loggedIn = useSelector((state: RootState) => state.auth.loggedIn);
 
   const pathname = usePathname();
 
-  useEffect(() => {
-    const handleGetPath = () => {
-      setPath(pathname);
-    };
+  const handleGetPath = useCallback(() => {
+    setPath(pathname);
+  }, [pathname]);
 
+  useEffect(() => {
     handleGetPath();
 
     window.addEventListener('load', handleGetPath);
@@ -26,19 +30,26 @@ const NavBar: React.FC = () => {
     return () => {
       window.removeEventListener('load', handleGetPath);
     };
-  }, [pathname]);
+  }, [handleGetPath, pathname]);
 
   let output;
 
-  if (!signedIn) {
+  if (!loggedIn) {
     output = (
-      <Button pill={true} color="primary" href="/sign-up">
+      <Button
+        pill={true}
+        color="primary"
+        href="/sign-up"
+        hidden={path === '/sign-up'}
+        className="sign-up-button"
+        outline={false}
+      >
         Sign up
       </Button>
     );
   }
 
-  if (signedIn)
+  if (loggedIn)
     output = (
       <Dropdown
         arrowIcon={true}
@@ -86,7 +97,6 @@ const NavBar: React.FC = () => {
             <Navbar.Link
               key={`${navlink.title} ${index}`}
               href={navlink.to}
-              // active={path === navlink.path && true}
               className={`nav__link ${path === navlink.path && 'active'}`}
             >
               {navlink.title}
@@ -103,7 +113,7 @@ const NavBar: React.FC = () => {
             label={
               <Navbar.Link
                 href="/services"
-                className={`nav__link ${path === '/modules' && 'active'}`}
+                className={`nav__link ${path === '/services' && 'active'}`}
               >
                 Services
               </Navbar.Link>
@@ -136,4 +146,4 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+export default React.memo(NavBar);

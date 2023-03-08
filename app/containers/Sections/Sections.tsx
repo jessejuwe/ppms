@@ -50,6 +50,7 @@ const Sections: React.FC = () => {
             size="sm"
             href="/about"
             className="section-button"
+            outline={false}
           >
             See more
           </Button>
@@ -89,6 +90,7 @@ const Sections: React.FC = () => {
             size="sm"
             href="/services"
             className="section-button"
+            outline={false}
           >
             See more
           </Button>
@@ -125,7 +127,12 @@ const Sections: React.FC = () => {
                 >
                   <h2>{tab.heading}</h2>
                   <span className="tabs-description">{tab.description}</span>
-                  <Button pill={false} className="sign-up" href="/sign-up">
+                  <Button
+                    pill={false}
+                    className="sign-up"
+                    href="/sign-up"
+                    outline={false}
+                  >
                     Get started
                   </Button>
                 </motion.div>
@@ -164,7 +171,12 @@ const Sections: React.FC = () => {
           exit={{ opacity: 0 }}
         >
           <h1>Start using PPMS today</h1>
-          <Button href="/sign-up" pill className="section-button">
+          <Button
+            href="/sign-up"
+            pill
+            className="section-button"
+            outline={false}
+          >
             Join us
           </Button>
         </motion.div>

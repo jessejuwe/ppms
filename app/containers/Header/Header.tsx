@@ -31,7 +31,12 @@ const Header: React.FC = () => {
             optimal results. The System will assist management to ensure that
             important goals are achieved as planned.
           </p>
-          <Button pill={false} className="sign-up" href="/sign-up">
+          <Button
+            pill={false}
+            className="sign-up"
+            href="/sign-up"
+            outline={false}
+          >
             Get started
           </Button>
         </motion.div>

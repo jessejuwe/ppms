@@ -20,8 +20,8 @@
       .output {
         @apply hidden md:block;
 
-        span {
-          @apply text-white bg-secondary-brightest hover:bg-secondary active:bg-secondary transition duration-150 ease-in rounded-[3rem] border-none active:ring-0 focus:ring-0;
+        .sign-up-button {
+          @apply text-white bg-secondary-brightest hover:bg-secondary active:bg-secondary transition duration-150 ease-in rounded-[3rem] border-none outline-none active:outline-none focus:outline-none;
         }
       }
     }
@@ -50,7 +50,7 @@
       }
 
       .nav__button {
-        @apply md:hidden text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in mt-4;
+        @apply md:hidden text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in mt-4 outline-none active:outline-none focus:outline-none;
       }
     }
   }
