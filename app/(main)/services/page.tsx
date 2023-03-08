@@ -1,4 +1,4 @@
-import { ModulesPage } from '../../exports/exports';
+import { ModulesPage } from '../../../exports/exports';
 
 export const metadata = {
   title: {
