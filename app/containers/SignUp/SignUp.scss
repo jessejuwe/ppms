@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .sign-up-align {
+    @apply py-8 bg-primary-brightest;
+
+    .sign-up-section {
+      @apply h-screen flex flex-col big:flex-row items-center justify-around px-8 gap-6;
+
+      &-img {
+        @apply big:max-w-lg hidden big:flex;
+
+        img {
+          @apply w-full;
+        }
+      }
+
+      &-form {
+        @apply w-full big:w-[35rem];
+
+        .card {
+          .card-body {
+            form {
+              @apply w-full flex flex-col items-center justify-center gap-4;
+
+              .input {
+                @apply p-2 big:p-4 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
+              }
+
+              .error {
+                @apply ring ring-red-700 transition-all duration-150 ease-in;
+              }
+
+              button {
+                @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in;
+              }
+            }
+          }
+
+          .card-footer {
+            .sign-in-text {
+              @apply hover:text-primary-bright cursor-pointer transition-all duration-150 ease-in;
+            }
+          }
+        }
+      }
+    }
+  }
+}
