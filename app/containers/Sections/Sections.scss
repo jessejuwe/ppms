@@ -43,7 +43,7 @@
     }
 
     .section-button {
-      @apply text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in w-fit hover:scale-0 md:hover:scale-95 outline-none;
+      @apply text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in w-fit big:hover:scale-95 outline-none;
     }
   }
 
@@ -88,7 +88,7 @@
               }
 
               .sign-up {
-                @apply w-fit text-white bg-secondary-brightest hover:bg-secondary-bright transition duration-150 ease-in hover:scale-0 md:hover:scale-95 outline-none;
+                @apply w-fit text-white bg-secondary-brightest hover:bg-secondary-bright transition duration-150 ease-in big:hover:scale-95 outline-none;
               }
             }
 
@@ -112,7 +112,7 @@
       }
 
       .section-button {
-        @apply text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in md:w-1/3 hover:scale-0 md:hover:scale-95 outline-none;
+        @apply text-white bg-primary hover:bg-secondary-brightest transition duration-150 ease-in md:w-1/3 big:hover:scale-95 outline-none;
       }
     }
   }

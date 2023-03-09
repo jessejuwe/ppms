@@ -7,7 +7,7 @@
     @apply big:py-8 bg-primary-brightest h-screen;
 
     .sign-in-section {
-      @apply h-full big:flex flex-col big:flex-row items-start justify-center big:justify-around py-40 px-6 big:px-8 big:py-0 big:gap-6 align-middle;
+      @apply h-full flex flex-col big:flex-row items-center justify-center big:justify-around py-40 px-6 big:px-8 big:py-0 big:gap-6 align-middle;
 
       &-img {
         @apply big:max-w-lg hidden big:flex;
