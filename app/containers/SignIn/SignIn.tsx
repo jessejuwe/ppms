@@ -70,6 +70,8 @@ const SignIn: React.FC = () => {
               background="blue.700"
               size="sm"
               className="card"
+              shadow="xl"
+              rounded="lg"
             >
               <CardHeader className="card-header">
                 <Heading textTransform="uppercase">Sign in</Heading>
