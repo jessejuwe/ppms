@@ -7,7 +7,7 @@
     @apply big:py-8 bg-primary-brightest h-screen;
 
     .sign-up-section {
-      @apply h-full flex flex-col big:flex-row items-center justify-center big:justify-around py-20 px-6 big:px-8 big:py-0 big:gap-6 align-middle;
+      @apply h-full flex flex-col big:flex-row items-center justify-center big:justify-around pt-20 px-6 big:px-8 big:py-0 big:gap-6 align-middle;
 
       &-img {
         @apply big:max-w-lg hidden big:flex;
