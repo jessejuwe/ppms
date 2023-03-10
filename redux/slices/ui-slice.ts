@@ -9,8 +9,6 @@ type Notification = {
 
 type InitialState = {
   notification: null | Notification;
-  windowWidth: number;
-  windowHeight: number;
 };
 
 interface Payload {
@@ -21,8 +19,6 @@ interface Payload {
 
 const initialState: InitialState = {
   notification: null,
-  windowWidth: window.innerWidth,
-  windowHeight: window.innerHeight,
 };
 
 const uiSlice = createSlice({
