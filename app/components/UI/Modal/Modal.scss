@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .notification {
+    @apply bg-secondary-brightest text-white;
+
+    &-error {
+      @apply bg-red-600;
+    }
+
+    &-success {
+      @apply bg-green-600;
+    }
+
+    &-pending {
+      @apply bg-orange-600;
+    }
+  }
+
+  .modal-close-btn {
+    @apply bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in rounded-3xl text-white;
+  }
+
+  .modal-proceed-btn {
+    @apply bg-primary-brightest hover:bg-primary transition-all duration-150 ease-in rounded-3xl;
+  }
+
+  .btn-error {
+    @apply bg-red-600 hover:bg-red-900;
+  }
+
+  .btn-success {
+    @apply bg-green-600 hover:bg-green-900;
+  }
+
+  .btn-pending {
+    @apply bg-orange-600 hover:bg-orange-900;
+  }
+}
