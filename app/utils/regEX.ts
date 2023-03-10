@@ -7,15 +7,15 @@ export const emailRegEx = new RegExp(
 );
 
 // export const phoneNumberRegEx = new RegExp(
-//   /^([0-9]{2})[-]?([0-9]{3})[-]?([0-9]{4})$/
+//   /^([0-9]{4})[-]?([0-9]{3})[-]?([0-9]{4})$/
 // );
 
-export const phoneNumberRegEx = new RegExp(/^\d{4}-\d{3}-\d{4}$/);
+export const phoneNumberRegEx = new RegExp(/^([0-9]{4})([0-9]{3})([0-9]{4})$/);
 
 export const strongPasswordRegEx = new RegExp(
-  '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
 );
 
 export const mediumRegEx = new RegExp(
-  '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})'
+  /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/
 );

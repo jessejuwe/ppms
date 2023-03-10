@@ -1,3 +1,5 @@
+import { Empowerment } from '@/exports/exports';
+
 export const metadata = {
   title: {
     default: 'Empowerment Program Management | PPMS',
@@ -7,5 +9,9 @@ export const metadata = {
 };
 
 export default function EmpowermentProgramMM() {
-  return <main>pages</main>;
+  return (
+    <>
+      <Empowerment />
+    </>
+  );
 }

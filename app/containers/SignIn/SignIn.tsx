@@ -119,9 +119,9 @@ const SignIn: React.FC = () => {
               <CardFooter className="card-footer">
                 <VStack>
                   <Text fontSize="sm">
-                    Don&apos;t have an account? {}{' '}
+                    Not registered? {}{' '}
                     <Link href="/sign-up" className="sign-up-text">
-                      Sign up
+                      Create account
                     </Link>
                   </Text>
                   <Text fontSize="sm">

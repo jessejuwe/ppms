@@ -9,6 +9,7 @@
 @import '../scss/SharedStyles.scss';
 @import '../app/layouts/Footer/Footer.scss';
 @import '../app/layouts/NavBar/NavBar.scss';
+
 @import '../app/containers/Header/Header.scss';
 @import '../app/containers/ModulesPage/ModulesPage.scss';
 @import '../app/containers/Sections/Sections.scss';
@@ -16,6 +17,15 @@
 @import '../app/containers/AboutUs/AboutUs.scss';
 @import '../app/containers/SignUp/SignUp.scss';
 @import '../app/containers/SignIn/SignIn.scss';
+@import '../app/containers/Education/Education.scss';
+@import '../app/containers/Emergency/Emergency.scss';
+@import '../app/containers/Empowerment/Empowerment.scss';
+@import '../app/containers/Community/Community.scss';
+@import '../app/containers/Inventory/Inventory.scss';
+@import '../app/containers/Project/Project.scss';
+@import '../app/containers/Dashboard/Dashboard.scss';
+
+@import '../app/components/UI/Modal/Modal.scss';
 
 @tailwind base;
 @tailwind components;
