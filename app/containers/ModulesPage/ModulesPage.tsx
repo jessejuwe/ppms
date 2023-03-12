@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 
 import { images } from '@/constants';
-import { MODULES } from '@/helpers/services-helper';
+import { MODULES } from '@/helpers/modules-helper';
 
 const ModulesPage: React.FC = () => {
   const clickScrollHandler = () => {

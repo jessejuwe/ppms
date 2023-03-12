@@ -2,19 +2,21 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
 import { usePathname } from 'next/navigation';
-import { Navbar, Dropdown, Avatar, Button } from 'flowbite-react';
+import { Navbar, Dropdown, Button } from 'flowbite-react';
+import { Avatar } from '@chakra-ui/react';
 
-import { RootState } from '@/redux/store/store';
-import { authActions } from '@/redux/slices/auth-slice';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks/hooks';
 import { images } from '../../../constants';
 import { NavLink, DropdownLink } from '@/helpers/nav-helper';
 
 const NavBar: React.FC = () => {
   const [path, setPath] = useState('');
+
   // selecting pieces of data from the store
-  const loggedIn = useSelector((state: RootState) => state.auth.loggedIn);
+  const loggedIn = useAppSelector(state => state.auth.loggedIn);
+  const name = useAppSelector(state => state.user.name);
+  const email = useAppSelector(state => state.user.username);
 
   const pathname = usePathname();
 
@@ -56,21 +58,20 @@ const NavBar: React.FC = () => {
         inline={true}
         label={
           <Avatar
-            alt="User settings"
-            img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-            rounded={true}
+            size="sm"
+            bg="primary.800"
+            name={name}
+            src={images.profilePic}
           />
         }
       >
         <Dropdown.Header>
-          <span className="block text-sm">Bonnie Green</span>
-          <span className="block truncate text-sm font-medium">
-            name@flowbite.com
-          </span>
+          <span className="block text-sm">{name}</span>
+          <span className="block truncate text-sm font-medium">{email}</span>
         </Dropdown.Header>
         <Dropdown.Item>Dashboard</Dropdown.Item>
         <Dropdown.Item>Settings</Dropdown.Item>
-        <Dropdown.Item>Earnings</Dropdown.Item>
+        <Dropdown.Item>Notifications</Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item>Sign out</Dropdown.Item>
       </Dropdown>

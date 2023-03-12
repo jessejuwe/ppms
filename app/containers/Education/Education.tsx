@@ -1,9 +1,8 @@
-import React from 'react';
+import { EDUCATION } from '@/helpers/services-helper';
+import { Service } from '@/exports/exports';
 
-type Props = {};
-
-const Education = (props: Props) => {
-  return <div>Education</div>;
+const Education: React.FC = () => {
+  return <Service {...EDUCATION} />;
 };
 
 export default Education;

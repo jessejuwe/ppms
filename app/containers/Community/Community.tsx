@@ -1,9 +1,8 @@
-import React from 'react';
+import { COMMUNITY } from '@/helpers/services-helper';
+import { Service } from '@/exports/exports';
 
-type Props = {};
-
-const Community = (props: Props) => {
-  return <div>Community</div>;
+const Community: React.FC = () => {
+  return <Service {...COMMUNITY} />;
 };
 
 export default Community;

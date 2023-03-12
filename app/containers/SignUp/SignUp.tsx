@@ -5,11 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { Tooltip } from 'flowbite-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
-import { SignUpData } from '@/model';
 import {
   Card,
   CardBody,
@@ -21,21 +19,28 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-import { sendSignUpData } from '@/redux/actions/auth-actions';
+import { SignInData, SignUpData } from '@/model';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
+import {
+  sendSignUpData,
+  fetchUserData,
+  sendLoginData,
+} from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
+import { authActions } from '@/redux/slices/auth-slice';
+import { userActions } from '@/redux/slices/user-slice';
 import { images } from '@/constants';
 import { phoneNumberAutoFormat } from '@/app/utils/numberFormatter';
 import { SignupSchema } from '@/app/utils/validationSchema';
 
-type Props = { users: SignUpData[] };
-
 // prettier-ignore
 const initialValues = { firstName: '', lastName: '', email: '', phoneNumber: '', password: '' };
 
-const SignUp: React.FC<Props> = ({ users }) => {
+const SignUp: React.FC = () => {
   const [value, setValue] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
   const finalRef = useRef<HTMLInputElement>(null);
+  const [fetchedData, setFetchedData] = useState<SignUpData[]>();
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -45,12 +50,22 @@ const SignUp: React.FC<Props> = ({ users }) => {
   // dynamic import for lazy loading
   const Modal = dynamic(() => import('../../components/UI/Modal/Modal'));
 
-  const handleProceed = () => loggedIn && router.push('/dashboard');
+  const handleProceed = () => loggedIn && router.replace('/dashboard');
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const targetValue = phoneNumberAutoFormat(e.target.value);
     setValue(targetValue);
   };
+
+  // retrieving user data from backend once app loads
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await dispatch(fetchUserData());
+      data && setFetchedData(data);
+    };
+
+    fetchData();
+  }, [dispatch]);
 
   // setting focus to input element on load
   useEffect(() => {
@@ -58,30 +73,17 @@ const SignUp: React.FC<Props> = ({ users }) => {
     return () => {};
   }, []);
 
-  const loadedUsers: SignUpData[] = [];
-
-  // Data Transformation Logic for users data
-  for (const key in users) {
-    loadedUsers.push({
-      id: key,
-      firstName: users[key].firstName,
-      lastName: users[key].lastName,
-      email: users[key].email,
-      phoneNumber: users[key].phoneNumber,
-      password: users[key].password,
-    });
-  }
-
   return (
     <>
       <div className="">
         {notification && (
           <Modal
-            proceed={handleProceed}
             status={notification.status}
             title={notification.title}
             message={notification.message}
             focus={finalRef}
+            btnText="Proceed"
+            altAction={handleProceed}
           />
         )}
       </div>
@@ -134,9 +136,9 @@ const SignUp: React.FC<Props> = ({ users }) => {
                     onSubmit={(values, action) => {
                       action.setSubmitting(true);
 
-                      const userExists = loadedUsers.find(
-                        user => user.email === values.email
-                      );
+                      const userExists =
+                        fetchedData &&
+                        fetchedData.find(user => user.email === values.email);
 
                       // Guard clause
                       if (userExists) {
@@ -152,7 +154,7 @@ const SignUp: React.FC<Props> = ({ users }) => {
                         return;
                       }
 
-                      const data: SignUpData = {
+                      const uploadSignUp: SignUpData = {
                         firstName: values.firstName,
                         lastName: values.lastName,
                         email: values.email,
@@ -160,7 +162,29 @@ const SignUp: React.FC<Props> = ({ users }) => {
                         password: values.password,
                       };
 
-                      dispatch(sendSignUpData(data));
+                      const uploadSignIn: SignInData = {
+                        name: `${values.firstName} ${values.lastName}`,
+                        email: values.email,
+                        password: values.password,
+                      };
+
+                      // upload user data
+                      dispatch(sendSignUpData(uploadSignUp));
+
+                      // upload login data
+                      dispatch(sendLoginData(uploadSignIn));
+
+                      // update UI based on user
+                      dispatch(
+                        userActions.enableUser({
+                          name: `${values.firstName} ${values.lastName}`,
+                          username: values.email,
+                          password: values.password,
+                        })
+                      );
+
+                      // log user in
+                      dispatch(authActions.login());
 
                       action.resetForm();
                       action.setSubmitting(false);

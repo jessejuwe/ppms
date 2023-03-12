@@ -1,9 +1,8 @@
-import React from 'react';
+import { INVENTORY } from '@/helpers/services-helper';
+import { Service } from '@/exports/exports';
 
-type Props = {};
-
-const Inventory = (props: Props) => {
-  return <div>Inventory</div>;
+const Inventory: React.FC = () => {
+  return <Service {...INVENTORY} />;
 };
 
 export default Inventory;

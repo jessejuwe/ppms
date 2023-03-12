@@ -9,6 +9,7 @@
 @import '../scss/SharedStyles.scss';
 @import '../app/layouts/Footer/Footer.scss';
 @import '../app/layouts/NavBar/NavBar.scss';
+@import '../app/layouts/Sidebar/Sidebar.scss';
 
 @import '../app/containers/Header/Header.scss';
 @import '../app/containers/ModulesPage/ModulesPage.scss';

@@ -3,4 +3,47 @@
 @tailwind utilities;
 
 @layer components {
+  .service {
+    @apply h-screen bg-primary-brightest px-4 py-20;
+
+    .breadcrumb {
+      @apply p-4;
+
+      .breadcrumb-item {
+        @apply text-white hover:text-primary-brightest;
+      }
+    }
+
+    .service-content {
+      @apply flex flex-col-reverse gap-8 big:flex-row items-center justify-around;
+
+      &-info {
+        @apply h-full max-w-md flex flex-col gap-1 items-start justify-center;
+
+        h3 {
+          @apply text-base md:text-lg font-semibold uppercase text-secondary-brightest;
+        }
+
+        h1 {
+          @apply text-secondary-bright;
+        }
+
+        article {
+          @apply text-justify mb-2;
+        }
+
+        button {
+          @apply text-white font-normal bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in;
+        }
+      }
+
+      &-img {
+        @apply rounded-md max-w-2xl mt-4 big:mt-0;
+
+        img {
+          @apply w-full h-full rounded-md;
+        }
+      }
+    }
+  }
 }

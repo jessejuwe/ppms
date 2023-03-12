@@ -1,9 +1,8 @@
-import React from 'react';
+import { PROJECT } from '@/helpers/services-helper';
+import { Service } from '@/exports/exports';
 
-type Props = {};
-
-const Project = (props: Props) => {
-  return <div>Project</div>;
+const Project: React.FC = () => {
+  return <Service {...PROJECT} />;
 };
 
 export default Project;

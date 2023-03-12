@@ -1,9 +1,8 @@
-import React from 'react';
+import { EMERGENCY } from '@/helpers/services-helper';
+import { Service } from '@/exports/exports';
 
-type Props = {};
-
-const Emergency = (props: Props) => {
-  return <div>Emergency</div>;
+const Emergency: React.FC = () => {
+  return <Service {...EMERGENCY} />;
 };
 
 export default Emergency;

@@ -3,39 +3,4 @@
 @tailwind utilities;
 
 @layer components {
-  .service__empowerment {
-    @apply h-screen bg-primary-brightest px-4 py-20;
-
-    .breadcrumb {
-      @apply p-4;
-
-      .breadcrumb-item {
-        @apply text-white hover:text-primary-brightest;
-      }
-    }
-
-    .empowerment-content {
-      @apply flex flex-col-reverse big:flex-row items-start justify-around;
-
-      &-info {
-        @apply h-full max-w-md flex flex-col gap-2 items-start justify-center;
-
-        h3 {
-          @apply text-base md:text-lg font-semibold uppercase text-secondary-brightest;
-        }
-
-        h1 {
-          @apply text-secondary-bright;
-        }
-      }
-
-      &-img {
-        @apply rounded-md max-w-2xl;
-
-        img {
-          @apply w-full h-full rounded-md;
-        }
-      }
-    }
-  }
 }

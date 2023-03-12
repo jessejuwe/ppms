@@ -1,17 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
 
 interface InitialState {
-  username: String | null;
-  password: String | null;
+  name: string;
+  username: string;
+  password: string;
 }
 
 interface Payload {
-  username: String;
-  password: String;
+  name: string;
+  username: string;
+  password: string;
 }
 
-const initialState: InitialState = { username: '', password: '' };
+const initialState: InitialState = { name: '', username: '', password: '' };
 
 const userSlice = createSlice({
   name: 'user',
@@ -19,13 +20,15 @@ const userSlice = createSlice({
   reducers: {
     enableUser(state, action: PayloadAction<Payload>) {
       // state should not be mutated in react, but the @reduxjs/toolkit library permits it
+      state.name = action.payload.name;
       state.username = action.payload.username;
       state.password = action.payload.password;
     },
     disableUser(state) {
       // state should not be mutated in react, but the @reduxjs/toolkit library permits it
-      state.username = null;
-      state.password = null;
+      state.name = '';
+      state.username = '';
+      state.password = '';
     },
   },
 });

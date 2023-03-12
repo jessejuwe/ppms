@@ -21,8 +21,9 @@ type Props = {
   status: String;
   title: String;
   message: String;
-  focus: any;
-  proceed: () => void;
+  focus?: any;
+  btnText?: string;
+  altAction?: () => void;
 };
 
 const MainModal: React.FC<Props> = props => {
@@ -89,10 +90,10 @@ const MainModal: React.FC<Props> = props => {
               <Button
                 variant="ghost"
                 className="modal-proceed-btn"
-                onClick={props.proceed}
-                isDisabled={!loggedIn}
+                onClick={props.altAction}
+                isDisabled={!loggedIn && props.btnText === 'Proceed'}
               >
-                Proceed
+                {props.btnText}
               </Button>
             </Center>
           </ModalFooter>

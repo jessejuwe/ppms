@@ -20,11 +20,11 @@
   }
 
   .modal-close-btn {
-    @apply bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in rounded-3xl text-white;
+    @apply bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in rounded-3xl text-white font-normal;
   }
 
   .modal-proceed-btn {
-    @apply bg-primary-brightest hover:bg-primary transition-all duration-150 ease-in rounded-3xl;
+    @apply bg-primary-brightest hover:bg-primary transition-all duration-150 ease-in rounded-3xl font-normal;
   }
 
   .btn-error {

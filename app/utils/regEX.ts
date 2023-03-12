@@ -10,7 +10,9 @@ export const emailRegEx = new RegExp(
 //   /^([0-9]{4})[-]?([0-9]{3})[-]?([0-9]{4})$/
 // );
 
-export const phoneNumberRegEx = new RegExp(/^([0-9]{4})([0-9]{3})([0-9]{4})$/);
+// export const phoneNumberRegEx = new RegExp(/^([0-9]{4})([0-9]{3})([0-9]{4})$/);
+
+export const phoneNumberRegEx = new RegExp(/(\d{4})(\d{3})(\d{4})/);
 
 export const strongPasswordRegEx = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/

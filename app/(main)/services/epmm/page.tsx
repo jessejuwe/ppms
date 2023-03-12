@@ -9,9 +9,5 @@ export const metadata = {
 };
 
 export default function EmpowermentProgramMM() {
-  return (
-    <>
-      <Empowerment />
-    </>
-  );
+  return <Empowerment />;
 }
