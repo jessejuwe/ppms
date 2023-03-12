@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .sidebar {
+    @apply w-fit max-w-xs;
+
+    .app__sidebar {
+      div {
+        @apply bg-secondary-brightest h-full rounded-none px-4 py-4;
+
+        .app__sidebar-items {
+          @apply h-full;
+
+          .app__sidebar-itemgroup {
+            @apply text-white h-full;
+
+            li {
+              @apply h-full;
+
+              button {
+                @apply hover:bg-secondary-bright transition-all duration-150 ease-in gap-3;
+
+                svg {
+                  @apply text-gray-800 [&:nth-child(3)]:text-sm [&:nth-child(3)]:text-white;
+                }
+
+                span {
+                  @apply text-white;
+                }
+              }
+
+              ul {
+                li {
+                  a {
+                    @apply hover:bg-secondary-bright transition-all duration-150 ease-in;
+
+                    svg {
+                      @apply text-gray-800;
+                    }
+                  }
+                }
+              }
+
+              a {
+                @apply hover:bg-secondary-bright transition-all duration-150 ease-in gap-3;
+
+                svg {
+                  @apply text-gray-800;
+                }
+
+                span {
+                  @apply text-white [&:nth-child(3)]:bg-primary font-medium;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
