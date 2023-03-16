@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button, ListGroup, Tabs } from 'flowbite-react';
 import { Divider } from '@chakra-ui/react';
@@ -9,20 +10,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SERVICES, TABS } from '@/helpers/section-helper';
 
 const Sections: React.FC = () => {
-  const [smallSize, setSmallSize] = useState(false);
+  const router = useRouter();
 
-  const windowSizeHandler = useCallback(() => {
-    window.innerWidth >= 768 ? setSmallSize(true) : setSmallSize(false);
-  }, []);
+  const handleNavigate = useCallback(
+    (path: string) => {
+      router.push(path);
+    },
+    [router]
+  );
+  // const [smallSize, setSmallSize] = useState(false);
 
-  useEffect(() => {
-    windowSizeHandler();
+  // const windowSizeHandler = useCallback(() => {
+  //   window.innerWidth >= 768 ? setSmallSize(true) : setSmallSize(false);
+  // }, []);
 
-    // Event Listener for resize
-    window.addEventListener('resize', windowSizeHandler);
+  // useEffect(() => {
+  //   windowSizeHandler();
 
-    return window.removeEventListener('resize', windowSizeHandler);
-  }, [windowSizeHandler]);
+  // Event Listener for resize
+  //   window.addEventListener('resize', windowSizeHandler);
+
+  //   return window.removeEventListener('resize', windowSizeHandler);
+  // }, [windowSizeHandler]);
 
   return (
     <AnimatePresence>
@@ -49,6 +58,7 @@ const Sections: React.FC = () => {
             pill={true}
             size="sm"
             href="/about"
+            // onClick={() => handleNavigate('/about')}
             className="section-button"
             outline={false}
           >
@@ -89,6 +99,7 @@ const Sections: React.FC = () => {
             pill={true}
             size="sm"
             href="/services"
+            // onClick={() => handleNavigate('/about')}
             className="section-button"
             outline={false}
           >
@@ -131,6 +142,7 @@ const Sections: React.FC = () => {
                     pill={false}
                     className="sign-up"
                     href="/sign-up"
+                    // onClick={() => handleNavigate('/sign-up')}
                     outline={false}
                   >
                     Get started

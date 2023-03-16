@@ -14,8 +14,14 @@ interface Dashboard {
   title: String;
 }
 
-export const NavLink: NavLink[] = [
+export const SignedOutLinks: NavLink[] = [
   { to: '/', path: '/', title: 'Home' },
+  { to: '/about', path: '/about', title: 'About Us' },
+];
+
+export const SignedInLinks: NavLink[] = [
+  { to: '/', path: '/', title: 'Home' },
+  { to: '/dashboard', path: '/dashboard', title: 'Dashboard' },
   { to: '/about', path: '/about', title: 'About Us' },
 ];
 

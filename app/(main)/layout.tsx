@@ -15,11 +15,10 @@ export default function RootLayout({
 }) {
   const pathName = usePathname();
 
+  // useEffect for scrolling to top onload
   useEffect(() => {
     // scroll to top
     window.scrollTo(0, 0);
-
-    return () => {};
   }, [pathName]);
 
   return (

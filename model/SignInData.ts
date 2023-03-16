@@ -6,6 +6,7 @@ class SignInData {
   name: string;
   email: string;
   password: string;
+  loggedIn?: boolean;
 
   constructor() {
     this.key = '';
@@ -13,6 +14,7 @@ class SignInData {
     this.name = '';
     this.email = '';
     this.password = '';
+    this.loggedIn = false;
   }
 }
 

@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from 'flowbite-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,6 +9,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { images } from '@/constants';
 
 const Header: React.FC = () => {
+  const router = useRouter();
+
+  const handleNavigate = useCallback(
+    (path: string) => {
+      router.push(path);
+    },
+    [router]
+  );
+
   return (
     <AnimatePresence>
       <main className="landing__page">
@@ -35,6 +46,7 @@ const Header: React.FC = () => {
             pill={false}
             className="sign-up"
             href="/sign-up"
+            // onClick={() => handleNavigate('/sign-up')}
             outline={false}
           >
             Get started

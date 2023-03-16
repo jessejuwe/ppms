@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer components {
+  :root {
+    $primary: #209cee;
+    $secondary: #1a365d;
+  }
+
   .sidebar {
     @apply w-fit max-w-xs;
 

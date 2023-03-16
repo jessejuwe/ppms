@@ -1,27 +1,26 @@
-import { SignInData, SignUpData } from '@/model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from 'firebase/auth';
 
 interface InitialState {
   loggedIn: boolean;
-  users: SignInData[];
+  user: User | null;
 }
 
-const initialState: InitialState = { loggedIn: false, users: [] };
+const initialState: InitialState = { loggedIn: false, user: null };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login(state) {
+    login(state, action: PayloadAction<User>) {
       // state should not be mutated in react, but the @reduxjs/toolkit library permits it
       state.loggedIn = true;
+      state.user = action.payload;
     },
     logout(state) {
       // state should not be mutated in react, but the @reduxjs/toolkit library permits it
       state.loggedIn = false;
-    },
-    updateUsers(state, action: PayloadAction<SignInData[]>) {
-      state.users = action.payload;
+      state.user = null;
     },
   },
 });

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, ChangeEvent } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,75 +18,59 @@ import {
   VStack,
   Button,
 } from '@chakra-ui/react';
+import { serverTimestamp } from 'firebase/firestore';
 
-import { SignInData, SignUpData } from '@/model';
+import { SignUpData } from '@/model';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
-import {
-  sendSignUpData,
-  fetchUserData,
-  sendLoginData,
-} from '@/redux/actions/auth-actions';
+import { createNewUser } from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
-import { authActions } from '@/redux/slices/auth-slice';
-import { userActions } from '@/redux/slices/user-slice';
 import { images } from '@/constants';
-import { phoneNumberAutoFormat } from '@/app/utils/numberFormatter';
 import { SignupSchema } from '@/app/utils/validationSchema';
 
 // prettier-ignore
 const initialValues = { firstName: '', lastName: '', email: '', phoneNumber: '', password: '' };
 
 const SignUp: React.FC = () => {
-  const [value, setValue] = useState<string>('');
+  // const [value, setValue] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
   const finalRef = useRef<HTMLInputElement>(null);
-  const [fetchedData, setFetchedData] = useState<SignUpData[]>();
 
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const notification = useAppSelector(state => state.ui.notification);
   const loggedIn = useAppSelector(state => state.auth.loggedIn);
+  const notification = useAppSelector(state => state.ui.notification);
 
   // dynamic import for lazy loading
   const Modal = dynamic(() => import('../../components/UI/Modal/Modal'));
 
-  const handleProceed = () => loggedIn && router.replace('/dashboard');
+  const handleProceed = useCallback(() => {
+    router.replace('/sign-in');
+    dispatch(uiActions.closeNotification());
+  }, [dispatch, router]);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const targetValue = phoneNumberAutoFormat(e.target.value);
-    setValue(targetValue);
-  };
-
-  // retrieving user data from backend once app loads
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await dispatch(fetchUserData());
-      data && setFetchedData(data);
-    };
-
-    fetchData();
-  }, [dispatch]);
+  // const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const targetValue = phoneNumberAutoFormat(e.target.value);
+  //   setValue(targetValue);
+  // };
 
   // setting focus to input element on load
   useEffect(() => {
     inputRef.current?.focus();
-    return () => {};
   }, []);
 
   return (
     <>
-      <div className="">
-        {notification && (
-          <Modal
-            status={notification.status}
-            title={notification.title}
-            message={notification.message}
-            focus={finalRef}
-            btnText="Proceed"
-            altAction={handleProceed}
-          />
-        )}
-      </div>
+      {notification && (
+        <Modal
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+          focus={finalRef}
+          btnText="Sign in"
+          altAction={handleProceed}
+          hidden={true}
+        />
+      )}
       <AnimatePresence>
         <main className="sign-up-align">
           <div className="sign-up-section">
@@ -136,58 +120,26 @@ const SignUp: React.FC = () => {
                     onSubmit={(values, action) => {
                       action.setSubmitting(true);
 
-                      const userExists =
-                        fetchedData &&
-                        fetchedData.find(user => user.email === values.email);
-
-                      // Guard clause
-                      if (userExists) {
-                        dispatch(
-                          uiActions.updateNotification({
-                            status: 'error',
-                            title: 'Authentication failed',
-                            message: 'User already exists',
-                          })
-                        );
-
-                        action.setSubmitting(false);
-                        return;
-                      }
-
-                      const uploadSignUp: SignUpData = {
+                      const userData: SignUpData = {
                         firstName: values.firstName,
                         lastName: values.lastName,
                         email: values.email,
                         phoneNumber: values.phoneNumber,
                         password: values.password,
+                        timeStamp: serverTimestamp(),
                       };
 
-                      const uploadSignIn: SignInData = {
-                        name: `${values.firstName} ${values.lastName}`,
-                        email: values.email,
-                        password: values.password,
-                      };
+                      // Creating new user in Firebase
+                      dispatch(createNewUser(userData));
 
-                      // upload user data
-                      dispatch(sendSignUpData(uploadSignUp));
+                      action.setSubmitting(false);
 
-                      // upload login data
-                      dispatch(sendLoginData(uploadSignIn));
-
-                      // update UI based on user
-                      dispatch(
-                        userActions.enableUser({
-                          name: `${values.firstName} ${values.lastName}`,
-                          username: values.email,
-                          password: values.password,
-                        })
-                      );
-
-                      // log user in
-                      dispatch(authActions.login());
+                      if (!loggedIn) return;
 
                       action.resetForm();
-                      action.setSubmitting(false);
+
+                      // go to dashboard
+                      router.replace('/dashboard');
                     }}
                   >
                     {({ errors, touched, isSubmitting }) => (
@@ -300,4 +252,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default React.memo(SignUp);

@@ -1,5 +1,7 @@
 'use client';
 
+import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';
@@ -8,12 +10,22 @@ import { FaArrowRight } from 'react-icons/fa';
 
 import { images } from '@/constants';
 import { MODULES } from '@/helpers/modules-helper';
+import { Text } from '@chakra-ui/react';
 
 const ModulesPage: React.FC = () => {
-  const clickScrollHandler = () => {
+  const router = useRouter();
+
+  const handleNavigate = useCallback(
+    (path: string) => {
+      router.push(path);
+    },
+    [router]
+  );
+
+  const clickScrollHandler = useCallback(() => {
     const element = document.getElementById('modules');
     if (element) element.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   return (
     <AnimatePresence>
@@ -106,6 +118,7 @@ const ModulesPage: React.FC = () => {
                     <Button
                       pill
                       href={module.to}
+                      // onClick={() => handleNavigate(module.to)}
                       color="dark"
                       className="module-button"
                     >
@@ -115,7 +128,12 @@ const ModulesPage: React.FC = () => {
                 </motion.div>
               </div>
               <div className="module-link">
-                <Link href={module.to}>{module.title}</Link>
+                <link
+                  href={module.to}
+                  // onClick={() => handleNavigate(module.to)}
+                >
+                  {module.title}
+                </link>
               </div>
             </motion.div>
           ))}

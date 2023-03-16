@@ -51,7 +51,7 @@
   }
 
   body {
-    @apply min-h-screen font-manrope;
+    @apply min-h-screen w-full;
   }
 
   a {

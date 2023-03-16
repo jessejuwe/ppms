@@ -4,14 +4,10 @@
 
 @layer components {
   .dashboard {
-    @apply h-screen w-full flex flex-row justify-start items-center bg-secondary-brightest;
+    @apply h-screen w-full bg-primary-brightest;
 
     &-content {
-      @apply bg-primary-brightest h-full w-full;
-    }
-
-    .sidebar-section {
-      @apply bg-secondary-bright;
+      @apply h-full w-full;
     }
   }
 }

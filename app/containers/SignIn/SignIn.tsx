@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,15 +17,13 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import ReactGoogleButton from 'react-google-button';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
-import { fetchLoginData } from '@/redux/actions/auth-actions';
+import { signInUser, signInUserGoogle } from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
-import { authActions } from '@/redux/slices/auth-slice';
-import { userActions } from '@/redux/slices/user-slice';
 import { images } from '@/constants';
 import { SigninSchema } from '@/app/utils/validationSchema';
-import { SignInData } from '@/model';
 
 const initialValues = { email: '', password: '' };
 
@@ -33,64 +31,43 @@ const SignIn: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const finalRef = useRef<HTMLInputElement>(null);
 
-  const [fetchedData, setFetchedData] = useState<SignInData[]>();
-
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const loggedIn = useAppSelector(state => state.auth.loggedIn);
   const notification = useAppSelector(state => state.ui.notification);
-  // const users = useAppSelector(state => state.auth.users);
 
   // dynamic import for lazy loading
   const Modal = dynamic(() => import('../../components/UI/Modal/Modal'));
 
-  const handleProceed = () => {
+  const handleProceed = useCallback(() => {
     dispatch(uiActions.closeNotification());
     router.push('/sign-up');
-  };
-
-  // retrieving user data from backend once app loads
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await dispatch(fetchLoginData());
-      data && setFetchedData(data);
-    };
-
-    fetchData();
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   // focusing on input field on load
   useEffect(() => {
     inputRef.current?.focus();
-    return () => {};
   }, []);
 
-  // const loadedUsers: SignInData[] = [];
+  const handleGoogleSignIn = useCallback(() => {
+    dispatch(signInUserGoogle());
 
-  // // Data Transformation Logic for users data
-  // for (const key in users) {
-  //   loadedUsers.push({
-  //     key,
-  //     id: users[key].id,
-  //     name: users[key].name,
-  //     email: users[key].email,
-  //     password: users[key].password,
-  //   });
-  // }
+    // go to dashboard
+    router.replace('/dashboard');
+  }, [dispatch, router]);
 
   return (
     <>
-      <div className="">
-        {notification && (
-          <Modal
-            status={notification.status}
-            title={notification.title}
-            message={notification.message}
-            focus={finalRef}
-            btnText="Sign up"
-            altAction={handleProceed}
-          />
-        )}
-      </div>
+      {notification && (
+        <Modal
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+          focus={finalRef}
+          btnText={loggedIn ? 'Sign out' : 'Sign up'}
+          altAction={handleProceed}
+        />
+      )}
       <AnimatePresence>
         <main className="sign-in-align">
           <div className="sign-in-section">
@@ -140,19 +117,12 @@ const SignIn: React.FC = () => {
                     onSubmit={(values, action) => {
                       action.setSubmitting(true);
 
-                      // find the user
-                      const userExists =
-                        fetchedData &&
-                        fetchedData.find(user => user.email === values.email);
-
-                      // Guard clause
-                      if (!userExists) {
-                        console.log('user not found');
+                      if (loggedIn) {
                         dispatch(
                           uiActions.updateNotification({
                             status: 'error',
-                            title: 'Authentication failed',
-                            message: 'Username not found. Sign up.',
+                            title: 'Already signed in',
+                            message: 'User already signed in. Sign out first.',
                           })
                         );
 
@@ -160,34 +130,14 @@ const SignIn: React.FC = () => {
                         return;
                       }
 
-                      // Guard clause
-                      if (userExists.password !== values.password) {
-                        dispatch(
-                          uiActions.updateNotification({
-                            status: 'error',
-                            title: 'Authentication failed',
-                            message: 'Password incorrect. Try again.',
-                          })
-                        );
+                      // signing user in
+                      dispatch(signInUser(values.email, values.password));
 
-                        action.setSubmitting(false);
-                        return;
-                      }
+                      action.setSubmitting(false);
 
-                      // update UI based on user
-                      dispatch(
-                        userActions.enableUser({
-                          name: userExists.name,
-                          username: userExists.email,
-                          password: userExists.password,
-                        })
-                      );
-
-                      // log user in after validation
-                      dispatch(authActions.login());
+                      if (!loggedIn) return;
 
                       action.resetForm();
-                      action.setSubmitting(false);
 
                       // go to dashboard
                       router.replace('/dashboard');
@@ -226,6 +176,13 @@ const SignIn: React.FC = () => {
                       </Form>
                     )}
                   </Formik>
+                  <Text fontSize="lg" marginBottom="4" align="center">
+                    OR
+                  </Text>
+                  <ReactGoogleButton
+                    className="google-button"
+                    onClick={handleGoogleSignIn}
+                  />
                 </CardBody>
                 <CardFooter className="card-footer">
                   <VStack>
@@ -251,4 +208,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default React.memo(SignIn);

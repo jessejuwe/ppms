@@ -15,6 +15,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
+  ScaleFade,
 } from '@chakra-ui/react';
 
 type Props = {
@@ -23,11 +24,11 @@ type Props = {
   message: String;
   focus?: any;
   btnText?: string;
+  hidden?: boolean;
   altAction?: () => void;
 };
 
 const MainModal: React.FC<Props> = props => {
-  const loggedIn = useAppSelector(state => state.auth.loggedIn);
   const notification = useAppSelector(state => state.ui.notification);
   const dispatch = useAppDispatch();
 
@@ -51,7 +52,7 @@ const MainModal: React.FC<Props> = props => {
   if (notification) isOpen = true;
 
   return (
-    <>
+    <ScaleFade initialScale={0.9} in={isOpen}>
       <Modal
         size="sm"
         isOpen={isOpen}
@@ -59,6 +60,7 @@ const MainModal: React.FC<Props> = props => {
         initialFocusRef={props.focus}
         scrollBehavior="inside"
         isCentered
+        motionPreset="scale"
       >
         <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="2px" />
         <ModalContent>
@@ -78,28 +80,26 @@ const MainModal: React.FC<Props> = props => {
           </ModalBody>
 
           <ModalFooter>
-            <Center>
-              <Button
-                className={`modal-close-btn ${btnClasses}`}
-                mr={3}
-                onClick={handleClose}
-                ref={props.focus}
-              >
-                Close
-              </Button>
-              <Button
-                variant="ghost"
-                className="modal-proceed-btn"
-                onClick={props.altAction}
-                isDisabled={!loggedIn && props.btnText === 'Proceed'}
-              >
-                {props.btnText}
-              </Button>
-            </Center>
+            <Button
+              className={`modal-close-btn ${btnClasses}`}
+              mr={3}
+              onClick={handleClose}
+              ref={props.focus}
+            >
+              Close
+            </Button>
+            <Button
+              variant="ghost"
+              className="modal-proceed-btn"
+              onClick={props.altAction}
+              hidden={props.hidden}
+            >
+              {props.btnText}
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+    </ScaleFade>
   );
 };
 

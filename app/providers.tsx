@@ -1,7 +1,8 @@
 'use client';
 
 import { Provider } from 'react-redux';
-import store from '@/redux/store/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from '@/redux/store/store';
 
 import { CacheProvider } from '@chakra-ui/next-js';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
@@ -25,7 +26,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <CacheProvider>
       <ChakraProvider theme={theme}>
-        <Provider store={store}>{children}</Provider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            {children}
+          </PersistGate>
+        </Provider>
       </ChakraProvider>
     </CacheProvider>
   );

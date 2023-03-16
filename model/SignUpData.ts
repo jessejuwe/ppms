@@ -1,22 +1,22 @@
-const generatedID = `user-${Math.floor(Math.random() * 100000000)}`;
+import { FieldValue } from 'firebase/firestore';
 
 class SignUpData {
-  key?: string;
   id?: string;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
   password: string;
+  timeStamp?: FieldValue;
 
   constructor() {
-    this.key = '';
-    this.id = this.id ? this.id : generatedID;
+    this.id = '';
     this.firstName = '';
     this.lastName = '';
     this.email = '';
     this.phoneNumber = '';
     this.password = '';
+    this.timeStamp = undefined;
   }
 }
 
