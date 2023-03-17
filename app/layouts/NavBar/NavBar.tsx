@@ -1,26 +1,22 @@
 'use client';
 
-import React, { useState, useCallback, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import React, { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { Navbar, Dropdown, Button } from 'flowbite-react';
-import { Avatar, Text } from '@chakra-ui/react';
+import { Avatar } from '@chakra-ui/react';
 
 import { useAppSelector, useAppDispatch } from '@/redux/hooks/hooks';
-import { signOutUser, verifyLoggedInUser } from '@/redux/actions/auth-actions';
-import { uiActions } from '@/redux/slices/ui-slice';
+import { signOutUser } from '@/redux/actions/auth-actions';
 import { images } from '../../../constants';
 import {
   SignedOutLinks,
   SignedInLinks,
   DropdownLink,
 } from '@/helpers/nav-helper';
-import { Modal } from '@/exports/exports';
 
 const NavBar: React.FC = () => {
   const [path, setPath] = useState('');
-  const finalRef = useRef<HTMLInputElement>(null);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -29,23 +25,12 @@ const NavBar: React.FC = () => {
   // selecting pieces of data from the store
   const loggedIn = useAppSelector(state => state.auth.loggedIn);
   const user = useAppSelector(state => state.auth.user);
-  const notification = useAppSelector(state => state.ui.notification);
-
-  // useEffect for verifying if user is loggedIn onload
-  useEffect(() => {
-    dispatch(verifyLoggedInUser());
-  }, [dispatch]);
 
   const handleSignOut = useCallback(() => {
     dispatch(signOutUser());
 
     // programmatic navigation to source url
     router.replace('/');
-  }, [dispatch, router]);
-
-  const handleProceed = useCallback(() => {
-    dispatch(uiActions.closeNotification());
-    router.push('/sign-in');
   }, [dispatch, router]);
 
   const handleNavigate = useCallback(
@@ -121,16 +106,6 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      {notification && (
-        <Modal
-          status={notification.status}
-          title={notification.title}
-          message={notification.message}
-          focus={finalRef}
-          btnText="Sign in"
-          altAction={handleProceed}
-        />
-      )}
       <Navbar fluid={true} rounded={false} className="nav">
         <Navbar.Brand href="/" className="nav__logo">
           <Image
@@ -147,14 +122,13 @@ const NavBar: React.FC = () => {
         </div>
         <Navbar.Collapse className="nav__links">
           {activeLinks.map((navlink, index) => (
-            <Link
+            <Navbar.Link
               key={`${navlink.title} ${index}`}
               href={navlink.to}
-              // onClick={() => handleNavigate(navlink.to)}
               className={`nav__link ${path === navlink.path && 'active'}`}
             >
               {navlink.title}
-            </Link>
+            </Navbar.Link>
           ))}
 
           <Dropdown
@@ -165,27 +139,24 @@ const NavBar: React.FC = () => {
             placement="bottom-end"
             className="nav__dropdown"
             label={
-              <Link
+              <Navbar.Link
                 href="/services"
-                // onClick={() => handleNavigate('/services')}
                 className={`nav__link ${path === '/services' && 'active'}`}
               >
                 Services
-              </Link>
+              </Navbar.Link>
             }
           >
             {DropdownLink.map((dropdownLink, index) => (
-              <Link
+              <Navbar.Link
                 key={`${dropdownLink.title} ${index}`}
                 href={dropdownLink.to}
-                // onClick={() => handleNavigate(dropdownLink.to)}
-                // active={path === dropdownLink.path && true}
                 className={`nav__link ${
                   path === dropdownLink.path && 'active'
                 }`}
               >
                 {dropdownLink.title}
-              </Link>
+              </Navbar.Link>
             ))}
           </Dropdown>
           <Button

@@ -20,7 +20,11 @@ import {
 import ReactGoogleButton from 'react-google-button';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
-import { signInUser, signInUserGoogle } from '@/redux/actions/auth-actions';
+import {
+  signInUser,
+  signInUserGoogle,
+  signOutUser,
+} from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
 import { SigninSchema } from '@/app/utils/validationSchema';
@@ -44,6 +48,13 @@ const SignIn: React.FC = () => {
     router.push('/sign-up');
   }, [dispatch, router]);
 
+  const handleSignOut = useCallback(() => {
+    dispatch(signOutUser());
+
+    // programmatic navigation to source url
+    router.replace('/');
+  }, [dispatch, router]);
+
   // focusing on input field on load
   useEffect(() => {
     inputRef.current?.focus();
@@ -65,7 +76,7 @@ const SignIn: React.FC = () => {
           message={notification.message}
           focus={finalRef}
           btnText={loggedIn ? 'Sign out' : 'Sign up'}
-          altAction={handleProceed}
+          altAction={loggedIn ? handleSignOut : handleProceed}
         />
       )}
       <AnimatePresence>
@@ -114,7 +125,7 @@ const SignIn: React.FC = () => {
                   <Formik
                     initialValues={initialValues}
                     validationSchema={SigninSchema}
-                    onSubmit={(values, action) => {
+                    onSubmit={async (values, action) => {
                       action.setSubmitting(true);
 
                       if (loggedIn) {
@@ -134,8 +145,6 @@ const SignIn: React.FC = () => {
                       dispatch(signInUser(values.email, values.password));
 
                       action.setSubmitting(false);
-
-                      if (!loggedIn) return;
 
                       action.resetForm();
 

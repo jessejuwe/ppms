@@ -117,7 +117,7 @@ const SignUp: React.FC = () => {
                   <Formik
                     initialValues={initialValues}
                     validationSchema={SignupSchema}
-                    onSubmit={(values, action) => {
+                    onSubmit={async (values, action) => {
                       action.setSubmitting(true);
 
                       const userData: SignUpData = {
@@ -133,8 +133,6 @@ const SignUp: React.FC = () => {
                       dispatch(createNewUser(userData));
 
                       action.setSubmitting(false);
-
-                      if (!loggedIn) return;
 
                       action.resetForm();
 

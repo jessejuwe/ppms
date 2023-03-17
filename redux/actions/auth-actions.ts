@@ -72,8 +72,7 @@ export const signInUser = (email: string, password: string) => {
         // New sign-in will be persisted with session persistence.
 
         const cred = await signInWithEmailAndPassword(auth, email, password);
-        if (!cred.user.emailVerified)
-          throw new Error('User credentials not found');
+        if (!cred.user) throw new Error('User credentials not found');
 
         dispatch(authActions.login(cred.user));
       })

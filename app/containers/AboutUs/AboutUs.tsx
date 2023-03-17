@@ -1,7 +1,5 @@
 'use client';
 
-import { useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from 'flowbite-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,15 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { images } from '@/constants';
 
 const AboutUs: React.FC = () => {
-  const router = useRouter();
-
-  const handleNavigate = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router]
-  );
-
   return (
     <AnimatePresence>
       <main className="about__us">
@@ -42,12 +31,7 @@ const AboutUs: React.FC = () => {
             The all-in-one Program and Project Management platform to assist
             mananegment, save time and increase overall performance.
           </p>
-          <Button
-            pill={false}
-            className="sign-up"
-            href="/sign-up"
-            // onClick={() => handleNavigate('/sign-up')}
-          >
+          <Button pill={false} className="sign-up" href="/sign-up">
             Get started
           </Button>
         </motion.div>
