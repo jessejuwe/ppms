@@ -1,40 +1,30 @@
 'use client';
 
-import React, { useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from 'flowbite-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAppSelector, useAppDispatch } from '@/redux/hooks/hooks';
 
-import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
-import { Modal } from '@/exports/exports';
 
 const Header: React.FC = () => {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  // useEffect for scrolling to top onload
+  useEffect(() => {
+    const element = document.getElementById('landing__page');
 
-  const notification = useAppSelector(state => state.ui.notification);
+    if (!element) {
+      // scroll to top
+      window.scrollTo(0, 0);
+      return;
+    }
 
-  const handleProceed = useCallback(() => {
-    dispatch(uiActions.closeNotification());
-    router.push('/sign-in');
-  }, [dispatch, router]);
+    element.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   return (
     <>
-      {notification && (
-        <Modal
-          status={notification.status}
-          title={notification.title}
-          message={notification.message}
-          btnText="Sign in"
-          altAction={handleProceed}
-        />
-      )}
       <AnimatePresence>
-        <main className="landing__page">
+        <main className="landing__page" id="landing__page">
           <motion.div
             key="landing__page-info"
             className="landing__page-info"

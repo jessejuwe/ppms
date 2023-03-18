@@ -1,7 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -9,27 +8,41 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 import authSlice from '../slices/auth-slice';
 import uiSlice from '../slices/ui-slice';
 
-const rootReducer = combineReducers({
-  [authSlice.name]: authSlice.reducer,
-  [uiSlice.name]: uiSlice.reducer,
-});
+const isClient = typeof window !== 'undefined';
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage,
-};
+let rootReducer;
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+if (isClient) {
+  const { persistReducer } = require('redux-persist');
+  const storage = require('redux-persist/lib/storage').default;
+
+  const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+  };
+
+  /* COMBINE REDUCERS */
+  const combinedReducers = combineReducers({
+    [authSlice.name]: authSlice.reducer,
+    [uiSlice.name]: uiSlice.reducer,
+  });
+
+  rootReducer = persistReducer(persistConfig, combinedReducers);
+} else {
+  rootReducer = combineReducers({
+    [authSlice.name]: authSlice.reducer,
+    [uiSlice.name]: uiSlice.reducer,
+  });
+}
 
 // creating the store
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   devTools: true,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { Navbar, Dropdown, Button } from 'flowbite-react';
-import { Avatar } from '@chakra-ui/react';
+import { Avatar, useToast } from '@chakra-ui/react';
 
 import { useAppSelector, useAppDispatch } from '@/redux/hooks/hooks';
 import { signOutUser } from '@/redux/actions/auth-actions';
@@ -14,6 +14,7 @@ import {
   SignedInLinks,
   DropdownLink,
 } from '@/helpers/nav-helper';
+import { uiActions } from '@/redux/slices/ui-slice';
 
 const NavBar: React.FC = () => {
   const [path, setPath] = useState('');
@@ -21,6 +22,7 @@ const NavBar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const toast = useToast();
 
   // selecting pieces of data from the store
   const loggedIn = useAppSelector(state => state.auth.loggedIn);
@@ -28,10 +30,24 @@ const NavBar: React.FC = () => {
 
   const handleSignOut = useCallback(() => {
     dispatch(signOutUser());
+    router.push('/');
 
-    // programmatic navigation to source url
-    router.replace('/');
-  }, [dispatch, router]);
+    if (toast.isActive('sign-out')) return;
+
+    toast({
+      id: 'sign-out',
+      title: 'Sign out successful',
+      description: 'You have been signed out. Goodbye.',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'bottom-left',
+    });
+  }, [dispatch, router, toast]);
+
+  const handleOpenDrawer = useCallback(() => {
+    dispatch(uiActions.openDrawer());
+  }, [dispatch]);
 
   const handleNavigate = useCallback(
     (path: string) => {
@@ -86,8 +102,10 @@ const NavBar: React.FC = () => {
           />
         }
       >
-        <Dropdown.Header>
-          <span className="block text-sm">{user?.displayName}</span>
+        <Dropdown.Header className="dropdown-header">
+          <span className="font-semibold text-base mb-2">
+            {user?.displayName}
+          </span>
           <span className="block truncate text-sm font-medium">
             {user?.email}
           </span>
@@ -95,6 +113,8 @@ const NavBar: React.FC = () => {
         <Dropdown.Item onClick={() => handleNavigate('/dashboard')}>
           Dashboard
         </Dropdown.Item>
+        <Dropdown.Item onClick={handleOpenDrawer}>Menu</Dropdown.Item>
+        <Dropdown.Divider />
         <Dropdown.Item>Settings</Dropdown.Item>
         <Dropdown.Item>Notifications</Dropdown.Item>
         <Dropdown.Divider />

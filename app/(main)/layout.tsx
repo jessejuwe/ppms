@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 
 import { Providers } from '../providers';
 import Fonts from '../fonts/Fonts';
@@ -13,13 +12,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathName = usePathname();
-
   // useEffect for scrolling to top onload
-  useEffect(() => {
-    // scroll to top
-    window.scrollTo(0, 0);
-  }, [pathName]);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <html lang="en">

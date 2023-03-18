@@ -4,8 +4,16 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import { Button } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  Button,
+  CloseButton,
+  useToast,
+} from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
 import {
@@ -20,11 +28,7 @@ import {
 import ReactGoogleButton from 'react-google-button';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
-import {
-  signInUser,
-  signInUserGoogle,
-  signOutUser,
-} from '@/redux/actions/auth-actions';
+import { signInUser, signInUserGoogle } from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
 import { SigninSchema } from '@/app/utils/validationSchema';
@@ -33,27 +37,12 @@ const initialValues = { email: '', password: '' };
 
 const SignIn: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const finalRef = useRef<HTMLInputElement>(null);
 
+  const toast = useToast();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const loggedIn = useAppSelector(state => state.auth.loggedIn);
   const notification = useAppSelector(state => state.ui.notification);
-
-  // dynamic import for lazy loading
-  const Modal = dynamic(() => import('../../components/UI/Modal/Modal'));
-
-  const handleProceed = useCallback(() => {
-    dispatch(uiActions.closeNotification());
-    router.push('/sign-up');
-  }, [dispatch, router]);
-
-  const handleSignOut = useCallback(() => {
-    dispatch(signOutUser());
-
-    // programmatic navigation to source url
-    router.replace('/');
-  }, [dispatch, router]);
 
   // focusing on input field on load
   useEffect(() => {
@@ -61,26 +50,65 @@ const SignIn: React.FC = () => {
   }, []);
 
   const handleGoogleSignIn = useCallback(() => {
+    if (loggedIn) {
+      if (toast.isActive('already-signed-in')) return;
+      toast({
+        id: 'already-signed-in',
+        title: 'Already signed in',
+        description: 'Current user needs to sign out.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+        position: 'bottom-left',
+      });
+
+      return;
+    }
+
     dispatch(signInUserGoogle());
 
     // go to dashboard
-    router.replace('/dashboard');
-  }, [dispatch, router]);
+    router.push('/dashboard');
+  }, [loggedIn, dispatch, router, toast]);
+
+  const alert = notification ? (
+    <Alert status={notification.status}>
+      <AlertIcon />
+      <Box width="full">
+        <AlertTitle>{notification.title}</AlertTitle>
+        <AlertDescription>{notification.message}</AlertDescription>
+      </Box>
+      <CloseButton
+        alignSelf="flex-start"
+        position="relative"
+        right={-1}
+        top={-1}
+        onClick={() => dispatch(uiActions.closeNotification())}
+      />
+    </Alert>
+  ) : (
+    <div></div>
+  );
 
   return (
     <>
-      {notification && (
-        <Modal
-          status={notification.status}
-          title={notification.title}
-          message={notification.message}
-          focus={finalRef}
-          btnText={loggedIn ? 'Sign out' : 'Sign up'}
-          altAction={loggedIn ? handleSignOut : handleProceed}
-        />
-      )}
       <AnimatePresence>
         <main className="sign-in-align">
+          <motion.div
+            className="alert-section"
+            key="alert-section"
+            initial={{ y: 65, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            whileInView={{ y: [65, 0], opacity: [0, 1] }}
+            transition={{
+              duration: 1,
+              ease: 'easeInOut',
+              delayChildren: 0.5,
+            }}
+            exit={{ y: 65, opacity: 0 }}
+          >
+            {notification && alert}
+          </motion.div>
           <div className="sign-in-section">
             <motion.div
               className="sign-in-section-img"
@@ -125,17 +153,20 @@ const SignIn: React.FC = () => {
                   <Formik
                     initialValues={initialValues}
                     validationSchema={SigninSchema}
-                    onSubmit={async (values, action) => {
+                    onSubmit={(values, action) => {
                       action.setSubmitting(true);
 
                       if (loggedIn) {
-                        dispatch(
-                          uiActions.updateNotification({
-                            status: 'error',
-                            title: 'Already signed in',
-                            message: 'User already signed in. Sign out first.',
-                          })
-                        );
+                        if (toast.isActive('already-signed-in')) return;
+                        toast({
+                          id: 'already-signed-in',
+                          title: 'Already signed in',
+                          description: 'Current user needs to sign out.',
+                          status: 'error',
+                          duration: 9000,
+                          isClosable: true,
+                          position: 'bottom-left',
+                        });
 
                         action.setSubmitting(false);
                         return;
@@ -146,10 +177,24 @@ const SignIn: React.FC = () => {
 
                       action.setSubmitting(false);
 
+                      if (!loggedIn) return;
+
                       action.resetForm();
 
                       // go to dashboard
-                      router.replace('/dashboard');
+                      router.push('/dashboard');
+
+                      if (toast.isActive('sign-in')) return;
+
+                      toast({
+                        id: 'sign-in',
+                        title: 'Sign in successful',
+                        description: 'Welcome to your dashboard.',
+                        status: 'success',
+                        duration: 9000,
+                        isClosable: true,
+                        position: 'bottom-left',
+                      });
                     }}
                   >
                     {({ errors, touched, isSubmitting }) => (

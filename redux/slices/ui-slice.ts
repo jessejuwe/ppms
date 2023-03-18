@@ -8,6 +8,7 @@ type Notification = {
 
 type InitialState = {
   notification: null | Notification;
+  drawerIsOpen: boolean;
 };
 
 interface Payload {
@@ -18,6 +19,7 @@ interface Payload {
 
 const initialState: InitialState = {
   notification: null,
+  drawerIsOpen: false,
 };
 
 const uiSlice = createSlice({
@@ -34,6 +36,12 @@ const uiSlice = createSlice({
 
     closeNotification(state) {
       state.notification = null;
+    },
+    openDrawer(state) {
+      state.drawerIsOpen = true;
+    },
+    closeDrawer(state) {
+      state.drawerIsOpen = false;
     },
   },
 });

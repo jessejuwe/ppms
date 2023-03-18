@@ -3,16 +3,17 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
+import process from 'process';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB4s0rxDAKN6JCcZJH4PmWrxK1Gd1a4ucg',
-  authDomain: 'ppms-af3c8.firebaseapp.com',
-  databaseURL: 'https://ppms-af3c8-default-rtdb.firebaseio.com',
-  projectId: 'ppms-af3c8',
-  storageBucket: 'ppms-af3c8.appspot.com',
-  messagingSenderId: '437885695348',
-  appId: '1:437885695348:web:3b83dbac05e48e3a856821',
-  measurementId: 'G-YCX96GTV7L',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase

@@ -27,6 +27,7 @@
 @import '../app/containers/Dashboard/Dashboard.scss';
 
 @import '../app/components/UI/Modal/Modal.scss';
+@import '../app/components/Drawer/Drawer.scss';
 
 @tailwind base;
 @tailwind components;

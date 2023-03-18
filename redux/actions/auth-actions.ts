@@ -21,6 +21,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { persistor } from '@/redux/store/store';
+import { setCookie, deleteCookie } from 'cookies-next';
 
 import { firestore, userCollection, auth } from '@/firebase/clientApp';
 import { authActions } from '../slices/auth-slice';
@@ -51,7 +52,7 @@ export const createNewUser = (userData: SignUpData) => {
         dispatch(
           uiActions.updateNotification({
             status: 'error',
-            title: 'Sign up failed',
+            title: error.code,
             message: error.message,
           })
         )
@@ -74,13 +75,17 @@ export const signInUser = (email: string, password: string) => {
         const cred = await signInWithEmailAndPassword(auth, email, password);
         if (!cred.user) throw new Error('User credentials not found');
 
-        dispatch(authActions.login(cred.user));
+        dispatch(authActions.login(cred.user)); // set login state in store
+        setCookie('loggedIn', JSON.stringify(cred.user), {
+          path: '/',
+          sameSite: true,
+        }); // for enabling route protection
       })
       .catch(error =>
         dispatch(
           uiActions.updateNotification({
             status: 'error',
-            title: 'Authentication failed',
+            title: error.code,
             message: error.message,
           })
         )
@@ -104,7 +109,11 @@ export const signInUserGoogle = () => {
       // IdP data available using getAdditionalUserInfo(result)
       // ...
 
-      dispatch(authActions.login(user));
+      dispatch(authActions.login(user)); // set login state in store
+      setCookie('loggedIn', JSON.stringify(user), {
+        path: '/',
+        sameSite: true,
+      }); // for enabling route protection
     } catch (error: any) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -114,6 +123,14 @@ export const signInUserGoogle = () => {
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
+
+      dispatch(
+        uiActions.updateNotification({
+          status: 'error',
+          title: errorCode,
+          message: errorMessage,
+        })
+      );
     }
   };
 }; // End of function body
@@ -122,19 +139,11 @@ export const signInUserGoogle = () => {
 export const signOutUser = () => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
-    await signOut(auth);
+    await signOut(auth); // sign out from firebase auth
+    await persistor.purge(); // clear redux persisted state
 
-    dispatch(authActions.logout());
-
-    dispatch(
-      uiActions.updateNotification({
-        status: 'success',
-        title: 'Sign out successful',
-        message: 'You have been signed out. Thank you.',
-      })
-    );
-
-    await persistor.purge();
+    dispatch(authActions.logout()); // clear login state in store
+    deleteCookie('loggedIn'); // delete cookie
   };
 }; // End of function body
 
@@ -177,8 +186,8 @@ export const sendUserData = (userData: SignUpData) => {
       dispatch(
         uiActions.updateNotification({
           status: 'error',
-          title: error.message,
-          message: 'Registration failed. Resubmit form.',
+          title: error.code,
+          message: error.message,
         })
       );
     }
@@ -233,8 +242,8 @@ export const deleteUserData = (id: string) => {
       dispatch(
         uiActions.updateNotification({
           status: 'error',
-          title: 'Error!',
-          message: 'Failed to delete user data',
+          title: error.code,
+          message: error.message,
         })
       );
     }
@@ -259,7 +268,7 @@ export const fetchSingleUserData = (id: string) => {
       dispatch(
         uiActions.updateNotification({
           status: 'error',
-          title: 'Error!',
+          title: error.code,
           message: error.message,
         })
       );
@@ -279,8 +288,8 @@ export const updateUserData = (id: string, userData: any) => {
       dispatch(
         uiActions.updateNotification({
           status: 'error',
-          title: 'Error!',
-          message: 'Failed to update user data',
+          title: error.code,
+          message: error.message,
         })
       );
     }

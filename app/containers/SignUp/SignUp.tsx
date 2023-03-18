@@ -26,6 +26,7 @@ import { createNewUser } from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
 import { SignupSchema } from '@/app/utils/validationSchema';
+// import { Modal } from '@/exports/exports';
 
 // prettier-ignore
 const initialValues = { firstName: '', lastName: '', email: '', phoneNumber: '', password: '' };
@@ -133,6 +134,8 @@ const SignUp: React.FC = () => {
                       dispatch(createNewUser(userData));
 
                       action.setSubmitting(false);
+
+                      if (!loggedIn) return;
 
                       action.resetForm();
 

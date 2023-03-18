@@ -23,6 +23,18 @@
     @apply w-full;
   }
 
+  .error-boundary {
+    @apply bg-primary-brightest h-screen w-full flex flex-col items-center justify-center;
+
+    h2 {
+      @apply text-lg font-semibold text-center large:text-[2rem] tracking-tight mb-2;
+    }
+
+    button {
+      @apply inline-block bg-secondary-brightest hover:bg-secondary-bright text-base font-medium transition-all duration-150 ease-in p-2 rounded-md text-gray-300;
+    }
+  }
+
   .section {
     @apply py-5 transition w-full;
 

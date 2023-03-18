@@ -4,7 +4,11 @@
 
 @layer components {
   .sign-in-align {
-    @apply big:py-8 bg-primary-brightest h-screen;
+    @apply big:py-8 bg-primary-brightest h-screen flex flex-col justify-center relative;
+
+    .alert-section {
+      @apply w-full absolute top-14 z-[50];
+    }
 
     .sign-in-section {
       @apply h-full flex flex-col big:flex-row items-center justify-center big:justify-around py-36 px-6 big:px-8 big:mt-8 big:gap-6 align-middle;

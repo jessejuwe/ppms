@@ -23,3 +23,4 @@ export { default as Dashboard } from '../app/containers/Dashboard/Dashboard';
 
 // exporting RFC default export from React Server Component folder (components)
 export { default as Modal } from '../app/components/UI/Modal/Modal';
+export { default as Drawer } from '../app/components/Drawer/Drawer';

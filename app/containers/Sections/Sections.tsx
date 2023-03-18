@@ -132,7 +132,7 @@ const Sections: React.FC = () => {
                   }}
                   exit={{ opacity: 0 }}
                 >
-                  <Image src={tab.img} alt={tab.alt} />
+                  <Image src={tab.img} alt={tab.alt} priority />
                 </motion.div>
               </div>
             </Tabs.Item>
