@@ -64,32 +64,33 @@ export const createNewUser = (userData: SignUpData) => {
 export const signInUser = (email: string, password: string) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
-    setPersistence(auth, browserLocalPersistence)
-      .then(async () => {
-        // Existing and future Auth states are now persisted indefinitely
-        // Closing the window would not clear any existing state
-        // State clears when a user sign out.
-        // ...
-        // New sign-in will be persisted with session persistence.
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      // Existing and future Auth states are now persisted indefinitely
+      // Closing the window would not clear any existing state
+      // State clears when a user sign out.
+      // ...
+      // New sign-in will be persisted with session persistence.
 
-        const cred = await signInWithEmailAndPassword(auth, email, password);
-        if (!cred.user) throw new Error('User credentials not found');
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      if (!cred.user) throw new Error('User credentials not found');
 
-        dispatch(authActions.login(cred.user)); // set login state in store
-        setCookie('loggedIn', JSON.stringify(cred.user), {
-          path: '/',
-          sameSite: true,
-        }); // for enabling route protection
-      })
-      .catch(error =>
-        dispatch(
-          uiActions.updateNotification({
-            status: 'error',
-            title: error.code,
-            message: error.message,
-          })
-        )
+      dispatch(authActions.login(cred.user)); // set login state in store
+      setCookie('loggedIn', JSON.stringify(cred.user), {
+        path: '/',
+        sameSite: true,
+      }); // for enabling route protection
+
+      return cred.user.uid;
+    } catch (error: any) {
+      dispatch(
+        uiActions.updateNotification({
+          status: 'error',
+          title: error.code,
+          message: error.message,
+        })
       );
+    }
   };
 }; // End of function body
 
@@ -114,6 +115,8 @@ export const signInUserGoogle = () => {
         path: '/',
         sameSite: true,
       }); // for enabling route protection
+
+      return user.emailVerified;
     } catch (error: any) {
       // Handle Errors here.
       const errorCode = error.code;

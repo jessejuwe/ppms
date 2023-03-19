@@ -49,7 +49,7 @@ const SignIn: React.FC = () => {
     inputRef.current?.focus();
   }, []);
 
-  const handleGoogleSignIn = useCallback(() => {
+  const handleGoogleSignIn = useCallback(async () => {
     if (loggedIn) {
       if (toast.isActive('already-signed-in')) return;
       toast({
@@ -65,10 +65,23 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    dispatch(signInUserGoogle());
+    const verified = await dispatch(signInUserGoogle());
 
-    // go to dashboard
-    router.push('/dashboard');
+    if (verified) {
+      // go to dashboard
+      router.push('/dashboard');
+
+      if (toast.isActive('dashboard')) return;
+      toast({
+        id: 'dashboard',
+        title: 'Sign in successful',
+        description: 'Welcome to your dashboard.',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'bottom-left',
+      });
+    }
   }, [loggedIn, dispatch, router, toast]);
 
   const alert = notification ? (
@@ -153,7 +166,7 @@ const SignIn: React.FC = () => {
                   <Formik
                     initialValues={initialValues}
                     validationSchema={SigninSchema}
-                    onSubmit={(values, action) => {
+                    onSubmit={async (values, action) => {
                       action.setSubmitting(true);
 
                       if (loggedIn) {
@@ -173,28 +186,29 @@ const SignIn: React.FC = () => {
                       }
 
                       // signing user in
-                      dispatch(signInUser(values.email, values.password));
+                      const verified = await dispatch(
+                        signInUser(values.email, values.password)
+                      );
 
                       action.setSubmitting(false);
 
-                      if (!loggedIn) return;
+                      if (verified != '') {
+                        // go to dashboard
+                        router.push('/dashboard');
+
+                        if (toast.isActive('dashboard')) return;
+                        toast({
+                          id: 'dashboard',
+                          title: 'Sign in successful',
+                          description: 'Welcome to your dashboard.',
+                          status: 'success',
+                          duration: 9000,
+                          isClosable: true,
+                          position: 'bottom-left',
+                        });
+                      }
 
                       action.resetForm();
-
-                      // go to dashboard
-                      router.push('/dashboard');
-
-                      if (toast.isActive('sign-in')) return;
-
-                      toast({
-                        id: 'sign-in',
-                        title: 'Sign in successful',
-                        description: 'Welcome to your dashboard.',
-                        status: 'success',
-                        duration: 9000,
-                        isClosable: true,
-                        position: 'bottom-left',
-                      });
                     }}
                   >
                     {({ errors, touched, isSubmitting }) => (

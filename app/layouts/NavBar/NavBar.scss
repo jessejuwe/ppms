@@ -18,11 +18,13 @@
 
     &__toggle {
       .output {
-        @apply hidden md:block;
-
         .sign-up-button {
-          @apply text-white bg-secondary-brightest hover:bg-secondary active:bg-secondary transition duration-150 ease-in rounded-[3rem] border-none outline-none active:outline-none focus:outline-none;
+          @apply hidden md:block text-white bg-secondary-brightest hover:bg-secondary active:bg-secondary transition duration-150 ease-in rounded-[3rem] border-none outline-none active:outline-none focus:outline-none;
         }
+      }
+
+      button {
+        @apply p-1 mx-1;
       }
     }
 

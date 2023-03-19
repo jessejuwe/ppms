@@ -49,12 +49,21 @@ const NavBar: React.FC = () => {
     dispatch(uiActions.openDrawer());
   }, [dispatch]);
 
-  const handleNavigate = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router]
-  );
+  const handleOpenDashboard = useCallback(() => {
+    router.push('/dashboard');
+
+    if (toast.isActive('dashboard')) return;
+
+    toast({
+      id: 'dashboard',
+      title: 'Dashboard',
+      description: 'Welcome to your dashboard.',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'bottom-left',
+    });
+  }, [router, toast]);
 
   const handleGetPath = useCallback(() => {
     setPath(pathname);
@@ -91,7 +100,7 @@ const NavBar: React.FC = () => {
   if (loggedIn)
     output = (
       <Dropdown
-        arrowIcon={true}
+        arrowIcon={false}
         inline={true}
         label={
           <Avatar
@@ -110,9 +119,7 @@ const NavBar: React.FC = () => {
             {user?.email}
           </span>
         </Dropdown.Header>
-        <Dropdown.Item onClick={() => handleNavigate('/dashboard')}>
-          Dashboard
-        </Dropdown.Item>
+        <Dropdown.Item onClick={handleOpenDashboard}>Dashboard</Dropdown.Item>
         <Dropdown.Item onClick={handleOpenDrawer}>Menu</Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item>Settings</Dropdown.Item>
@@ -136,7 +143,7 @@ const NavBar: React.FC = () => {
           />
           <span className="nav__logo-text">PPMS</span>
         </Navbar.Brand>
-        <div className="nav__toggle flex md:order-2">
+        <div className="nav__toggle app__flex md:order-2">
           <div className="output">{output}</div>
           <Navbar.Toggle />
         </div>
@@ -152,7 +159,7 @@ const NavBar: React.FC = () => {
           ))}
 
           <Dropdown
-            arrowIcon={true}
+            arrowIcon={false}
             floatingArrow={true}
             inline={true}
             trigger="hover"
