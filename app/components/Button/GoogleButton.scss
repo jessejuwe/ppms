@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .google-button {
+    @apply w-full duration-150 ease-in transition-all flex flex-row items-center justify-center rounded-sm;
+
+    .icon-btn {
+      @apply w-fit bg-white rounded-r-sm;
+    }
+
+    .text-btn {
+      @apply w-full bg-primary text-gray-200 rounded-l-sm;
+    }
+  }
+}
