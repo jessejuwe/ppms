@@ -9,18 +9,18 @@ interface Modules {
 export const MODULES: Modules[] = [
   {
     to: '/services/epmm',
-    title: 'Empowerment Program Management',
+    title: 'Youth Empowerment',
     img: images.empowerment,
   },
   {
     to: '/services/cspmm',
-    title: 'Community Support Program Management',
+    title: 'Community Empowerment',
     img: images.community,
   },
 
   {
     to: '/services/espmm',
-    title: 'Education Support Program Management',
+    title: 'Education Empowerment',
     img: images.education,
   },
   {

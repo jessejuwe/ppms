@@ -2,10 +2,10 @@ import { Community } from '@/exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Community Support Program Management | PPMS',
-    template: '%s | Community Support Program Management | PPMS',
+    default: 'Community Empowerment | HYPPADEC',
+    template: '%s | Community Empowerment | HYPPADEC',
   },
-  description: 'Get to know what PPMS is all about',
+  description: 'HYPPADEC - Community Empowerment',
 };
 
 export default function CommunitySupportProgramMM() {

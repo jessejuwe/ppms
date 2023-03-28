@@ -2,10 +2,10 @@ import { Inventory } from '@/exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Store Inventory Program Management | PPMS',
-    template: '%s | Education Support Program Management | PPMS',
+    default: 'Store Inventory Management | HYPPADEC',
+    template: '%s | Store Inventory Management | HYPPADEC',
   },
-  description: 'Get to know what PPMS is all about',
+  description: 'HYPPADEC - Store Inventory Management',
 };
 
 export default function StoreInventoryMM() {

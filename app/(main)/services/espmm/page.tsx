@@ -2,10 +2,10 @@ import { Education } from '@/exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Education Support Program Management | PPMS',
-    template: '%s | Education Support Program Management | PPMS',
+    default: 'Education Empowerment | HYPPADEC',
+    template: '%s | Education Empowerment | HYPPADEC',
   },
-  description: 'Get to know what PPMS is all about',
+  description: 'HYPPADEC - Education Empowerment',
 };
 
 export default function EducationSupportProgramMM() {

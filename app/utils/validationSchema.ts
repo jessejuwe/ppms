@@ -30,3 +30,26 @@ export const SigninSchema = Yup.object().shape({
     .matches(mediumRegEx, 'Enter a valid Password')
     .required('Required'),
 });
+
+export const CandRegSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .matches(firstNameRegEx, 'Invalid name')
+    .required('Required'),
+  lastName: Yup.string()
+    .matches(lastNameRegEx, 'Invalid name')
+    .required('Required'),
+  highest_qualification: Yup.string().required('Required'),
+  school_attended: Yup.string().required('Required'),
+  address: Yup.string().required('Required'),
+  state_of_origin: Yup.string().required(),
+  local_govt: Yup.string().required(),
+  town: Yup.string().required(),
+  community: Yup.string().required(),
+  email: Yup.string().matches(emailRegEx, 'Invalid email').required('Required'),
+  phoneNumber: Yup.string()
+    .matches(phoneNumberRegEx, 'Invalid phone number')
+    .required('Required'),
+  skills_of_interest: Yup.string().required('Required'),
+  acquired_skill: Yup.string(),
+  preferred_location: Yup.string().required('Required'),
+});

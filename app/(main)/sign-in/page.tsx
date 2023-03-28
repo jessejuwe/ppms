@@ -2,10 +2,10 @@ import { Resume } from '../../../exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Sign In | PPMS',
-    template: '%s | Sign In | PPMS',
+    default: 'Sign In | HYPPADEC',
+    template: '%s | Sign In | HYPPADEC',
   },
-  description: 'PPMS sign in page',
+  description: 'HYPPADEC sign in page',
 };
 
 export default function SignIn() {

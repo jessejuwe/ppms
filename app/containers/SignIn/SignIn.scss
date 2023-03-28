@@ -42,17 +42,7 @@
               }
             }
 
-            div.google-button {
-              @apply transition-all duration-150 ease-in shadow-none hover:shadow-none ring-0 rounded-lg;
-
-              div {
-                @apply rounded-lg;
-
-                span {
-                  @apply font-semibold uppercase;
-                }
-              }
-            }
+            
           }
 
           .card-footer {

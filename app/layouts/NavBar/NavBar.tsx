@@ -38,8 +38,8 @@ const NavBar: React.FC = () => {
       id: 'sign-out',
       title: 'Sign out successful',
       description: 'You have been signed out. Goodbye.',
-      status: 'success',
-      duration: 9000,
+      status: 'info',
+      duration: 5000,
       isClosable: true,
       position: 'bottom-left',
     });
@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
       title: 'Dashboard',
       description: 'Welcome to your dashboard.',
       status: 'success',
-      duration: 9000,
+      duration: 5000,
       isClosable: true,
       position: 'bottom-left',
     });
@@ -136,12 +136,12 @@ const NavBar: React.FC = () => {
       <Navbar fluid={true} rounded={false} className="nav">
         <Navbar.Brand href="/" className="nav__logo">
           <Image
-            src={images.logo}
+            src={images.hyppadec_logo}
             className="nav__logo-img"
-            alt="PPMS Logo"
+            alt="HYPPADEC Logo"
             priority
           />
-          <span className="nav__logo-text">PPMS</span>
+          <span className="nav__logo-text">HYPPADEC</span>
         </Navbar.Brand>
         <div className="nav__toggle app__flex md:order-2">
           <div className="output">{output}</div>

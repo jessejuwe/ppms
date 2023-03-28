@@ -2,10 +2,10 @@ import { Emergency } from '@/exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Emergency Program Management | PPMS',
-    template: '%s | Emergency Program Management | PPMS',
+    default: 'Emergency Management | HYPPADEC',
+    template: '%s | Emergency Management | HYPPADEC',
   },
-  description: 'Get to know what PPMS is all about',
+  description: 'HYPPADEC - Emergency Management',
 };
 
 export default function EmergencyMM() {

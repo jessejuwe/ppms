@@ -7,7 +7,35 @@
     @apply h-screen w-full bg-primary-brightest;
 
     &-content {
-      @apply h-full w-full;
+      @apply w-full h-full relative px-4 pt-20;
+
+      .drawer-button {
+        @apply absolute bottom-5 right-5;
+
+        button {
+          @apply rounded-3xl bg-secondary-brightest hover:bg-secondary-bright text-gray-300 text-sm font-medium z-[9999];
+        }
+      }
+
+      .main-dashboard-content {
+        @apply w-full h-full;
+
+        .dashboard-nav {
+          @apply my-4 flex flex-row items-center justify-between;
+
+          button {
+            @apply rounded-md bg-secondary-brightest text-gray-300 text-sm font-medium;
+
+            &:hover {
+              @apply bg-secondary-bright transition-all duration-150 ease-in;
+            }
+          }
+        }
+
+        .dynamic-content {
+          @apply mt-8;
+        }
+      }
     }
   }
 }

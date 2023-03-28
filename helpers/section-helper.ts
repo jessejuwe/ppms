@@ -8,16 +8,16 @@ interface Service {
 export const SERVICES: Service[] = [
   {
     to: '/modules/epmm',
-    title: 'Empowerment Program Management',
+    title: 'Youth Empowerment',
   },
   {
     to: '/modules/cspmm',
-    title: 'Community Support Program Management',
+    title: 'Community Empowerment',
   },
 
   {
     to: '/modules/espmm',
-    title: 'Education Support Program Management',
+    title: 'Education Empowerment',
   },
   {
     to: '/modules/emm',

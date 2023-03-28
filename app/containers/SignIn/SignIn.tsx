@@ -25,13 +25,13 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import ReactGoogleButton from 'react-google-button';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { signInUser, signInUserGoogle } from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
 import { SigninSchema } from '@/app/utils/validationSchema';
+import { GoogleButton } from '@/exports/exports';
 
 const initialValues = { email: '', password: '' };
 
@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
         title: 'Already signed in',
         description: 'Current user needs to sign out.',
         status: 'error',
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
         position: 'bottom-left',
       });
@@ -76,32 +76,38 @@ const SignIn: React.FC = () => {
         id: 'dashboard',
         title: 'Sign in successful',
         description: 'Welcome to your dashboard.',
-        status: 'success',
-        duration: 9000,
+        status: 'info',
+        duration: 5000,
         isClosable: true,
         position: 'bottom-left',
       });
     }
   }, [loggedIn, dispatch, router, toast]);
 
-  const alert = notification ? (
-    <Alert status={notification.status}>
-      <AlertIcon />
-      <Box width="full">
-        <AlertTitle>{notification.title}</AlertTitle>
-        <AlertDescription>{notification.message}</AlertDescription>
-      </Box>
-      <CloseButton
-        alignSelf="flex-start"
-        position="relative"
-        right={-1}
-        top={-1}
-        onClick={() => dispatch(uiActions.closeNotification())}
-      />
-    </Alert>
-  ) : (
-    <div></div>
-  );
+  let alert;
+
+  if (notification && notification.status == 'error') {
+    alert = (
+      <Alert status={notification.status}>
+        <AlertIcon />
+        <Box width="full">
+          <AlertTitle>{notification.title}</AlertTitle>
+          <AlertDescription>{notification.message}</AlertDescription>
+        </Box>
+        <CloseButton
+          alignSelf="flex-start"
+          position="relative"
+          right={-1}
+          top={-1}
+          onClick={() => dispatch(uiActions.closeNotification())}
+        />
+      </Alert>
+    );
+  }
+
+  if (notification && notification.status != 'error') {
+    alert = <div></div>;
+  }
 
   return (
     <>
@@ -120,7 +126,7 @@ const SignIn: React.FC = () => {
             }}
             exit={{ y: 65, opacity: 0 }}
           >
-            {notification && alert}
+            {alert}
           </motion.div>
           <div className="sign-in-section">
             <motion.div
@@ -192,7 +198,7 @@ const SignIn: React.FC = () => {
 
                       action.setSubmitting(false);
 
-                      if (verified != '') {
+                      if (verified !== undefined) {
                         // go to dashboard
                         router.push('/dashboard');
 
@@ -206,9 +212,9 @@ const SignIn: React.FC = () => {
                           isClosable: true,
                           position: 'bottom-left',
                         });
-                      }
 
-                      action.resetForm();
+                        action.resetForm();
+                      }
                     }}
                   >
                     {({ errors, touched, isSubmitting }) => (
@@ -247,10 +253,7 @@ const SignIn: React.FC = () => {
                   <Text fontSize="lg" marginBottom="4" align="center">
                     OR
                   </Text>
-                  <ReactGoogleButton
-                    className="google-button"
-                    onClick={handleGoogleSignIn}
-                  />
+                  <GoogleButton onClick={handleGoogleSignIn} />
                 </CardBody>
                 <CardFooter className="card-footer">
                   <VStack>

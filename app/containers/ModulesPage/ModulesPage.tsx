@@ -33,7 +33,8 @@ const ModulesPage: React.FC = () => {
         >
           <h2 className="bold-text">Services</h2>
           <h1 className="head-text">
-            PPMS offers 6 major services and those services have sub services.
+            HYPPADEC offers 6 major services and those services have sub
+            services.
           </h1>
           <p className="p-text">
             The all-in-one Program and Project Management platform to assist

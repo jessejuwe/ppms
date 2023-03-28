@@ -30,3 +30,6 @@ export const auth = getAuth(app);
 
 // Reference to specific collection (user) in firestore database
 export const userCollection = collection(firestore, 'users');
+
+// Reference to specific collection (user) in firestore database
+export const candidateRegCollection = collection(firestore, 'candidate_reg');

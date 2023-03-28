@@ -2,10 +2,10 @@ import { Project } from '@/exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Project Management | PPMS',
-    template: '%s | Project Management | PPMS',
+    default: 'Project Management | HYPPADEC',
+    template: '%s | Project Management | HYPPADEC',
   },
-  description: 'Get to know what PPMS is all about',
+  description: 'HYPPADEC - Project Management',
 };
 
 export default function ProjectMM() {

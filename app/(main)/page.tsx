@@ -2,10 +2,10 @@ import { Header, Sections } from '../../exports/exports';
 
 export const metadata = {
   title: {
-    default: 'PPMS',
-    template: '%s | PPMS',
+    default: 'HYPPADEC | PPMS',
+    template: '%s | HYPPADEC',
   },
-  description: 'Programs and Project Management System',
+  description: 'HYPPADEC Programs and Project Management System',
 };
 
 export default function Home() {

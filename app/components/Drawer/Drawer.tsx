@@ -16,7 +16,6 @@ import {
   VStack,
   Text,
   Button,
-  Heading,
   useToast,
 } from '@chakra-ui/react';
 import {
@@ -43,6 +42,7 @@ import { HiLogout } from 'react-icons/hi';
 import { images } from '@/constants';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { signOutUser } from '@/redux/actions/auth-actions';
+import { dashboardActions } from '@/redux/slices/dashboard-slice';
 
 const MainDrawer: React.FC = () => {
   const toast = useToast();
@@ -65,12 +65,23 @@ const MainDrawer: React.FC = () => {
       id: 'sign-out',
       title: 'Sign out successful',
       description: 'You have been signed out. Goodbye.',
-      status: 'success',
-      duration: 9000,
+      status: 'info',
+      duration: 5000,
       isClosable: true,
       position: 'bottom-left',
     });
   }, [dispatch, router, toast]);
+
+  const handlePCRegistration = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Youth Empowerment',
+        beta: 'Candidate Registration',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
 
   return (
     <Drawer isOpen={isOpen} placement="left" onClose={handleCloseDrawer}>
@@ -85,7 +96,7 @@ const MainDrawer: React.FC = () => {
         </DrawerHeader>
 
         <DrawerBody>
-          <VStack align="start">
+          <VStack spacing={8} align="start" justify="center">
             <Menu>
               <MenuButton
                 as={Button}
@@ -93,11 +104,11 @@ const MainDrawer: React.FC = () => {
                 rightIcon={<MdArrowDropDown />}
                 className="menu-button"
               >
-                Empowerment
+                Youth Empowerment
               </MenuButton>
               <MenuList className="menu-list">
-                <MenuItem className="menu-item">
-                  Prospective Candidates Registration
+                <MenuItem className="menu-item" onClick={handlePCRegistration}>
+                  Prospective Candidate Registration
                 </MenuItem>
                 <MenuItem className="menu-item">
                   Application Processing and Selection of Participants
@@ -124,7 +135,7 @@ const MainDrawer: React.FC = () => {
                 rightIcon={<MdArrowDropDown />}
                 className="menu-button"
               >
-                Community
+                Community Empowerment
               </MenuButton>
               <MenuList className="menu-list">
                 <MenuGroup title="Community Support Programme Types">
@@ -177,7 +188,7 @@ const MainDrawer: React.FC = () => {
                 rightIcon={<MdArrowDropDown />}
                 className="menu-button"
               >
-                Education
+                Education Empowerment
               </MenuButton>
               <MenuList className="menu-list">
                 <MenuItem className="menu-item">Approved Courses</MenuItem>
@@ -204,7 +215,7 @@ const MainDrawer: React.FC = () => {
                 rightIcon={<MdArrowDropDown />}
                 className="menu-button"
               >
-                Emergency
+                Emergency Management
               </MenuButton>
               <MenuList className="menu-list">
                 <MenuItem className="menu-item">Incident Types</MenuItem>
@@ -224,7 +235,7 @@ const MainDrawer: React.FC = () => {
                 rightIcon={<MdArrowDropDown />}
                 className="menu-button"
               >
-                Project
+                Project Management
               </MenuButton>
               <MenuList className="menu-list">
                 <MenuItem className="menu-item">
@@ -246,7 +257,7 @@ const MainDrawer: React.FC = () => {
                 rightIcon={<MdArrowDropDown />}
                 className="menu-button"
               >
-                Inventory
+                Inventory Management
               </MenuButton>
               <MenuList className="menu-list">
                 <MenuItem className="menu-item">

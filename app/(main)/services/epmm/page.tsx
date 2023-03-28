@@ -2,10 +2,10 @@ import { Empowerment } from '@/exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Empowerment Program Management | PPMS',
-    template: '%s | Empowerment Program Management | PPMS',
+    default: 'Youth Empowerment | HYPPADEC',
+    template: '%s | Youth Empowerment | HYPPADEC',
   },
-  description: 'Get to know what PPMS is all about',
+  description: 'HYPPADEC - Youth Empowerment',
 };
 
 export default function EmpowermentProgramMM() {

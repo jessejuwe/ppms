@@ -5,7 +5,6 @@ import {
   deleteDoc,
   getDoc,
   updateDoc,
-  onSnapshot,
   orderBy,
   query,
 } from 'firebase/firestore';
@@ -23,7 +22,7 @@ import {
 import { persistor } from '@/redux/store/store';
 import { setCookie, deleteCookie } from 'cookies-next';
 
-import { firestore, userCollection, auth } from '@/firebase/clientApp';
+import { firestore, auth, userCollection } from '@/firebase/clientApp';
 import { authActions } from '../slices/auth-slice';
 import { uiActions } from '../slices/ui-slice';
 import { AppDispatch } from '../store/store';

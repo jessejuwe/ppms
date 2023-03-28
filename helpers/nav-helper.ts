@@ -29,18 +29,18 @@ export const DropdownLink: DropdownLink[] = [
   {
     to: '/services/epmm',
     path: '/services/epmm',
-    title: 'Empowerment Program Management',
+    title: 'Youth Empowerment',
   },
   {
     to: '/services/cspmm',
     path: '/services/cspmm',
-    title: 'Community Support Program Management',
+    title: 'Community Empowerment',
   },
 
   {
     to: '/services/espmm',
     path: '/services/espmm',
-    title: 'Education Support Program Management',
+    title: 'Education Empowerment',
   },
   {
     to: '/services/emm',

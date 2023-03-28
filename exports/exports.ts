@@ -20,7 +20,10 @@ export { default as Community } from '../app/containers/Community/Community';
 export { default as Inventory } from '../app/containers/Inventory/Inventory';
 export { default as Project } from '../app/containers/Project/Project';
 export { default as Dashboard } from '../app/containers/Dashboard/Dashboard';
+export { default as DashboardMenu } from '../app/containers/Dashboard/DashboardMenu';
 
 // exporting RFC default export from React Server Component folder (components)
 export { default as Modal } from '../app/components/UI/Modal/Modal';
+export { default as GoogleButton } from '../app/components/Button/GoogleButton';
 export { default as Drawer } from '../app/components/Drawer/Drawer';
+export { default as CandidateRegistration } from '../app/components/Forms/Empowerment/CandidateRegistration';

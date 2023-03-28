@@ -37,16 +37,17 @@ const Header: React.FC = () => {
             }}
             exit={{ opacity: 0 }}
           >
-            <h2 className="bold-text">Manage your projects with us</h2>
-            <h1 className="head-text">
+            <h2 className="bold-text">
               Programs and Project Management System
-            </h1>
+            </h2>
+            <h1 className="head-text">HYPPADEC</h1>
             <p className="p-text">
-              The Programmes and Projects Management Systems (PPMS) is conceived
-              as a Web based application, proposed to provide efficient
-              coordination and management of programmes and projects to ensure
-              optimal results. The System will assist management to ensure that
-              important goals are achieved as planned.
+              The Hydroelectric Power Producing Areas Development Commission
+              (HYPPADEC), was established by an Act of the National Assembly
+              (HYPPADEC establishment Act 2010) to address ecological challenges
+              from the operations of Hydroelectric Dams. The Commission now
+              operates in six states that include Benue, Kebbi, Kogi, Kwara,
+              Niger and Plateau with Headquarters in Minna, Niger State.
             </p>
             <Button
               pill={false}
@@ -70,7 +71,7 @@ const Header: React.FC = () => {
             }}
             exit={{ opacity: 0 }}
           >
-            <Image src={images.onlineStats} alt="System" priority />
+            <Image src={images.hyppadec} alt="System" priority />
           </motion.div>
         </main>
       </AnimatePresence>

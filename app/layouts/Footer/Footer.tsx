@@ -15,12 +15,12 @@ const Footer: React.FC = () => {
 
       <div className="footer__contact-us">
         <p>Contact Us</p>
-        <p>+234 803 307 7982 | samjuwe@gmail.com</p>
+        <p>+234 805 535 2837 | contact@interfextech.com</p>
       </div>
 
       <div className="footer__base">
         <p className="footer__copyright">
-          Copyright &copy; 2023 PPMS. All rights reserved.
+          Copyright &copy; 2023 HYPPADEC. All rights reserved.
         </p>
       </div>
     </footer>

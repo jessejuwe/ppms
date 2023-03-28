@@ -1,5 +1,7 @@
 import { StaticImageData } from 'next/image';
 
+import hyppadec from '../assets/hyppadec.jpg';
+import hyppadec_logo from '../assets/hyppadec_logo.jpg';
 import digitization from '../assets/digitization.jpg';
 import logo from '../assets/logo.png';
 import network from '../assets/network.jpg';
@@ -31,6 +33,8 @@ import project from '../assets/project.jpg';
 import teamwork from '../assets/teamwork.jpg';
 
 interface Images {
+  hyppadec: StaticImageData | any;
+  hyppadec_logo: StaticImageData | any;
   digitization: StaticImageData | any;
   logo: StaticImageData | any;
   network: StaticImageData | any;
@@ -63,6 +67,8 @@ interface Images {
 }
 
 export const Images: Images = {
+  hyppadec,
+  hyppadec_logo,
   digitization,
   logo,
   network,

@@ -3,9 +3,9 @@ import { Dashboard } from '@/exports/exports';
 export const metadata = {
   title: {
     default: 'Dashboard',
-    template: '%s | Dashboard | PPMS',
+    template: '%s | Dashboard | HYPPADEC',
   },
-  description: 'PPMS User Dashboard',
+  description: 'HYPPADEC User Dashboard',
 };
 
 export default function DashboardPage() {

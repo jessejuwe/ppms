@@ -4,17 +4,17 @@
 
 @layer components {
   .landing__page {
-    @apply p-4 flex flex-col-reverse big:flex-row items-center justify-center h-screen bg-primary-brightest;
+    @apply p-4 flex flex-col-reverse big:flex-row items-center justify-center h-screen bg-primary-brightest big:gap-6;
 
     &-info {
       @apply big:max-w-2xl;
 
       h2 {
-        @apply text-secondary-brightest;
+        @apply text-secondary-brightest mb-2;
       }
 
       h1 {
-        @apply text-secondary-bright;
+        @apply text-secondary-bright mb-2;
       }
 
       p {

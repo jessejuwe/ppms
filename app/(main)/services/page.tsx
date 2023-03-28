@@ -2,10 +2,10 @@ import { ModulesPage } from '../../../exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Services | PPMS',
-    template: '%s | Services | PPMS',
+    default: 'Services | HYPPADEC',
+    template: '%s | Services | HYPPADEC',
   },
-  description: 'Get to know what PPMS is all about',
+  description: 'HYPPADEC - Project Management',
 };
 
 export default function Modules() {

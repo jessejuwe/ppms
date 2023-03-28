@@ -10,6 +10,7 @@ import {
 } from 'redux-persist';
 
 import authSlice from '../slices/auth-slice';
+import dashboardSlice from '../slices/dashboard-slice';
 import uiSlice from '../slices/ui-slice';
 
 const isClient = typeof window !== 'undefined';
@@ -29,6 +30,7 @@ if (isClient) {
   /* COMBINE REDUCERS */
   const combinedReducers = combineReducers({
     [authSlice.name]: authSlice.reducer,
+    [dashboardSlice.name]: dashboardSlice.reducer,
     [uiSlice.name]: uiSlice.reducer,
   });
 
@@ -36,6 +38,7 @@ if (isClient) {
 } else {
   rootReducer = combineReducers({
     [authSlice.name]: authSlice.reducer,
+    [dashboardSlice.name]: dashboardSlice.reducer,
     [uiSlice.name]: uiSlice.reducer,
   });
 }

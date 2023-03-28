@@ -118,7 +118,7 @@ const SignUp: React.FC = () => {
                   <Formik
                     initialValues={initialValues}
                     validationSchema={SignupSchema}
-                    onSubmit={async (values, action) => {
+                    onSubmit={(values, action) => {
                       action.setSubmitting(true);
 
                       const userData: SignUpData = {
@@ -140,7 +140,7 @@ const SignUp: React.FC = () => {
                       action.resetForm();
 
                       // go to dashboard
-                      router.replace('/dashboard');
+                      router.push('/dashboard');
                     }}
                   >
                     {({ errors, touched, isSubmitting }) => (

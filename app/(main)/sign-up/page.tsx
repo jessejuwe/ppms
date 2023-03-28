@@ -2,10 +2,10 @@ import { Register } from '../../../exports/exports';
 
 export const metadata = {
   title: {
-    default: 'Sign Up | PPMS',
-    template: '%s | Sign Up | PPMS',
+    default: 'Sign Up | HYPPADEC',
+    template: '%s | Sign Up | HYPPADEC',
   },
-  description: 'PPMS sign up page',
+  description: 'HYPPADEC sign up page',
 };
 
 export default async function SignUp() {

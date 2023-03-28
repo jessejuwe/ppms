@@ -7,6 +7,7 @@
 
 /* importing .scss styling files */
 @import '../scss/SharedStyles.scss';
+
 @import '../app/layouts/Footer/Footer.scss';
 @import '../app/layouts/NavBar/NavBar.scss';
 @import '../app/layouts/Sidebar/Sidebar.scss';
@@ -25,9 +26,12 @@
 @import '../app/containers/Inventory/Inventory.scss';
 @import '../app/containers/Project/Project.scss';
 @import '../app/containers/Dashboard/Dashboard.scss';
+@import '../app/containers/Dashboard/DashboardMenu.scss';
 
 @import '../app/components/UI/Modal/Modal.scss';
 @import '../app/components/Drawer/Drawer.scss';
+@import '../app/components/Button/GoogleButton.scss';
+@import '../app/components/Forms/Empowerment/CandidateRegistration.scss';
 
 @tailwind base;
 @tailwind components;
