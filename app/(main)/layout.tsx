@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Providers } from '../providers';
 import Fonts from '../fonts/Fonts';
@@ -12,11 +12,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // useEffect for scrolling to top onload
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
-
   return (
     <html lang="en">
       <body>

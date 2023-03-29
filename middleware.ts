@@ -14,11 +14,11 @@ export default function middleware(req: NextRequest) {
   }
 
   // for production
-  if (!loggedIn && url === 'http://ppms.vercel.app/dashboard') {
-    return NextResponse.redirect('http://ppms.vercel.app/');
+  if (!loggedIn && url === 'https://ppms.vercel.app/dashboard') {
+    return NextResponse.redirect('https://ppms.vercel.app/');
   }
 
-  if (loggedIn && url === 'http://ppms.vercel.app/sign-in') {
-    return NextResponse.redirect('http://ppms.vercel.app/dashboard');
+  if (loggedIn && url === 'https://ppms.vercel.app/sign-in') {
+    return NextResponse.redirect('https://ppms.vercel.app/dashboard');
   }
 }

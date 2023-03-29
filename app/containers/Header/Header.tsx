@@ -12,11 +12,7 @@ const Header: React.FC = () => {
   useEffect(() => {
     const element = document.getElementById('landing__page');
 
-    if (!element) {
-      // scroll to top
-      window.scrollTo(0, 0);
-      return;
-    }
+    if (!element) return;
 
     element.scrollIntoView({ behavior: 'smooth' });
   }, []);

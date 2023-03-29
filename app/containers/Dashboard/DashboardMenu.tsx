@@ -56,7 +56,7 @@ const DashboardMenu: React.FC = () => {
               size="sm"
               colorScheme="facebook"
             >
-              See more
+              See options
             </Button>
           </VStack>
         </AccordionPanel>
@@ -89,7 +89,7 @@ const DashboardMenu: React.FC = () => {
               size="sm"
               colorScheme="facebook"
             >
-              See more
+              See options
             </Button>
           </VStack>
         </AccordionPanel>
@@ -121,7 +121,7 @@ const DashboardMenu: React.FC = () => {
               size="sm"
               colorScheme="facebook"
             >
-              See more
+              See options
             </Button>
           </VStack>
         </AccordionPanel>
@@ -149,7 +149,7 @@ const DashboardMenu: React.FC = () => {
               size="sm"
               colorScheme="facebook"
             >
-              See more
+              See options
             </Button>
           </VStack>
         </AccordionPanel>
@@ -173,7 +173,7 @@ const DashboardMenu: React.FC = () => {
               size="sm"
               colorScheme="facebook"
             >
-              See more
+              See options
             </Button>
           </VStack>
         </AccordionPanel>
@@ -197,7 +197,7 @@ const DashboardMenu: React.FC = () => {
               size="sm"
               colorScheme="facebook"
             >
-              See more
+              See options
             </Button>
           </VStack>
         </AccordionPanel>

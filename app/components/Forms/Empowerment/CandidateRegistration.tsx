@@ -12,7 +12,6 @@ import {
   CardBody,
   CardFooter,
   Text,
-  Input,
   Select,
 } from '@chakra-ui/react';
 import { Tooltip } from 'flowbite-react';
@@ -115,17 +114,21 @@ const CandidateRegistration: React.FC = () => {
                 // Upload candidate data in Firebase
                 dispatch(uploadCandRegData(candidateData));
 
-                if (toast.isActive('cand_reg')) return;
-                toast({
-                  id: 'cand_reg',
-                  title: notification.title,
-                  description: notification.message,
-                  status: notification.status,
-                  duration: 5000,
-                  isClosable: true,
-                  onCloseComplete: handleClear,
-                  position: 'bottom-left',
-                });
+                if (notification) {
+                  if (toast.isActive('cand_reg')) return;
+                  toast({
+                    id: 'cand_reg',
+                    title: notification.title,
+                    description: notification.message,
+                    status: notification.status,
+                    duration: 5000,
+                    isClosable: true,
+                    onCloseComplete: handleClear,
+                    position: 'bottom-left',
+                  });
+                }
+
+                setOption('');
 
                 action.setSubmitting(false);
                 action.resetForm();

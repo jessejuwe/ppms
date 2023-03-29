@@ -4,18 +4,18 @@
 
 @layer components {
   .candidate-reg-form {
-    @apply w-full;
+    @apply h-fit;
 
     .card {
       .card-body {
         form {
-          @apply w-full flex flex-col items-center justify-center gap-4;
+          @apply flex flex-col items-center justify-center gap-4;
 
           .stack {
-            @apply w-full mx-2;
+            @apply mx-2;
 
             .input {
-              @apply p-2 big:p-4 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
+              @apply p-2 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
 
               &::placeholder {
                 @apply text-sm;
@@ -42,7 +42,7 @@
           }
 
           button {
-            @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in;
+            @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in -mb-2;
           }
         }
       }
