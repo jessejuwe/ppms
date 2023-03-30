@@ -15,15 +15,20 @@ import {
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { uiActions } from '@/redux/slices/ui-slice';
+import { dashboardActions } from '@/redux/slices/dashboard-slice';
 
 const DashboardMenu: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const drawerIsOpen = useAppSelector(state => state.ui.drawerIsOpen);
 
-  const handleOpenDrawer = useCallback(() => {
-    dispatch(uiActions.openDrawer());
-  }, [dispatch]);
+  const handleOpenDrawer = useCallback(
+    (drawer: string) => {
+      dispatch(dashboardActions.setDrawer(drawer));
+      dispatch(uiActions.openDrawer());
+    },
+    [dispatch]
+  );
 
   const handleCloseDrawer = useCallback(() => {
     dispatch(uiActions.closeDrawer());
@@ -51,7 +56,7 @@ const DashboardMenu: React.FC = () => {
               who are not privileged to secure employment.
             </Text>
             <Button
-              onClick={handleOpenDrawer}
+              onClick={() => handleOpenDrawer('Youth Empowerment')}
               variant="outline"
               size="sm"
               colorScheme="facebook"
@@ -84,7 +89,7 @@ const DashboardMenu: React.FC = () => {
               importance.
             </Text>
             <Button
-              onClick={handleOpenDrawer}
+              onClick={() => handleOpenDrawer('Community Empowerment')}
               variant="outline"
               size="sm"
               colorScheme="facebook"
@@ -116,7 +121,7 @@ const DashboardMenu: React.FC = () => {
               of either the bursary scheme or scholarship funding.
             </Text>
             <Button
-              onClick={handleOpenDrawer}
+              onClick={() => handleOpenDrawer('Education Empowerment')}
               variant="outline"
               size="sm"
               colorScheme="facebook"
@@ -144,7 +149,7 @@ const DashboardMenu: React.FC = () => {
               situation, most especially as it relates to flooding.
             </Text>
             <Button
-              onClick={handleOpenDrawer}
+              onClick={() => handleOpenDrawer('Emergency Management')}
               variant="outline"
               size="sm"
               colorScheme="facebook"
@@ -168,7 +173,7 @@ const DashboardMenu: React.FC = () => {
           <VStack spacing={4} align="start" justify="center">
             <Text>Content goes here.</Text>
             <Button
-              onClick={handleOpenDrawer}
+              onClick={() => handleOpenDrawer('Project Management')}
               variant="outline"
               size="sm"
               colorScheme="facebook"
@@ -192,7 +197,7 @@ const DashboardMenu: React.FC = () => {
           <VStack spacing={4} align="start" justify="center">
             <Text>Content goes here.</Text>
             <Button
-              onClick={handleOpenDrawer}
+              onClick={() => handleOpenDrawer('Inventory Management')}
               variant="outline"
               size="sm"
               colorScheme="facebook"

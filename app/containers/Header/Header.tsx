@@ -33,10 +33,10 @@ const Header: React.FC = () => {
             }}
             exit={{ opacity: 0 }}
           >
+            <h1 className="head-text">HYPPADEC</h1>
             <h2 className="bold-text">
               Programs and Project Management System
             </h2>
-            <h1 className="head-text">HYPPADEC</h1>
             <p className="p-text">
               The Hydroelectric Power Producing Areas Development Commission
               (HYPPADEC), was established by an Act of the National Assembly

@@ -32,6 +32,11 @@
 @import '../app/components/Drawer/Drawer.scss';
 @import '../app/components/Button/GoogleButton.scss';
 @import '../app/components/Forms/Empowerment/CandidateRegistration.scss';
+@import '../app/components/Forms/Community/ProgramExecution.scss';
+@import '../app/components/Forms/Education/StudentRegistration.scss';
+@import '../app/components/Forms/Emergency/IncidentReporting.scss';
+@import '../app/components/Forms/Project/ProjectEnlistment.scss';
+@import '../app/components/Forms/Inventory/ItemEnlistment.scss';
 
 @tailwind base;
 @tailwind components;

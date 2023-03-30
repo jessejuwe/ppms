@@ -21,7 +21,7 @@
         @apply w-full h-full;
 
         .dashboard-nav {
-          @apply my-4 flex flex-row items-center justify-between;
+          @apply my-2 flex flex-row items-center justify-between;
 
           button {
             @apply rounded-md bg-secondary-brightest text-gray-300 text-sm font-medium;
@@ -33,7 +33,7 @@
         }
 
         .dynamic-content {
-          @apply mt-8;
+          @apply mt-4;
         }
       }
     }

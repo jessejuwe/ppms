@@ -1,27 +1,23 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { serverTimestamp } from 'firebase/firestore';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { Button, useToast, VStack, Select } from '@chakra-ui/react';
-import { Flex, Spacer, FormControl } from '@chakra-ui/react';
+import { Flex, Spacer, FormControl, FormLabel } from '@chakra-ui/react';
 import { Card, CardBody } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
-import { uploadCandRegData } from '@/redux/actions/dashboard-actions';
-import { initialValues } from '@/model/CandReg';
-import { CandReg } from '@/model';
-import { CandRegSchema } from '@/app/utils/validationSchema';
-import {
-  handy_skills,
-  highest_qualification,
-  technical_skills,
-} from '@/helpers/form-helper';
+import { uploadStudRegData } from '@/redux/actions/dashboard-actions';
+import { dashboardActions } from '@/redux/slices/dashboard-slice';
 import { uiActions } from '@/redux/slices/ui-slice';
+import { initialValues } from '@/model/StudReg';
+import { StudRegModel } from '@/model';
+import { StudRegSchema } from '@/app/utils/validationSchema';
+import { SUPPORT_SCHEME } from '@/helpers/form-helper';
 
-const CandidateRegistration: React.FC = () => {
-  const [option, setOption] = useState('');
+const StudentRegistration: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const toast = useToast();
@@ -31,29 +27,11 @@ const CandidateRegistration: React.FC = () => {
     dispatch(uiActions.closeNotification());
   }, [dispatch]);
 
-  let content: JSX.Element | any;
-
-  if (option == '') {
-    content = '';
-  } else if (option == 'BSc' || option == 'MSc' || option == 'PhD') {
-    content = technical_skills.map((item, index) => (
-      <option key={index} value={item.value}>
-        {item.title}
-      </option>
-    ));
-  } else {
-    content = handy_skills.map((item, index) => (
-      <option key={index} value={item.value}>
-        {item.title}
-      </option>
-    ));
-  }
-
   return (
     <AnimatePresence>
       <motion.div
-        className="candidate-reg-form"
-        key="candidate-reg-form"
+        className="student-reg-form"
+        key="student-reg-form"
         initial={{ x: 65, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{
@@ -76,33 +54,34 @@ const CandidateRegistration: React.FC = () => {
           <CardBody className="card-body">
             <Formik
               initialValues={initialValues}
-              //   validationSchema={CandRegSchema}
+              // validationSchema={StudRegSchema}
               onSubmit={(values, action) => {
                 action.setSubmitting(true);
 
-                const candidateData: CandReg = {
+                const studentData: StudRegModel = {
                   fullName: values.fullName,
-                  highest_qualification: option,
-                  school_attended: values.school_attended,
+                  school_name: values.school_name,
+                  department: values.department,
                   address: values.address,
                   state_of_origin: values.state_of_origin,
                   local_govt: values.local_govt,
                   community: values.community,
                   email: values.email,
                   phoneNumber: values.phoneNumber,
-                  skill_of_interest: values.skill_of_interest,
-                  acquired_skills: values.acquired_skills,
-                  preferred_location: values.preferred_location,
+                  support_scheme: values.support_scheme,
+                  school_id: values.school_id,
+                  admission_letter: values.admission_letter,
+                  last_semester_result: values.last_semester_result,
                   timeStamp: serverTimestamp(),
                 };
 
-                // Upload Candidate data in Firebase
-                dispatch(uploadCandRegData(candidateData));
+                // Upload Student data in Firebase
+                dispatch(uploadStudRegData(studentData));
 
                 if (notification) {
-                  if (toast.isActive('cand_reg')) return;
+                  if (toast.isActive('stud_reg')) return;
                   toast({
-                    id: 'cand_reg',
+                    id: 'stud_reg',
                     title: notification.title,
                     description: notification.message,
                     status: notification.status,
@@ -113,10 +92,8 @@ const CandidateRegistration: React.FC = () => {
                   });
                 }
 
-                setOption('');
-
                 action.setSubmitting(false);
-                action.resetForm();
+                // action.resetForm();
               }}
             >
               {({ errors, touched, isSubmitting }) => (
@@ -129,6 +106,26 @@ const CandidateRegistration: React.FC = () => {
                         placeholder="Full Name"
                         className={`input ${
                           errors.fullName && touched.fullName ? 'error' : ''
+                        }`}
+                      />
+
+                      <Field
+                        name="school_name"
+                        type="text"
+                        placeholder="School Name"
+                        className={`input ${
+                          errors.school_name && touched.school_name
+                            ? 'error'
+                            : ''
+                        }`}
+                      />
+
+                      <Field
+                        name="department"
+                        type="text"
+                        placeholder="Department"
+                        className={`input ${
+                          errors.department && touched.department ? 'error' : ''
                         }`}
                       />
 
@@ -151,43 +148,11 @@ const CandidateRegistration: React.FC = () => {
                             : ''
                         }`}
                       />
+                    </VStack>
 
-                      <Field>
-                        {({ field }: FieldProps) => (
-                          <FormControl id="highest_qualification">
-                            <Select
-                              variant="outline"
-                              id="highest_qualification"
-                              name="highest_qualification"
-                              placeholder="Highest Qualification"
-                              onChange={e => {
-                                field.onChange;
-                                setOption(e.target.value);
-                              }}
-                              rounded="md"
-                              className="select-option"
-                            >
-                              {highest_qualification.map((item, index) => (
-                                <option key={index} value={item.value}>
-                                  {item.title}
-                                </option>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        )}
-                      </Field>
+                    <Spacer />
 
-                      <Field
-                        name="school_attended"
-                        type="text"
-                        placeholder="School Attended"
-                        className={`input ${
-                          errors.school_attended && touched.school_attended
-                            ? 'error'
-                            : ''
-                        }`}
-                      />
-
+                    <VStack className="stack">
                       <Field
                         name="address"
                         type="text"
@@ -196,11 +161,7 @@ const CandidateRegistration: React.FC = () => {
                           errors.address && touched.address ? 'error' : ''
                         }`}
                       />
-                    </VStack>
 
-                    <Spacer />
-
-                    <VStack className="stack">
                       <Field
                         name="state_of_origin"
                         type="text"
@@ -232,46 +193,63 @@ const CandidateRegistration: React.FC = () => {
 
                       <Field>
                         {({ field }: FieldProps) => (
-                          <FormControl id="skill_of_interest">
+                          <FormControl id="support_scheme">
                             <Select
                               variant="outline"
-                              id="skill_of_interest"
-                              name="skill_of_interest"
-                              placeholder="Skill of Interest"
+                              id="support_scheme"
+                              name="support_scheme"
+                              placeholder="Support Scheme"
                               onChange={field.onChange}
                               rounded="md"
                               className="select-option"
                             >
-                              {content}
+                              {SUPPORT_SCHEME.map((item, index) => (
+                                <option key={index} value={item.value}>
+                                  {item.title}
+                                </option>
+                              ))}
                             </Select>
                           </FormControl>
                         )}
                       </Field>
-
-                      <Field
-                        name="acquired_skills"
-                        type="text"
-                        placeholder="Acquired Skills"
-                        className={`input ${
-                          errors.acquired_skills && touched.acquired_skills
-                            ? 'error'
-                            : ''
-                        }`}
-                      />
-
-                      <Field
-                        name="preferred_location"
-                        type="text"
-                        placeholder="Preferred Location"
-                        className={`input ${
-                          errors.preferred_location &&
-                          touched.preferred_location
-                            ? 'error'
-                            : ''
-                        }`}
-                      />
                     </VStack>
                   </Flex>
+
+                  <FormControl id="school_id">
+                    <FormLabel htmlFor="school_id" mb="0">
+                      School ID Card:
+                    </FormLabel>
+                    <Field
+                      name="school_id"
+                      id="school_id"
+                      type="file"
+                      accept=".pdf, image/png, image/jpg, image/jpeg"
+                    />
+                  </FormControl>
+
+                  <FormControl id="admission_letter">
+                    <FormLabel htmlFor="admission_letter" mb="0">
+                      Admission Letter:
+                    </FormLabel>
+                    <Field
+                      name="admission_letter"
+                      id="admission_letter"
+                      type="file"
+                      accept=".pdf, image/png, image/jpg, image/jpeg"
+                    />
+                  </FormControl>
+
+                  <FormControl id="last_semester_result">
+                    <FormLabel htmlFor="last_semester_result" mb="0">
+                      Last Semester Result:
+                    </FormLabel>
+                    <Field
+                      name="last_semester_result"
+                      id="last_semester_result"
+                      type="file"
+                      accept=".pdf, image/png, image/jpg, image/jpeg"
+                    />
+                  </FormControl>
 
                   <Button
                     type="submit"
@@ -280,7 +258,7 @@ const CandidateRegistration: React.FC = () => {
                     isLoading={isSubmitting}
                     disabled={isSubmitting}
                   >
-                    Register Candidate
+                    Register Student
                   </Button>
                 </Form>
               )}
@@ -292,4 +270,4 @@ const CandidateRegistration: React.FC = () => {
   );
 };
 
-export default CandidateRegistration;
+export default StudentRegistration;

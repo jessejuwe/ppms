@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
+import { getStorage, ref } from 'firebase/storage';
 import process from 'process';
 
 const firebaseConfig = {
@@ -22,14 +23,53 @@ export const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 export const database = getDatabase(app);
 
-// Create a firestore instance
+// Initialize Firestore and get a reference to the service
 export const firestore = getFirestore(app);
 
-// Create an authentication instance
+// Initialize Authentication and get a reference to the service
 export const auth = getAuth(app);
+
+// Initialize Cloud Storage and get a reference to the service
+export const storage = getStorage(app, 'gs://my-custom-bucket');
+
+// Create a storage reference
+export const storageRef = ref(storage);
 
 // Reference to specific collection (user) in firestore database
 export const userCollection = collection(firestore, 'users');
 
-// Reference to specific collection (user) in firestore database
-export const candidateRegCollection = collection(firestore, 'candidate_reg');
+// Reference to specific collection (candidate_reg) in firestore database
+export const candidateRegistrationCollection = collection(
+  firestore,
+  'candidate_registration'
+);
+
+// Reference to specific collection (candidate_reg) in firestore database
+export const programExecutionCollection = collection(
+  firestore,
+  'program_execution'
+);
+
+// Reference to specific collection (candidate_reg) in firestore database
+export const studentRegistrationCollection = collection(
+  firestore,
+  'student_registration'
+);
+
+// Reference to specific collection (candidate_reg) in firestore database
+export const incidentReportingCollection = collection(
+  firestore,
+  'incident_reporting'
+);
+
+// Reference to specific collection (candidate_reg) in firestore database
+export const projectEnlistmentCollection = collection(
+  firestore,
+  'project_enlistment'
+);
+
+// Reference to specific collection (candidate_reg) in firestore database
+export const itemEnlistmentCollection = collection(
+  firestore,
+  'item_enlistment'
+);

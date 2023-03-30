@@ -7,10 +7,12 @@ interface Active {
 
 interface InitialState {
   active: Active;
+  drawer: string;
 }
 
 const initialState: InitialState = {
   active: { alpha: 'Dashboard', beta: null },
+  drawer: 'Dashboard',
 };
 
 const dashboardSlice = createSlice({
@@ -23,6 +25,13 @@ const dashboardSlice = createSlice({
     },
     clearActive(state) {
       state.active = { alpha: 'Dashboard', beta: null };
+    },
+    setDrawer(state, action: PayloadAction<string>) {
+      // state should not be mutated in react, but the @reduxjs/toolkit library permits it
+      state.drawer = action.payload;
+    },
+    clearDrawer(state) {
+      state.drawer = 'Dashboard';
     },
   },
 });

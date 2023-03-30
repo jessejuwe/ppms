@@ -27,3 +27,8 @@ export { default as Modal } from '../app/components/UI/Modal/Modal';
 export { default as GoogleButton } from '../app/components/Button/GoogleButton';
 export { default as Drawer } from '../app/components/Drawer/Drawer';
 export { default as CandidateRegistration } from '../app/components/Forms/Empowerment/CandidateRegistration';
+export { default as ProgramExecution } from '../app/components/Forms/Community/ProgramExecution';
+export { default as StudentRegistration } from '../app/components/Forms/Education/StudentRegistration';
+export { default as IncidentReporting } from '../app/components/Forms/Emergency/IncidentReporting';
+export { default as ProjectEnlistment } from '../app/components/Forms/Project/ProjectEnlistment';
+export { default as ItemEnlistment } from '../app/components/Forms/Inventory/ItemEnlistment';

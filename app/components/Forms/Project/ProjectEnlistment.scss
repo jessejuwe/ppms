@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-  .candidate-reg-form {
-    @apply h-fit big:px-56;
+  .project-enlistment-form {
+    @apply h-fit;
 
     .card {
       .card-body {
@@ -38,6 +38,18 @@
                   @apply bg-black;
                 }
               }
+            }
+          }
+
+          .chakra-form-control {
+            @apply w-full flex flex-row items-center justify-center;
+
+            label {
+              @apply text-sm w-fit;
+            }
+
+            input {
+              @apply p-2 rounded-md border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
             }
           }
 

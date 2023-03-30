@@ -11,6 +11,11 @@ import {
   Drawer,
   DashboardMenu,
   CandidateRegistration,
+  ProgramExecution,
+  StudentRegistration,
+  IncidentReporting,
+  ProjectEnlistment,
+  ItemEnlistment,
 } from '@/exports/exports';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { dashboardActions } from '@/redux/slices/dashboard-slice';
@@ -36,8 +41,34 @@ const Dashboard: React.FC = () => {
 
   let content;
 
-  if (active.beta === 'Candidate Registration') {
-    content = <CandidateRegistration />;
+  switch (active.beta) {
+    case 'Candidate Registration':
+      content = <CandidateRegistration />;
+      break;
+
+    case 'Program Execution':
+      content = <ProgramExecution />;
+      break;
+
+    case 'Student Registration':
+      content = <StudentRegistration />;
+      break;
+
+    case 'Incident Reporting':
+      content = <IncidentReporting />;
+      break;
+
+    case 'Project Enlistment':
+      content = <ProjectEnlistment />;
+      break;
+
+    case 'Item Enlistment':
+      content = <ItemEnlistment />;
+      break;
+
+    default:
+      content = <div></div>;
+      break;
   }
 
   return (

@@ -1,19 +1,9 @@
-interface HighestQualification {
+interface OPTIONS {
   title: string;
   value: string;
 }
 
-interface HandySkills {
-  title: string;
-  value: string;
-}
-
-interface TechnincalSkills {
-  title: string;
-  value: string;
-}
-
-export const highest_qualification: HighestQualification[] = [
+export const highest_qualification: OPTIONS[] = [
   { title: 'No O Level', value: 'No O Level' },
   { title: 'O Level', value: 'O Level' },
   { title: 'HND', value: 'HND' },
@@ -22,7 +12,7 @@ export const highest_qualification: HighestQualification[] = [
   { title: 'PhD', value: 'PhD' },
 ];
 
-export const handy_skills: HandySkills[] = [
+export const handy_skills: OPTIONS[] = [
   { title: 'Fashion Design', value: 'Fashion Design' },
   { title: 'House Painting', value: 'House Painting' },
   { title: 'Photography', value: 'Photography' },
@@ -44,7 +34,7 @@ export const handy_skills: HandySkills[] = [
   { title: 'Auto Spray Painting', value: 'Auto Spray Painting' },
 ];
 
-export const technical_skills: TechnincalSkills[] = [
+export const technical_skills: OPTIONS[] = [
   { title: 'Gadget Repair', value: 'Gadget Repair' },
   { title: 'Beading and Jewelry Making', value: 'Beading and Jewelry Making' },
   { title: 'Handbag Making', value: 'Handbag Making' },
@@ -55,4 +45,20 @@ export const technical_skills: TechnincalSkills[] = [
   { title: 'Digital Marketing', value: 'Digital Marketing' },
   { title: 'Web Development', value: 'Web Development' },
   { title: 'Copy Writing', value: 'Copy Writing' },
+];
+
+export const SUPPORT_SCHEME: OPTIONS[] = [
+  { title: 'Sponsorship', value: 'Sponsorship' },
+  { title: 'Scholarship', value: 'Scholarship' },
+];
+
+export const INCIDENT_TYPE: OPTIONS[] = [
+  { title: 'Flooding', value: 'Flooding' },
+  { title: 'Others', value: 'Others' },
+];
+
+export const EXTENT_OF_DAMAGE: OPTIONS[] = [
+  { title: 'Mild', value: 'Mild' },
+  { title: 'Moderate', value: 'Moderate' },
+  { title: 'Extensive', value: 'Extensive' },
 ];

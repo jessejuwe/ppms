@@ -23,13 +23,12 @@ const AboutUs: React.FC = () => {
           exit={{ opacity: 0 }}
         >
           <h2 className="bold-text">About Us</h2>
-          <h1 className="head-text">
-            PPMS provides assistance in order to ensure the achievement of set
-            goals
-          </h1>
+          <h1 className="head-text">Our Mission</h1>
           <p className="p-text">
-            The all-in-one Program and Project Management platform to assist
-            mananegment, save time and increase overall performance.
+            To mobilize and utilize human and material resources towards
+            ameliorating the sufferings of the people in the HYPPADEC member
+            states, in the most transparent, accountable and cost-effective
+            manner.
           </p>
           <Button pill={false} className="sign-up" href="/sign-up">
             Get started

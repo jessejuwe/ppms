@@ -23,11 +23,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
   MenuGroup,
-  MenuOptionGroup,
   MenuDivider,
-  Select,
 } from '@chakra-ui/react';
 import { MdArrowDropDown } from 'react-icons/md';
 import {
@@ -50,6 +47,7 @@ const MainDrawer: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector(state => state.ui.drawerIsOpen);
+  const activeDrawer = useAppSelector(state => state.dashboard.drawer);
 
   const handleCloseDrawer = useCallback(() => {
     dispatch(uiActions.closeDrawer());
@@ -72,11 +70,66 @@ const MainDrawer: React.FC = () => {
     });
   }, [dispatch, router, toast]);
 
-  const handlePCRegistration = useCallback(() => {
+  const handleCandidateRegistration = useCallback(() => {
     dispatch(
       dashboardActions.setActive({
         alpha: 'Youth Empowerment',
         beta: 'Candidate Registration',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleProgramExecution = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Community Empowerment',
+        beta: 'Program Execution',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleStudentRegistration = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Education Empowerment',
+        beta: 'Student Registration',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleIncidentReporting = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Emergency Management',
+        beta: 'Incident Reporting',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleProjectEnlistment = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Project Management',
+        beta: 'Project Enlistment',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleItemEnlistment = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Store-Inventory Management',
+        beta: 'Item Enlistment',
       })
     );
 
@@ -90,185 +143,215 @@ const MainDrawer: React.FC = () => {
         <DrawerCloseButton />
         <DrawerHeader>
           <HStack gap={2}>
-            <Avatar size="sm" bg="primary.800" src={images.logo} />
-            <Text>PPMS</Text>
+            <Avatar
+              size="sm"
+              bg="primary.800"
+              src={images.hyppadec_logo}
+              name="HYPPADEC PPMS"
+            />
+            <Text>HYPPADEC | PPMS</Text>
           </HStack>
         </DrawerHeader>
 
         <DrawerBody>
           <VStack spacing={8} align="start" justify="center">
-            <Menu>
-              <MenuButton
-                as={Button}
-                leftIcon={<FaSuperpowers />}
-                rightIcon={<MdArrowDropDown />}
-                className="menu-button"
-              >
-                Youth Empowerment
-              </MenuButton>
-              <MenuList className="menu-list">
-                <MenuItem className="menu-item" onClick={handlePCRegistration}>
-                  Prospective Candidate Registration
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Application Processing and Selection of Participants
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Participants Enrolment
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Skill Centre Accreditation
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Training Programmes Accreditation
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Participants Self-Service
-                </MenuItem>
-              </MenuList>
-            </Menu>
-
-            <Menu>
-              <MenuButton
-                as={Button}
-                leftIcon={<FaObjectGroup />}
-                rightIcon={<MdArrowDropDown />}
-                className="menu-button"
-              >
-                Community Empowerment
-              </MenuButton>
-              <MenuList className="menu-list">
-                <MenuGroup title="Community Support Programme Types">
-                  <Select
-                    variant="filled"
-                    placeholder="Select programme"
-                    paddingX="2"
-                    iconColor="transparent"
+            {activeDrawer == 'Youth Empowerment' && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<FaSuperpowers />}
+                  rightIcon={<MdArrowDropDown />}
+                  className="menu-button"
+                >
+                  Youth Empowerment
+                </MenuButton>
+                <MenuList className="menu-list">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={handleCandidateRegistration}
                   >
-                    <option className="menu-item">Relief Intervention</option>
-                    <option className="menu-item">Poverty Alleviation</option>
-                    <option className="menu-item">Empowerment</option>
-                    <option className="menu-item">Medical Outreach</option>
-                    <option className="menu-item">
+                    Prospective Candidate Registration
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Application Processing and Selection of Participants
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Participants Enrolment
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Skill Centre Accreditation
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Training Programmes Accreditation
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Participants Self-Service
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            )}
+
+            {activeDrawer == 'Community Empowerment' && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<FaObjectGroup />}
+                  rightIcon={<MdArrowDropDown />}
+                  className="menu-button"
+                >
+                  Community Empowerment
+                </MenuButton>
+                <MenuList className="menu-list">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={handleProgramExecution}
+                  >
+                    Schedule Programmes for Execution
+                  </MenuItem>
+                  <MenuItem className="menu-item">Approved Programmes</MenuItem>
+                  <MenuDivider />
+                  <MenuGroup title="Community Support Programme Types">
+                    <MenuItem className="menu-item">
+                      Relief Intervention
+                    </MenuItem>
+                    <MenuItem className="menu-item">
+                      Poverty Alleviation
+                    </MenuItem>
+                    <MenuItem className="menu-item">Empowerment</MenuItem>
+                    <MenuItem className="menu-item">Medical Outreach</MenuItem>
+                    <MenuItem className="menu-item">
                       Fertilizer Distribution
-                    </option>
-                    <option className="menu-item">Others</option>
-                  </Select>
-                </MenuGroup>
-                <MenuDivider />
-                <MenuItem className="menu-item">Approved Programmes</MenuItem>
-                <MenuItem className="menu-item">
-                  Schedule Programmes for Execution
-                </MenuItem>
-                <MenuDivider />
-                <MenuGroup title="Programme Inspection/Reports">
-                  <Select
-                    variant="filled"
-                    placeholder="Select option"
-                    paddingX="2"
-                    iconColor="transparent"
-                  >
-                    <option className="menu-item">
+                    </MenuItem>
+                    <MenuItem className="menu-item">Others</MenuItem>
+                  </MenuGroup>
+                  <MenuDivider />
+                  <MenuGroup title="Programme Inspection/Reports">
+                    <MenuItem className="menu-item">
                       List of Types of Programme
-                    </option>
-                    <option className="menu-item">List of Approved</option>
-                    <option className="menu-item">
+                    </MenuItem>
+                    <MenuItem className="menu-item">List of Approved</MenuItem>
+                    <MenuItem className="menu-item">
                       Programmes Scheduled for Execution
-                    </option>
-                    <option className="menu-item">Monitoring/Inspection</option>
-                  </Select>
-                </MenuGroup>
-              </MenuList>
-            </Menu>
+                    </MenuItem>
+                    <MenuItem className="menu-item">
+                      Monitoring/Inspection
+                    </MenuItem>
+                  </MenuGroup>
+                </MenuList>
+              </Menu>
+            )}
 
-            <Menu>
-              <MenuButton
-                as={Button}
-                leftIcon={<FaEmber />}
-                rightIcon={<MdArrowDropDown />}
-                className="menu-button"
-              >
-                Education Empowerment
-              </MenuButton>
-              <MenuList className="menu-list">
-                <MenuItem className="menu-item">Approved Courses</MenuItem>
-                <MenuItem className="menu-item">Support Schemes</MenuItem>
-                <MenuItem className="menu-item">
-                  Prospective Candidates Registration
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Application Processing
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Beneficiaries Enrollment
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Participants Self-Service
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            {activeDrawer == 'Education Empowerment' && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<FaEmber />}
+                  rightIcon={<MdArrowDropDown />}
+                  className="menu-button"
+                >
+                  Education Empowerment
+                </MenuButton>
+                <MenuList className="menu-list">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={handleStudentRegistration}
+                  >
+                    Prospective Candidates Registration
+                  </MenuItem>
+                  <MenuItem className="menu-item">Approved Courses</MenuItem>
+                  <MenuItem className="menu-item">Support Schemes</MenuItem>
+                  <MenuItem className="menu-item">
+                    Application Processing
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Beneficiaries Enrollment
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Participants Self-Service
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            )}
 
-            <Menu>
-              <MenuButton
-                as={Button}
-                leftIcon={<FaEmber />}
-                rightIcon={<MdArrowDropDown />}
-                className="menu-button"
-              >
-                Emergency Management
-              </MenuButton>
-              <MenuList className="menu-list">
-                <MenuItem className="menu-item">Incident Types</MenuItem>
-                <MenuItem className="menu-item">Incident Reporting</MenuItem>
-                <MenuItem className="menu-item">
-                  Preliminary Assessment
-                </MenuItem>
-                <MenuItem className="menu-item">Intervention Approval</MenuItem>
-                <MenuItem className="menu-item">Reports</MenuItem>
-              </MenuList>
-            </Menu>
+            {activeDrawer == 'Emergency Management' && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<FaEmber />}
+                  rightIcon={<MdArrowDropDown />}
+                  className="menu-button"
+                >
+                  Emergency Management
+                </MenuButton>
+                <MenuList className="menu-list">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={handleIncidentReporting}
+                  >
+                    Incident Reporting
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Preliminary Assessment
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Intervention Approval
+                  </MenuItem>
+                  <MenuItem className="menu-item">Reports</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
 
-            <Menu>
-              <MenuButton
-                as={Button}
-                leftIcon={<FaRProject />}
-                rightIcon={<MdArrowDropDown />}
-                className="menu-button"
-              >
-                Project Management
-              </MenuButton>
-              <MenuList className="menu-list">
-                <MenuItem className="menu-item">
-                  Approved Project Enlistment
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Enlistment of Projects Awarded for Execution
-                </MenuItem>
-                <MenuItem className="menu-item">Project Tracking</MenuItem>
-                <MenuItem className="menu-item">Project Inspection</MenuItem>
-                <MenuItem className="menu-item">Reports</MenuItem>
-              </MenuList>
-            </Menu>
+            {activeDrawer == 'Project Management' && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<FaRProject />}
+                  rightIcon={<MdArrowDropDown />}
+                  className="menu-button"
+                >
+                  Project Management
+                </MenuButton>
+                <MenuList className="menu-list">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={handleProjectEnlistment}
+                  >
+                    Enlistment of Projects Awarded for Execution
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Approved Project Enlistment
+                  </MenuItem>
+                  <MenuItem className="menu-item">Project Tracking</MenuItem>
+                  <MenuItem className="menu-item">Project Inspection</MenuItem>
+                  <MenuItem className="menu-item">Reports</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
 
-            <Menu>
-              <MenuButton
-                as={Button}
-                leftIcon={<FaFileInvoice />}
-                rightIcon={<MdArrowDropDown />}
-                className="menu-button"
-              >
-                Inventory Management
-              </MenuButton>
-              <MenuList className="menu-list">
-                <MenuItem className="menu-item">
-                  Inventory Item Enlistments
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  Inventory Transactions
-                </MenuItem>
-                <MenuItem className="menu-item">Inventory Reports</MenuItem>
-              </MenuList>
-            </Menu>
+            {activeDrawer == 'Inventory Management' && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<FaFileInvoice />}
+                  rightIcon={<MdArrowDropDown />}
+                  className="menu-button"
+                >
+                  Inventory Management
+                </MenuButton>
+                <MenuList className="menu-list">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={handleItemEnlistment}
+                  >
+                    Inventory Item Enlistments
+                  </MenuItem>
+                  <MenuItem className="menu-item">
+                    Inventory Transactions
+                  </MenuItem>
+                  <MenuItem className="menu-item">Inventory Reports</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
 
             <Menu>
               <MenuButton

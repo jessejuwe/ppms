@@ -33,12 +33,15 @@ const ModulesPage: React.FC = () => {
         >
           <h2 className="bold-text">Services</h2>
           <h1 className="head-text">
-            HYPPADEC offers 6 major services and those services have sub
+            HYPPADEC PPMS offers 6 major services and those services have sub
             services.
           </h1>
           <p className="p-text">
-            The all-in-one Program and Project Management platform to assist
-            mananegment, save time and increase overall performance.
+            This is a fully online real-time Programs and Projects Management
+            System, providing stakeholders with convenient access to HYPPADEC
+            interventions program over the internet, and enabling imparted
+            communities of the member states to actively participate in the
+            activites of the commission.
           </p>
           <Button
             pill={false}
