@@ -4,7 +4,7 @@
 
 @layer components {
   .project-enlistment-form {
-    @apply h-fit;
+    @apply h-fit big:px-56;
 
     .card {
       .card-body {
@@ -15,7 +15,7 @@
             @apply mx-2;
 
             .input {
-              @apply p-2 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
+              @apply p-2 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black text-sm;
 
               &::placeholder {
                 @apply text-sm;
@@ -49,12 +49,12 @@
             }
 
             input {
-              @apply p-2 rounded-md border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
+              @apply p-2 rounded-md border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black text-sm;
             }
           }
 
           button {
-            @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in;
+            @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in text-sm font-medium;
           }
         }
       }

@@ -3,11 +3,21 @@
 @tailwind utilities;
 
 @layer components {
-  .menu-button {
-    @apply transition-all duration-150 ease-in rounded-md;
-  }
+  .chakra-stack {
+    .menu-button {
+      @apply transition-all duration-150 ease-in rounded-md;
+    }
 
-  .menu-item {
-    @apply hover:bg-gray-300;
+    div {
+      @apply m-0;
+
+      .menu-list {
+        @apply m-0;
+      }
+
+      .menu-item {
+        @apply hover:bg-gray-300 m-0;
+      }
+    }
   }
 }

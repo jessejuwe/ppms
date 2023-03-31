@@ -15,7 +15,7 @@
             @apply mx-2;
 
             .input {
-              @apply p-2 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
+              @apply text-sm p-2 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
 
               &::placeholder {
                 @apply text-sm;
@@ -35,7 +35,7 @@
                 @apply cursor-pointer;
 
                 svg {
-                  @apply bg-black;
+                  @apply bg-black hidden;
                 }
               }
             }

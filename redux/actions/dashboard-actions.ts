@@ -10,6 +10,7 @@ import {
   query,
 } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 import {
   firestore,
@@ -130,25 +131,30 @@ export const uploadStudRegData = (uploadData: StudRegModel) => {
       timeStamp: uploadData.timeStamp,
     };
 
+    const stringRef = `student/${uploadData.fullName}`;
+
     // Create a child reference
-    const studentRef = ref(storage, `student/${uploadData.fullName}`);
-    const metadata = { contentType: '.pdf, image/jpeg, image/png, image/jpg' };
+    const schoolIDRef = ref(storage, `${stringRef}/school_id${v4()}`);
+    // Create a child reference
+    const admissionLetterRef = ref(storage, `${stringRef}/ad_letter${v4()}`);
+    // Create a child reference
+    const lastResultRef = ref(storage, `${stringRef}/last_result${v4()}`);
 
     try {
-      if (uploadData.school_id == '') throw new Error('Upload School ID');
+      if (uploadData.school_id == null) throw new Error('Upload School ID');
       // prettier-ignore
-      if (uploadData.admission_letter == '') throw new Error('Upload Admission Letter');
+      if (uploadData.admission_letter == null) throw new Error('Upload Admission Letter');
       // prettier-ignore
-      if (uploadData.last_semester_result == '') throw new Error('Upload Last Semester Result');
+      if (uploadData.last_semester_result == null) throw new Error('Upload Last Semester Result');
 
       // upload Student ID Card File
-      await uploadBytes(studentRef, uploadData.school_id, metadata);
+      await uploadBytes(schoolIDRef, uploadData.school_id);
 
       // upload Admission Letter File
-      await uploadBytes(studentRef, uploadData.admission_letter, metadata);
+      await uploadBytes(admissionLetterRef, uploadData.admission_letter);
 
       // upload Last Semester Result File
-      await uploadBytes(studentRef, uploadData.last_semester_result, metadata);
+      await uploadBytes(lastResultRef, uploadData.last_semester_result);
 
       // upload Student Data
       await addDoc(studentRegistrationCollection, data);
@@ -286,47 +292,4 @@ export const uploadItemEnlistmentData = (uploadData: ItemEnlistmentModel) => {
   };
 }; // End of function body
 
-// *******************************
-
-// Custom Action Creator for uploading Student data
-// export const uploadStudRegData = (uploadData: StudRegModel) => {
-//   // returning a function that returns an action object
-//   return async (dispatch: AppDispatch) => {
-//     const data: StudRegModel = {
-//       fullName: uploadData.fullName,
-//       school_name: uploadData.school_name,
-//       department: uploadData.department,
-//       address: uploadData.address,
-//       state_of_origin: uploadData.state_of_origin,
-//       local_govt: uploadData.local_govt,
-//       community: uploadData.community,
-//       email: uploadData.email,
-//       phoneNumber: uploadData.phoneNumber,
-//       support_scheme: uploadData.support_scheme,
-//       school_id: uploadData.school_id,
-//       admission_letter: uploadData.admission_letter,
-//       last_semester_result: uploadData.last_semester_result,
-//       timeStamp: uploadData.timeStamp,
-//     };
-
-//     try {
-//       await addDoc(studentRegistrationCollection, data);
-
-//       dispatch(
-//         uiActions.updateNotification({
-//           status: 'success',
-//           title: 'Registration complete',
-//           message: 'Student has been registered successfully',
-//         })
-//       );
-//     } catch (error: any) {
-//       dispatch(
-//         uiActions.updateNotification({
-//           status: 'error',
-//           title: error.code,
-//           message: error.message,
-//         })
-//       );
-//     }
-//   };
-// }; // End of function body
+// ***********************************************************

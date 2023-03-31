@@ -9,19 +9,27 @@
     &-content {
       @apply w-full h-full relative px-4 pt-20;
 
-      .drawer-button {
-        @apply absolute bottom-5 right-5;
-
-        button {
-          @apply rounded-3xl bg-secondary-brightest hover:bg-secondary-bright text-gray-300 text-sm font-medium z-[9999];
-        }
-      }
-
       .main-dashboard-content {
         @apply w-full h-full;
 
+        .content-breadcrumb {
+          .breadcrumb {
+            ol {
+              li {
+                span {
+                  @apply text-sm big:text-base;
+                }
+              }
+            }
+          }
+        }
+
         .dashboard-nav {
           @apply my-2 flex flex-row items-center justify-between;
+
+          h1 {
+            @apply text-lg md:text-3xl;
+          }
 
           button {
             @apply rounded-md bg-secondary-brightest text-gray-300 text-sm font-medium;

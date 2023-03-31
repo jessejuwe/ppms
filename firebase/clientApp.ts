@@ -30,7 +30,7 @@ export const firestore = getFirestore(app);
 export const auth = getAuth(app);
 
 // Initialize Cloud Storage and get a reference to the service
-export const storage = getStorage(app, 'gs://my-custom-bucket');
+export const storage = getStorage(app);
 
 // Create a storage reference
 export const storageRef = ref(storage);

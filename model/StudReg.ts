@@ -11,9 +11,9 @@ export const initialValues: StudReg = {
   email: '',
   phoneNumber: '',
   support_scheme: '',
-  school_id: '',
-  admission_letter: '',
-  last_semester_result: '',
+  school_id: null,
+  admission_letter: null,
+  last_semester_result: null,
   timeStamp: undefined,
 };
 
@@ -29,9 +29,9 @@ class StudReg {
   email: string;
   phoneNumber: string;
   support_scheme: string;
-  school_id: File | any;
-  admission_letter: File | any;
-  last_semester_result: File | any;
+  school_id: File | null;
+  admission_letter: File | null;
+  last_semester_result: File | null;
   timeStamp?: FieldValue;
 
   constructor() {
@@ -46,9 +46,9 @@ class StudReg {
     this.email = '';
     this.phoneNumber = '';
     this.support_scheme = '';
-    this.school_id = '';
-    this.admission_letter = '';
-    this.last_semester_result = '';
+    this.school_id = null;
+    this.admission_letter = null;
+    this.last_semester_result = null;
     this.timeStamp = undefined;
   }
 }

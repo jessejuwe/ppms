@@ -2,7 +2,7 @@
 
 import React, { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
-import { Button, useToast } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { Breadcrumb } from 'flowbite-react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { HiHome } from 'react-icons/hi';
@@ -17,26 +17,15 @@ import {
   ProjectEnlistment,
   ItemEnlistment,
 } from '@/exports/exports';
-import { uiActions } from '@/redux/slices/ui-slice';
 import { dashboardActions } from '@/redux/slices/dashboard-slice';
 
 const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
-  const toast = useToast();
-
-  const drawerIsOpen = useAppSelector(state => state.ui.drawerIsOpen);
   const active = useAppSelector(state => state.dashboard.active);
-
-  const handleOpenDrawer = useCallback(() => {
-    dispatch(uiActions.openDrawer());
-  }, [dispatch]);
-
-  const handleCloseDrawer = useCallback(() => {
-    dispatch(uiActions.closeDrawer());
-  }, [dispatch]);
 
   const handleGoBack = useCallback(() => {
     dispatch(dashboardActions.setActive({ alpha: 'Dashboard', beta: null }));
+    dispatch(dashboardActions.setDrawer('Dashboard'));
   }, [dispatch]);
 
   let content;
@@ -76,13 +65,6 @@ const Dashboard: React.FC = () => {
       <Drawer />
       <main className="dashboard">
         <div className="dashboard-content">
-          {/* <div className="drawer-button">
-            <Button
-              onClick={drawerIsOpen ? handleCloseDrawer : handleOpenDrawer}
-            >
-              {drawerIsOpen ? 'Close Menu' : 'Open Menu'}
-            </Button>
-          </div> */}
           <div className="main-dashboard-content">
             <div className="content-breadcrumb">
               <Breadcrumb className="breadcrumb">

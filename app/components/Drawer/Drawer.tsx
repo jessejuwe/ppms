@@ -11,6 +11,8 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+} from '@chakra-ui/react';
+import {
   Avatar,
   HStack,
   VStack,
@@ -27,14 +29,6 @@ import {
   MenuDivider,
 } from '@chakra-ui/react';
 import { MdArrowDropDown } from 'react-icons/md';
-import {
-  FaSuperpowers,
-  FaObjectGroup,
-  FaEmber,
-  FaRProject,
-  FaFileInvoice,
-} from 'react-icons/fa';
-import { HiLogout } from 'react-icons/hi';
 
 import { images } from '@/constants';
 import { uiActions } from '@/redux/slices/ui-slice';
@@ -154,18 +148,17 @@ const MainDrawer: React.FC = () => {
         </DrawerHeader>
 
         <DrawerBody>
-          <VStack spacing={8} align="start" justify="center">
+          <VStack spacing={8} align="start" justify="center" margin={0}>
             {activeDrawer == 'Youth Empowerment' && (
-              <Menu>
+              <Menu closeOnSelect>
                 <MenuButton
                   as={Button}
-                  leftIcon={<FaSuperpowers />}
                   rightIcon={<MdArrowDropDown />}
                   className="menu-button"
                 >
                   Youth Empowerment
                 </MenuButton>
-                <MenuList className="menu-list">
+                <MenuList className="menu-list" style={{ margin: 0 }}>
                   <MenuItem
                     className="menu-item"
                     onClick={handleCandidateRegistration}
@@ -192,10 +185,9 @@ const MainDrawer: React.FC = () => {
             )}
 
             {activeDrawer == 'Community Empowerment' && (
-              <Menu>
+              <Menu closeOnSelect>
                 <MenuButton
                   as={Button}
-                  leftIcon={<FaObjectGroup />}
                   rightIcon={<MdArrowDropDown />}
                   className="menu-button"
                 >
@@ -242,10 +234,9 @@ const MainDrawer: React.FC = () => {
             )}
 
             {activeDrawer == 'Education Empowerment' && (
-              <Menu>
+              <Menu closeOnSelect>
                 <MenuButton
                   as={Button}
-                  leftIcon={<FaEmber />}
                   rightIcon={<MdArrowDropDown />}
                   className="menu-button"
                 >
@@ -274,10 +265,9 @@ const MainDrawer: React.FC = () => {
             )}
 
             {activeDrawer == 'Emergency Management' && (
-              <Menu>
+              <Menu closeOnSelect>
                 <MenuButton
                   as={Button}
-                  leftIcon={<FaEmber />}
                   rightIcon={<MdArrowDropDown />}
                   className="menu-button"
                 >
@@ -302,10 +292,9 @@ const MainDrawer: React.FC = () => {
             )}
 
             {activeDrawer == 'Project Management' && (
-              <Menu>
+              <Menu closeOnSelect>
                 <MenuButton
                   as={Button}
-                  leftIcon={<FaRProject />}
                   rightIcon={<MdArrowDropDown />}
                   className="menu-button"
                 >
@@ -329,10 +318,9 @@ const MainDrawer: React.FC = () => {
             )}
 
             {activeDrawer == 'Inventory Management' && (
-              <Menu>
+              <Menu closeOnSelect>
                 <MenuButton
                   as={Button}
-                  leftIcon={<FaFileInvoice />}
                   rightIcon={<MdArrowDropDown />}
                   className="menu-button"
                 >
@@ -353,10 +341,9 @@ const MainDrawer: React.FC = () => {
               </Menu>
             )}
 
-            <Menu>
+            <Menu closeOnSelect>
               <MenuButton
                 as={Button}
-                leftIcon={<HiLogout />}
                 rightIcon={<MdArrowDropDown />}
                 className="menu-button"
               >

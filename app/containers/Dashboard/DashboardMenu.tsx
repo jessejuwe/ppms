@@ -13,14 +13,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
+import { useAppDispatch } from '@/redux/hooks/hooks';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { dashboardActions } from '@/redux/slices/dashboard-slice';
 
 const DashboardMenu: React.FC = () => {
   const dispatch = useAppDispatch();
-
-  const drawerIsOpen = useAppSelector(state => state.ui.drawerIsOpen);
 
   const handleOpenDrawer = useCallback(
     (drawer: string) => {
@@ -29,10 +27,6 @@ const DashboardMenu: React.FC = () => {
     },
     [dispatch]
   );
-
-  const handleCloseDrawer = useCallback(() => {
-    dispatch(uiActions.closeDrawer());
-  }, [dispatch]);
 
   return (
     <Accordion allowToggle>
