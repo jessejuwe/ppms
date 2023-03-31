@@ -11,10 +11,7 @@ const Header: React.FC = () => {
   // useEffect for scrolling to top onload
   useEffect(() => {
     const element = document.getElementById('landing__page');
-
-    if (!element) return;
-
-    element.scrollIntoView({ behavior: 'smooth' });
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   return (
