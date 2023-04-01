@@ -2,6 +2,8 @@ export const firstNameRegEx = new RegExp(/^[A-Z][A-Za-z]{2,15}$/);
 
 export const lastNameRegEx = new RegExp(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+/);
 
+export const fullNameRegEx = new RegExp(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+/);
+
 export const emailRegEx = new RegExp(
   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 );

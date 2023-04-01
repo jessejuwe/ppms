@@ -3,4 +3,7 @@
 @tailwind utilities;
 
 @layer components {
+  .dashboard-menu {
+    @apply h-screen;
+  }
 }

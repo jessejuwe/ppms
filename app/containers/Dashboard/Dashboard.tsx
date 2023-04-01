@@ -62,40 +62,37 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Drawer />
       <main className="dashboard">
         <div className="dashboard-content">
-          <div className="main-dashboard-content">
-            <div className="content-breadcrumb">
-              <Breadcrumb className="breadcrumb">
-                <Breadcrumb.Item href="/" icon={HiHome}>
-                  Dashboard
-                </Breadcrumb.Item>
-                {active.alpha !== 'Dashboard' && (
-                  <Breadcrumb.Item>{active.alpha}</Breadcrumb.Item>
-                )}
-                {active.beta !== null && (
-                  <Breadcrumb.Item>{active.beta}</Breadcrumb.Item>
-                )}
-              </Breadcrumb>
-            </div>
+          <div className="content-breadcrumb">
+            <Breadcrumb className="breadcrumb">
+              <Breadcrumb.Item href="/" icon={HiHome}>
+                Dashboard
+              </Breadcrumb.Item>
+              {active.alpha !== 'Dashboard' && (
+                <Breadcrumb.Item>{active.alpha}</Breadcrumb.Item>
+              )}
+              {active.beta !== null && (
+                <Breadcrumb.Item>{active.beta}</Breadcrumb.Item>
+              )}
+            </Breadcrumb>
+          </div>
 
-            <div className="dashboard-nav">
-              <h1 className="head-text">
-                {active.alpha == 'Dashboard' ? active.alpha : active.beta}
-              </h1>
-              <Button
-                leftIcon={<FaArrowLeft />}
-                isDisabled={active.alpha == 'Dashboard'}
-                onClick={handleGoBack}
-              >
-                Back
-              </Button>
-            </div>
+          <div className="dashboard-nav">
+            <h1 className="head-text">
+              {active.alpha == 'Dashboard' ? active.alpha : active.beta}
+            </h1>
+            <Button
+              leftIcon={<FaArrowLeft />}
+              isDisabled={active.alpha == 'Dashboard'}
+              onClick={handleGoBack}
+            >
+              Back
+            </Button>
+          </div>
 
-            <div className="dynamic-content">
-              {active.alpha == 'Dashboard' ? <DashboardMenu /> : content}
-            </div>
+          <div className="dynamic-content">
+            {active.alpha == 'Dashboard' ? <DashboardMenu /> : content}
           </div>
         </div>
       </main>

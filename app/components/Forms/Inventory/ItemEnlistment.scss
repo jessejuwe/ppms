@@ -4,10 +4,12 @@
 
 @layer components {
   .item-enlistment-form {
-    @apply h-fit big:px-56;
+    @apply h-screen big:px-56;
 
     .card {
       .card-body {
+        @apply w-full;
+
         form {
           @apply flex flex-col items-center justify-center gap-4 w-full;
 
@@ -42,7 +44,7 @@
           }
 
           button {
-            @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in text-sm font-medium;
+            @apply w-full md:w-[60%] outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in text-sm font-medium;
           }
         }
       }

@@ -4,7 +4,7 @@
 
 @layer components {
   .student-reg-form {
-    @apply h-fit big:px-56;
+    @apply big:px-56 h-screen;
 
     .card {
       .card-body {
@@ -14,16 +14,16 @@
           @apply flex flex-col items-center justify-center gap-1 big:gap-0;
 
           .spacer {
-            @apply flex flex-row items-center justify-center w-full;
+            @apply flex flex-col gap-2 md:flex-row items-center justify-center w-full;
 
             .stack {
-              @apply mx-1;
+              @apply mx-2 w-full;
 
               .input {
-                @apply text-xs md:text-sm p-1 md:p-2 rounded-md border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black w-[95%] md:w-full h-[35px] md:h-[initial];
+                @apply text-sm p-2 rounded-md border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black w-full;
 
                 &::placeholder {
-                  @apply text-xs md:text-sm;
+                  @apply text-sm;
                 }
               }
 
@@ -32,13 +32,13 @@
               }
 
               .fc-upper {
-                @apply h-[35px] md:h-[42px] w-[95%] md:w-full;
+                @apply h-[35px] md:h-[42px] w-full;
 
                 .chakra-select__wrapper {
                   @apply h-[35px] md:h-[inherit];
 
                   select {
-                    @apply text-black bg-gray-100 text-xs md:text-sm cursor-pointer h-[inherit];
+                    @apply text-black bg-gray-100 text-sm cursor-pointer h-[inherit];
                   }
 
                   .chakra-select__icon-wrapper {
@@ -54,23 +54,23 @@
           }
 
           .form-control-extra {
-            @apply md:w-full flex flex-row items-center justify-center;
+            @apply w-full flex flex-row items-center justify-center;
 
             label {
               @apply text-xs md:text-sm w-[30%] text-end;
             }
 
             input {
-              @apply text-xs md:text-sm p-1 md:p-2 transition-all duration-150 ease-in text-black;
+              @apply text-sm p-1 md:p-2 transition-all duration-150 ease-in text-black;
 
               &::placeholder {
-                @apply text-xs md:text-sm;
+                @apply text-sm;
               }
             }
           }
 
           button {
-            @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in -mb-1 text-sm font-medium;
+            @apply w-full md:w-[60%] outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in text-sm font-medium;
           }
         }
       }

@@ -5,7 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { Button, useToast, VStack, Select } from '@chakra-ui/react';
-import { Flex, Spacer, FormControl } from '@chakra-ui/react';
+import { FormControl } from '@chakra-ui/react';
 import { Card, CardBody } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
@@ -76,7 +76,7 @@ const CandidateRegistration: React.FC = () => {
           <CardBody className="card-body">
             <Formik
               initialValues={initialValues}
-              //   validationSchema={CandRegSchema}
+              // validationSchema={CandRegSchema}
               onSubmit={(values, action) => {
                 action.setSubmitting(true);
 
@@ -113,15 +113,14 @@ const CandidateRegistration: React.FC = () => {
                   });
                 }
 
-                setOption('');
-
                 action.setSubmitting(false);
                 action.resetForm();
+                setOption('');
               }}
             >
               {({ errors, touched, isSubmitting }) => (
                 <Form>
-                  <Flex align="center" justify="space-between">
+                  <div className="spacer">
                     <VStack className="stack">
                       <Field
                         name="fullName"
@@ -198,8 +197,6 @@ const CandidateRegistration: React.FC = () => {
                       />
                     </VStack>
 
-                    <Spacer />
-
                     <VStack className="stack">
                       <Field
                         name="state_of_origin"
@@ -271,7 +268,7 @@ const CandidateRegistration: React.FC = () => {
                         }`}
                       />
                     </VStack>
-                  </Flex>
+                  </div>
 
                   <Button
                     type="submit"

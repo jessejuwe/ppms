@@ -5,13 +5,12 @@ import { serverTimestamp } from 'firebase/firestore';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { Button, Switch, useToast, VStack, Select } from '@chakra-ui/react';
-import { Flex, Spacer, FormControl, FormLabel } from '@chakra-ui/react';
+import { FormControl, FormLabel } from '@chakra-ui/react';
 
 import { Card, CardBody } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { uploadIncidentReportingData } from '@/redux/actions/dashboard-actions';
-import { dashboardActions } from '@/redux/slices/dashboard-slice';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { initialValues } from '@/model/IncidentReporting';
 import { IncidentReportingModel } from '@/model';
@@ -95,7 +94,7 @@ const IncidentReporting: React.FC = () => {
             >
               {({ errors, touched, isSubmitting }) => (
                 <Form>
-                  <Flex align="center" justify="space-between">
+                  <div className="spacer">
                     <VStack className="stack">
                       <Field>
                         {({ field }: FieldProps) => (
@@ -153,8 +152,6 @@ const IncidentReporting: React.FC = () => {
                       </Field>
                     </VStack>
 
-                    <Spacer />
-
                     <VStack className="stack">
                       <Field
                         name="state_of_origin"
@@ -185,7 +182,7 @@ const IncidentReporting: React.FC = () => {
                         }`}
                       />
                     </VStack>
-                  </Flex>
+                  </div>
 
                   <FormControl id="incident_date">
                     <FormLabel htmlFor="incident_date" mb="0">

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import {
@@ -12,14 +13,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react';
-import {
-  Avatar,
-  HStack,
-  VStack,
-  Text,
-  Button,
-  useToast,
-} from '@chakra-ui/react';
+import { HStack, VStack, Text, Button, useToast } from '@chakra-ui/react';
 import {
   Menu,
   MenuButton,
@@ -137,11 +131,11 @@ const MainDrawer: React.FC = () => {
         <DrawerCloseButton />
         <DrawerHeader>
           <HStack gap={2}>
-            <Avatar
-              size="sm"
-              bg="primary.800"
+            <Image
               src={images.hyppadec_logo}
-              name="HYPPADEC PPMS"
+              className="nav__logo-img"
+              alt="HYPPADEC Logo"
+              priority
             />
             <Text>HYPPADEC | PPMS</Text>
           </HStack>
@@ -193,7 +187,7 @@ const MainDrawer: React.FC = () => {
                 >
                   Community Empowerment
                 </MenuButton>
-                <MenuList className="menu-list">
+                <MenuList className="menu-list" style={{ margin: 0 }}>
                   <MenuItem
                     className="menu-item"
                     onClick={handleProgramExecution}
@@ -242,7 +236,7 @@ const MainDrawer: React.FC = () => {
                 >
                   Education Empowerment
                 </MenuButton>
-                <MenuList className="menu-list">
+                <MenuList className="menu-list" style={{ margin: 0 }}>
                   <MenuItem
                     className="menu-item"
                     onClick={handleStudentRegistration}
@@ -273,7 +267,7 @@ const MainDrawer: React.FC = () => {
                 >
                   Emergency Management
                 </MenuButton>
-                <MenuList className="menu-list">
+                <MenuList className="menu-list" style={{ margin: 0 }}>
                   <MenuItem
                     className="menu-item"
                     onClick={handleIncidentReporting}
@@ -300,7 +294,7 @@ const MainDrawer: React.FC = () => {
                 >
                   Project Management
                 </MenuButton>
-                <MenuList className="menu-list">
+                <MenuList className="menu-list" style={{ margin: 0 }}>
                   <MenuItem
                     className="menu-item"
                     onClick={handleProjectEnlistment}
@@ -326,7 +320,7 @@ const MainDrawer: React.FC = () => {
                 >
                   Inventory Management
                 </MenuButton>
-                <MenuList className="menu-list">
+                <MenuList className="menu-list" style={{ margin: 0 }}>
                   <MenuItem
                     className="menu-item"
                     onClick={handleItemEnlistment}
@@ -349,7 +343,7 @@ const MainDrawer: React.FC = () => {
               >
                 User
               </MenuButton>
-              <MenuList className="menu-list">
+              <MenuList className="menu-list" style={{ margin: 0 }}>
                 <MenuItem className="menu-item">Notifications</MenuItem>
                 <MenuItem className="menu-item">Reports</MenuItem>
                 <MenuItem className="menu-item">FAQ</MenuItem>

@@ -4,45 +4,51 @@
 
 @layer components {
   .candidate-reg-form {
-    @apply h-fit big:px-56;
+    @apply h-screen big:px-56;
 
     .card {
       .card-body {
+        @apply w-full;
+
         form {
           @apply flex flex-col items-center justify-center gap-4;
 
-          .stack {
-            @apply mx-2;
+          .spacer {
+            @apply flex flex-col gap-2 md:flex-row items-center justify-center w-full;
 
-            .input {
-              @apply text-sm p-2 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
+            .stack {
+              @apply mx-2 w-full;
 
-              &::placeholder {
-                @apply text-sm;
-              }
-            }
+              .input {
+                @apply text-sm p-2 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
 
-            .error {
-              @apply ring ring-red-700 transition-all duration-150 ease-in;
-            }
-
-            .chakra-select__wrapper {
-              select {
-                @apply text-black bg-gray-100 text-sm w-full cursor-pointer;
+                &::placeholder {
+                  @apply text-sm;
+                }
               }
 
-              .chakra-select__icon-wrapper {
-                @apply cursor-pointer;
+              .error {
+                @apply ring ring-red-700 transition-all duration-150 ease-in;
+              }
 
-                svg {
-                  @apply bg-black hidden;
+              .chakra-select__wrapper {
+                select {
+                  @apply text-black bg-gray-100 text-sm w-full cursor-pointer;
+                }
+
+                .chakra-select__icon-wrapper {
+                  @apply cursor-pointer;
+
+                  svg {
+                    @apply bg-black hidden;
+                  }
                 }
               }
             }
           }
 
           button {
-            @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in;
+            @apply w-full md:w-[60%] outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in;
           }
         }
       }

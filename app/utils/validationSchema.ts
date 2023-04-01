@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import {
   firstNameRegEx,
   lastNameRegEx,
+  fullNameRegEx,
   emailRegEx,
   phoneNumberRegEx,
   mediumRegEx,
@@ -32,25 +33,21 @@ export const SigninSchema = Yup.object().shape({
 });
 
 export const CandRegSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .matches(firstNameRegEx, 'Invalid name')
-    .required('Required'),
-  lastName: Yup.string()
-    .matches(lastNameRegEx, 'Invalid name')
+  fullName: Yup.string()
+    .matches(fullNameRegEx, 'Invalid name')
     .required('Required'),
   highest_qualification: Yup.string().required('Required'),
   school_attended: Yup.string().required('Required'),
   address: Yup.string().required('Required'),
   state_of_origin: Yup.string().required('Required'),
   local_govt: Yup.string().required('Required'),
-  town: Yup.string().required('Required'),
   community: Yup.string().required('Required'),
   email: Yup.string().matches(emailRegEx, 'Invalid email').required('Required'),
   phoneNumber: Yup.string()
     .matches(phoneNumberRegEx, 'Invalid phone number')
     .required('Required'),
   skills_of_interest: Yup.string().required('Required'),
-  acquired_skill: Yup.string().notRequired(),
+  acquired_skill: Yup.string(),
   preferred_location: Yup.string().required('Required'),
 });
 
@@ -65,7 +62,7 @@ export const ProgramExecutionSchema = Yup.object().shape({
 
 export const StudRegSchema = Yup.object().shape({
   fullName: Yup.string()
-    .matches(lastNameRegEx, 'Invalid name')
+    .matches(fullNameRegEx, 'Invalid name')
     .required('Required'),
   school_name: Yup.string().required('Required'),
   department: Yup.string().required('Required'),
@@ -79,9 +76,9 @@ export const StudRegSchema = Yup.object().shape({
     .matches(phoneNumberRegEx, 'Invalid phone number')
     .required('Required'),
   support_scheme: Yup.string().required('Required'),
-  school_id: Yup.string().required('Required'),
-  admission_letter: Yup.string().required('Required'),
-  last_semester_result: Yup.string().required('Required'),
+  school_id: Yup.object().required('File Required'),
+  admission_letter: Yup.object().required('File Required'),
+  last_semester_result: Yup.object().required('File Required'),
 });
 
 export const IncidentReportingSchema = Yup.object().shape({
@@ -91,9 +88,8 @@ export const IncidentReportingSchema = Yup.object().shape({
   extent_of_damage: Yup.string().required('Required'),
   state_of_origin: Yup.string().required('Required'),
   local_govt: Yup.string().required('Required'),
-  town: Yup.string().required('Required'),
   community: Yup.string().required('Required'),
-  forward_report: Yup.string().required('Required'),
+  forward_report: Yup.boolean().required('Required'),
 });
 
 export const ProjectEnlistmentSchema = Yup.object().shape({

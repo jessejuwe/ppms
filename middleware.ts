@@ -6,7 +6,7 @@ export default function middleware(req: NextRequest) {
 
   // for localhost
   if (!loggedIn && url === 'http://localhost:3000/dashboard') {
-    return NextResponse.redirect('http://localhost:3000/');
+    return NextResponse.redirect('http://localhost:3000/sign-in');
   }
 
   if (loggedIn && url === 'http://localhost:3000/sign-in') {
@@ -15,7 +15,7 @@ export default function middleware(req: NextRequest) {
 
   // for production
   if (!loggedIn && url === 'https://ppms.vercel.app/dashboard') {
-    return NextResponse.redirect('https://ppms.vercel.app/');
+    return NextResponse.redirect('https://ppms.vercel.app/sign-in');
   }
 
   if (loggedIn && url === 'https://ppms.vercel.app/sign-in') {
