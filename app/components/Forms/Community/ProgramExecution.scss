@@ -51,7 +51,7 @@
             }
 
             input {
-              @apply p-2 rounded-md border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
+              @apply p-2 rounded-md border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black w-full md:w-fit;
             }
           }
 

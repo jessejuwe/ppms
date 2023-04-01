@@ -54,7 +54,7 @@
           }
 
           .form-control-extra {
-            @apply w-full flex flex-row items-center justify-center;
+            @apply flex flex-row items-center justify-center;
 
             label {
               @apply text-xs md:text-sm w-[30%] text-end;
