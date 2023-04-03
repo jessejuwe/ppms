@@ -9,10 +9,10 @@ import { images } from '@/constants';
 
 const Header: React.FC = () => {
   // useEffect for scrolling to top onload
-  useEffect(() => {
-    const element = document.getElementById('landing__page');
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  // useEffect(() => {
+  //   const element = document.getElementById('landing__page');
+  //   if (element) element.scrollIntoView({ behavior: 'smooth' });
+  // }, []);
 
   return (
     <>

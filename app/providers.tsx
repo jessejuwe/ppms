@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from '@/redux/store/store';
@@ -23,6 +24,10 @@ const fonts = {
 const theme = extendTheme({ colors, fonts });
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <CacheProvider>
       <ChakraProvider theme={theme}>
