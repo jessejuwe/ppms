@@ -40,24 +40,6 @@ const Sections: React.FC = () => {
           </Button>
         </div>
 
-        {
-          <Divider
-            className="horizontal-divider"
-            orientation="horizontal"
-            color="white"
-            width="5xl"
-          />
-        }
-
-        {
-          <Divider
-            className="vertical-divider"
-            orientation="vertical"
-            color="white"
-            height="lg"
-          />
-        }
-
         <div className="section__title second-section" key="second-section">
           <h2 className="section__description">Services</h2>
           <h3 className="section__header">What PPMS can offer for you</h3>
@@ -81,7 +63,7 @@ const Sections: React.FC = () => {
         </div>
       </section>
 
-      <div className="tabbed-section" key="tabbed-section">
+      <section className="section tabbed-section" key="tabbed-section">
         <h2>Features</h2>
         <h3>Use PPMS with ease</h3>
         <Tabs.Group
@@ -138,7 +120,7 @@ const Sections: React.FC = () => {
             </Tabs.Item>
           ))}
         </Tabs.Group>
-      </div>
+      </section>
 
       <div className="join-us-section app__flex" key="join-section">
         <motion.div

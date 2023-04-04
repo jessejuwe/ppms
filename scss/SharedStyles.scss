@@ -36,7 +36,7 @@
   }
 
   .section {
-    @apply py-5 transition w-full;
+    @apply transition-all;
 
     &__title {
       @apply px-4 big:px-[initial] mt-[initial] md:mt-10 mx-auto mb-4 md:max-w-lg big:max-w-md min-h-full;

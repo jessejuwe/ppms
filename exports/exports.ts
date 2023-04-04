@@ -4,6 +4,7 @@
 export { default as NavBar } from '../app/layouts/NavBar/NavBar';
 export { default as Footer } from '../app/layouts/Footer/Footer';
 export { default as Sidebar } from '../app/layouts/Sidebar/Sidebar';
+export { default as ScrollToTop } from '../app/layouts/ScrollToTop/ScrollToTop';
 
 // exporting RFC default export from React Server Component folder (containers)
 export { default as Header } from '../app/containers/Header/Header';
