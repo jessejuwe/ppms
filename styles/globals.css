@@ -29,6 +29,7 @@
 @import '../app/containers/Dashboard/DashboardMenu.scss';
 
 @import '../app/components/UI/Modal/Modal.scss';
+@import '../app/components/UI/Modal/DashboardModal.scss';
 @import '../app/components/Drawer/Drawer.scss';
 @import '../app/components/Button/GoogleButton.scss';
 @import '../app/components/Forms/Empowerment/CandidateRegistration.scss';

@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .modal-header {
+    @apply bg-secondary-bright;
+  }
+
+  .modal-body {
+    @apply p-2;
+  }
+
+  .modal-footer {
+    @apply p-1;
+  }
+}

@@ -5,18 +5,12 @@
 @layer components {
   .chakra-stack {
     .menu-button {
-      @apply transition-all duration-150 ease-in rounded-md;
+      @apply transition-all duration-150 ease-in rounded-md text-sm;
     }
 
     div {
-      @apply m-0;
-
-      .menu-list {
-        @apply m-0;
-      }
-
       .menu-item {
-        @apply hover:bg-gray-300 m-0;
+        @apply hover:bg-gray-300 text-sm;
       }
     }
   }

@@ -25,6 +25,7 @@ export { default as DashboardMenu } from '../app/containers/Dashboard/DashboardM
 
 // exporting RFC default export from React Server Component folder (components)
 export { default as Modal } from '../app/components/UI/Modal/Modal';
+export { default as DashboardModal } from '../app/components/UI/Modal/DashboardModal';
 export { default as GoogleButton } from '../app/components/Button/GoogleButton';
 export { default as Drawer } from '../app/components/Drawer/Drawer';
 export { default as CandidateRegistration } from '../app/components/Forms/Empowerment/CandidateRegistration';
