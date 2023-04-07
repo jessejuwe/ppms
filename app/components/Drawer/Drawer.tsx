@@ -124,6 +124,85 @@ const MainDrawer: React.FC = () => {
     dispatch(uiActions.closeDrawer());
   }, [dispatch]);
 
+  const handleCandidateList = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Youth Empowerment',
+        beta: 'Candidate List',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleScheduledProgramList = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Community Empowerment',
+        beta: 'Scheduled Program List',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleStudentList = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Education Empowerment',
+        beta: 'Student List',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleReportedIncidentList = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Emergency Management',
+        beta: 'Reported Incident List',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleEnlistedProjectList = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Project Management',
+        beta: 'Enlisted Project List',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleEnlistedItemList = useCallback(() => {
+    dispatch(
+      dashboardActions.setActive({
+        alpha: 'Store-Inventory Management',
+        beta: 'Enlisted Item List',
+      })
+    );
+
+    dispatch(uiActions.closeDrawer());
+  }, [dispatch]);
+
+  const handleNotifications = useCallback(() => {
+    if (toast.isActive('notifications')) return;
+    toast({
+      id: 'notifications',
+      title: 'Notifications',
+      description: 'There are no notfications.',
+      status: 'info',
+      duration: 5000,
+      isClosable: true,
+      position: 'bottom-left',
+    });
+  }, [toast]);
+
   return (
     <>
       <Drawer isOpen={isOpen} placement="left" onClose={handleCloseDrawer}>
@@ -233,7 +312,10 @@ const MainDrawer: React.FC = () => {
                     Reports
                   </MenuButton>
                   <MenuList className="menu-list" style={{ margin: 0 }}>
-                    <MenuItem className="menu-item">
+                    <MenuItem
+                      className="menu-item"
+                      onClick={handleCandidateList}
+                    >
                       List of Prospective Candidates
                     </MenuItem>
                     <MenuItem className="menu-item">
@@ -374,15 +456,18 @@ const MainDrawer: React.FC = () => {
                       <MenuItem className="menu-item">Others</MenuItem>
                     </MenuGroup>
                     <MenuDivider />
-                    <MenuGroup title="Programme Inspection/Reports">
-                      <MenuItem className="menu-item">
-                        List of Types of Programme
+                    <MenuGroup title="Program Inspection/Reports">
+                      <MenuItem
+                        className="menu-item"
+                        onClick={handleScheduledProgramList}
+                      >
+                        List of Programs Scheduled for Execution
                       </MenuItem>
                       <MenuItem className="menu-item">
-                        List of Approved
+                        List of Types of Program
                       </MenuItem>
                       <MenuItem className="menu-item">
-                        Programmes Scheduled for Execution
+                        List of Approved Programs
                       </MenuItem>
                       <MenuItem className="menu-item">
                         Monitoring/Inspection
@@ -424,23 +509,39 @@ const MainDrawer: React.FC = () => {
                     Education Empowerment
                   </MenuButton>
                   <MenuList className="menu-list" style={{ margin: 0 }}>
-                    <MenuItem
-                      className="menu-item"
-                      onClick={handleStudentRegistration}
-                    >
-                      Prospective Candidates Registration
-                    </MenuItem>
-                    <MenuItem className="menu-item">Approved Courses</MenuItem>
-                    <MenuItem className="menu-item">Support Schemes</MenuItem>
-                    <MenuItem className="menu-item">
-                      Application Processing
-                    </MenuItem>
-                    <MenuItem className="menu-item">
-                      Beneficiaries Enrollment
-                    </MenuItem>
-                    <MenuItem className="menu-item">
-                      Participants Self-Service
-                    </MenuItem>
+                    <MenuGroup title="Registration & Selection">
+                      <MenuItem
+                        className="menu-item"
+                        onClick={handleStudentRegistration}
+                      >
+                        Prospective Candidates Registration
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Approved Courses
+                      </MenuItem>
+                      <MenuItem className="menu-item">Support Schemes</MenuItem>
+                      <MenuItem className="menu-item">
+                        Application Processing
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Beneficiaries Enrollment
+                      </MenuItem>
+                    </MenuGroup>
+                    <MenuDivider />
+                    <MenuGroup title="Reports">
+                      <MenuItem
+                        className="menu-item"
+                        onClick={handleStudentList}
+                      >
+                        List of Prospective Students
+                      </MenuItem>
+                    </MenuGroup>
+                    <MenuDivider />
+                    <MenuGroup title="Self-Service">
+                      <MenuItem className="menu-item">
+                        Participants Self-Service
+                      </MenuItem>
+                    </MenuGroup>
                   </MenuList>
                 </Menu>
               )}
@@ -489,7 +590,15 @@ const MainDrawer: React.FC = () => {
                     <MenuItem className="menu-item">
                       Intervention Approval
                     </MenuItem>
-                    <MenuItem className="menu-item">Reports</MenuItem>
+                    <MenuDivider />
+                    <MenuGroup title="Reports">
+                      <MenuItem
+                        className="menu-item"
+                        onClick={handleReportedIncidentList}
+                      >
+                        List of Reported Incidents
+                      </MenuItem>
+                    </MenuGroup>
                   </MenuList>
                 </Menu>
               )}
@@ -539,7 +648,15 @@ const MainDrawer: React.FC = () => {
                     <MenuItem className="menu-item">
                       Project Inspection
                     </MenuItem>
-                    <MenuItem className="menu-item">Reports</MenuItem>
+                    <MenuDivider />
+                    <MenuGroup title="Reports">
+                      <MenuItem
+                        className="menu-item"
+                        onClick={handleEnlistedProjectList}
+                      >
+                        List of Enlisted Projects
+                      </MenuItem>
+                    </MenuGroup>
                   </MenuList>
                 </Menu>
               )}
@@ -585,7 +702,15 @@ const MainDrawer: React.FC = () => {
                     <MenuItem className="menu-item">
                       Inventory Transactions
                     </MenuItem>
-                    <MenuItem className="menu-item">Inventory Reports</MenuItem>
+                    <MenuDivider />
+                    <MenuGroup title="Reports">
+                      <MenuItem
+                        className="menu-item"
+                        onClick={handleEnlistedItemList}
+                      >
+                        List of Enlisted Items
+                      </MenuItem>
+                    </MenuGroup>
                   </MenuList>
                 </Menu>
               )}
@@ -626,7 +751,9 @@ const MainDrawer: React.FC = () => {
                   User
                 </MenuButton>
                 <MenuList className="menu-list">
-                  <MenuItem className="menu-item">Notifications</MenuItem>
+                  <MenuItem className="menu-item" onClick={handleNotifications}>
+                    Notifications
+                  </MenuItem>
                   <MenuItem className="menu-item">FAQ</MenuItem>
                   <MenuItem className="menu-item" onClick={handleSignOut}>
                     Sign out
@@ -635,6 +762,11 @@ const MainDrawer: React.FC = () => {
               </Menu>
             </VStack>
           </DrawerBody>
+          <DrawerFooter>
+            <Text as="b" size="sm">
+              Copyright &copy; 2023 HYPPADEC.
+            </Text>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

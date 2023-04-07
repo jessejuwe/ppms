@@ -1,4 +1,10 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  combineReducers,
+  Reducer,
+  CombinedState,
+  AnyAction,
+} from '@reduxjs/toolkit';
 import {
   persistStore,
   FLUSH,
@@ -15,7 +21,25 @@ import uiSlice from '../slices/ui-slice';
 
 const isClient = typeof window !== 'undefined';
 
-let rootReducer;
+type AuthState = ReturnType<typeof authSlice.getInitialState>;
+type DashboardState = ReturnType<typeof dashboardSlice.getInitialState>;
+type UIState = ReturnType<typeof uiSlice.getInitialState>;
+
+let rootReducer: Reducer<
+  CombinedState<{
+    auth: AuthState;
+    dashboard: DashboardState;
+    ui: UIState;
+  }>,
+  AnyAction
+>;
+
+/* COMBINE REDUCERS */
+const combinedReducers = combineReducers({
+  [authSlice.name]: authSlice.reducer,
+  [dashboardSlice.name]: dashboardSlice.reducer,
+  [uiSlice.name]: uiSlice.reducer,
+});
 
 if (isClient) {
   const { persistReducer } = require('redux-persist');
@@ -27,20 +51,9 @@ if (isClient) {
     storage,
   };
 
-  /* COMBINE REDUCERS */
-  const combinedReducers = combineReducers({
-    [authSlice.name]: authSlice.reducer,
-    [dashboardSlice.name]: dashboardSlice.reducer,
-    [uiSlice.name]: uiSlice.reducer,
-  });
-
   rootReducer = persistReducer(persistConfig, combinedReducers);
 } else {
-  rootReducer = combineReducers({
-    [authSlice.name]: authSlice.reducer,
-    [dashboardSlice.name]: dashboardSlice.reducer,
-    [uiSlice.name]: uiSlice.reducer,
-  });
+  rootReducer = combinedReducers;
 }
 
 // creating the store

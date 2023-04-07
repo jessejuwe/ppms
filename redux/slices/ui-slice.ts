@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Notification = {
-  status: String;
-  title: String;
-  message: String;
+  status: string;
+  title: string;
+  message: string;
 };
 
 type InitialState = {
@@ -12,9 +12,9 @@ type InitialState = {
 };
 
 interface Payload {
-  status: String;
-  title: String;
-  message: String;
+  status: string;
+  title: string;
+  message: string;
 }
 
 const initialState: InitialState = {

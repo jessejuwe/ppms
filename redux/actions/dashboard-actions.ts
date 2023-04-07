@@ -8,19 +8,13 @@ import {
   onSnapshot,
   orderBy,
   query,
+  collection,
 } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
+import { User } from 'firebase/auth';
 import { v4 } from 'uuid';
 
-import {
-  firestore,
-  candidateRegistrationCollection,
-  programExecutionCollection,
-  studentRegistrationCollection,
-  incidentReportingCollection,
-  projectEnlistmentCollection,
-  itemEnlistmentCollection,
-} from '@/firebase/clientApp';
+import { firestore, usersDashboardCol } from '@/firebase/clientApp';
 import { uiActions } from '../slices/ui-slice';
 import { AppDispatch } from '../store/store';
 import {
@@ -34,7 +28,7 @@ import {
 import { storage } from '@/firebase/clientApp';
 
 // Custom Action Creator for uploading Candidate data
-export const uploadCandRegData = (uploadData: CandReg) => {
+export const uploadCandRegData = (uploadData: CandReg, user: User) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
     const data: CandReg = {
@@ -53,8 +47,13 @@ export const uploadCandRegData = (uploadData: CandReg) => {
       timeStamp: uploadData.timeStamp,
     };
 
+    if (!user.email) return;
+
+    const id = `candidate_registration`;
+    const col = collection(firestore, 'users_dashboard', user.email, id);
+
     try {
-      await addDoc(candidateRegistrationCollection, data);
+      await addDoc(col, data);
 
       dispatch(
         uiActions.updateNotification({
@@ -77,7 +76,8 @@ export const uploadCandRegData = (uploadData: CandReg) => {
 
 // Custom Action Creator for uploading Project Execution data
 export const uploadProjectExecutionData = (
-  uploadData: ProgramExecutionModel
+  uploadData: ProgramExecutionModel,
+  user: User
 ) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
@@ -91,8 +91,13 @@ export const uploadProjectExecutionData = (
       timeStamp: uploadData.timeStamp,
     };
 
+    if (!user.email) return;
+
+    const id = `project_execution`;
+    const col = collection(firestore, 'users_dashboard', user.email, id);
+
     try {
-      await addDoc(programExecutionCollection, data);
+      await addDoc(col, data);
 
       dispatch(
         uiActions.updateNotification({
@@ -114,7 +119,7 @@ export const uploadProjectExecutionData = (
 }; // End of function body
 
 // Custom Action Creator for uploading Student data
-export const uploadStudRegData = (uploadData: StudRegModel) => {
+export const uploadStudRegData = (uploadData: StudRegModel, user: User) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
     const data = {
@@ -131,7 +136,12 @@ export const uploadStudRegData = (uploadData: StudRegModel) => {
       timeStamp: uploadData.timeStamp,
     };
 
-    const stringRef = `student/${uploadData.fullName}`;
+    if (!user.email) return;
+
+    const id = `student_registration`;
+    const col = collection(firestore, 'users_dashboard', user.email, id);
+
+    const stringRef = `${user.email}/student_registration/${uploadData.fullName}`;
 
     // Create a child reference
     const schoolIDRef = ref(storage, `${stringRef}/school_id${v4()}`);
@@ -157,7 +167,7 @@ export const uploadStudRegData = (uploadData: StudRegModel) => {
       await uploadBytes(lastResultRef, uploadData.last_semester_result);
 
       // upload Student Data
-      await addDoc(studentRegistrationCollection, data);
+      await addDoc(col, data);
 
       dispatch(
         uiActions.updateNotification({
@@ -180,7 +190,8 @@ export const uploadStudRegData = (uploadData: StudRegModel) => {
 
 // Custom Action Creator for uploading Incident Reporting data
 export const uploadIncidentReportingData = (
-  uploadData: IncidentReportingModel
+  uploadData: IncidentReportingModel,
+  user: User
 ) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
@@ -196,8 +207,13 @@ export const uploadIncidentReportingData = (
       timeStamp: uploadData.timeStamp,
     };
 
+    if (!user.email) return;
+
+    const id = `incident_reporting`;
+    const col = collection(firestore, 'users_dashboard', user.email, id);
+
     try {
-      await addDoc(incidentReportingCollection, data);
+      await addDoc(col, data);
 
       dispatch(
         uiActions.updateNotification({
@@ -220,7 +236,8 @@ export const uploadIncidentReportingData = (
 
 // Custom Action Creator for uploading Project Enlistment data
 export const uploadProjectEnlistmentData = (
-  uploadData: ProjectEnlistmentModel
+  uploadData: ProjectEnlistmentModel,
+  user: User
 ) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
@@ -235,8 +252,13 @@ export const uploadProjectEnlistmentData = (
       timeStamp: uploadData.timeStamp,
     };
 
+    if (!user.email) return;
+
+    const id = `project_enlistment`;
+    const col = collection(firestore, 'users_dashboard', user.email, id);
+
     try {
-      await addDoc(projectEnlistmentCollection, data);
+      await addDoc(col, data);
 
       dispatch(
         uiActions.updateNotification({
@@ -258,7 +280,10 @@ export const uploadProjectEnlistmentData = (
 }; // End of function body
 
 // Custom Action Creator for uploading Incident Reporting data
-export const uploadItemEnlistmentData = (uploadData: ItemEnlistmentModel) => {
+export const uploadItemEnlistmentData = (
+  uploadData: ItemEnlistmentModel,
+  user: User
+) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
     const data: ItemEnlistmentModel = {
@@ -270,8 +295,13 @@ export const uploadItemEnlistmentData = (uploadData: ItemEnlistmentModel) => {
       timeStamp: uploadData.timeStamp,
     };
 
+    if (!user.email) return;
+
+    const id = `item_enlistment`;
+    const col = collection(firestore, 'users_dashboard', user.email, id);
+
     try {
-      await addDoc(itemEnlistmentCollection, data);
+      await addDoc(col, data);
 
       dispatch(
         uiActions.updateNotification({
@@ -292,4 +322,49 @@ export const uploadItemEnlistmentData = (uploadData: ItemEnlistmentModel) => {
   };
 }; // End of function body
 
-// ***********************************************************
+// ***********************RETRIEVALS************************************
+// Getting collection data
+// Custom Action Creator for fetching user data
+export const fetchCollection = (user: User, col_id: string) => {
+  // returning a function that returns an action object
+  return async (dispatch: AppDispatch) => {
+    if (!user.email) return;
+
+    const col = collection(firestore, 'users_dashboard', user.email, col_id);
+
+    try {
+      // Querying db collection for existing user
+      const dataQuery = query(col, orderBy('timeStamp'));
+
+      const transformedData: any[] = [];
+
+      // const userData = await getDocs(dataQuery);
+      // if (userData.empty) throw new Error('Collection not found');
+
+      // Data transformation
+      // userData.docs.forEach(doc => {
+      //   transformedData.push({ ...doc.data(), id: doc.id });
+      // });
+
+      // Setting up a subscription to the collection to get realtime data
+      onSnapshot(dataQuery, snapshot => {
+        if (snapshot.empty) throw new Error('Collection is empty');
+
+        // Data transformation
+        snapshot.docs.forEach(doc => {
+          transformedData.push({ ...doc.data(), id: doc.id });
+        });
+      });
+
+      return transformedData;
+    } catch (error: any) {
+      dispatch(
+        uiActions.updateNotification({
+          status: 'error',
+          title: error.code,
+          message: error.message,
+        })
+      );
+    }
+  };
+}; // End of function body

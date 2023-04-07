@@ -65,9 +65,9 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    const verified = await dispatch(signInUserGoogle());
+    dispatch(signInUserGoogle());
 
-    if (verified) {
+    if (loggedIn) {
       // go to dashboard
       router.push('/dashboard');
 

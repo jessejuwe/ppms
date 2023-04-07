@@ -7,6 +7,7 @@ import {
   updateDoc,
   orderBy,
   query,
+  serverTimestamp,
 } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
@@ -22,7 +23,7 @@ import {
 import { persistor } from '@/redux/store/store';
 import { setCookie, deleteCookie } from 'cookies-next';
 
-import { firestore, auth, userCollection } from '@/firebase/clientApp';
+import { firestore, auth, usersAuthCol } from '@/firebase/clientApp';
 import { authActions } from '../slices/auth-slice';
 import { uiActions } from '../slices/ui-slice';
 import { AppDispatch } from '../store/store';
@@ -109,13 +110,20 @@ export const signInUserGoogle = () => {
       // IdP data available using getAdditionalUserInfo(result)
       // ...
 
+      const data = {
+        fullName: user.displayName,
+        email: user.email,
+        password: 'RESERVED',
+        timeStamp: serverTimestamp(),
+      };
+
+      dispatch(sendUserData(data)); // Upload user data
       dispatch(authActions.login(user)); // set login state in store
+
       setCookie('loggedIn', JSON.stringify(user), {
         path: '/',
         sameSite: true,
       }); // for enabling route protection
-
-      return user.emailVerified;
     } catch (error: any) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -162,20 +170,18 @@ export const verifyLoggedInUser = () => {
 }; // End of function body
 
 // Custom Action Creator for sending user data
-export const sendUserData = (userData: SignUpData) => {
+export const sendUserData = (userData: SignUpData | any) => {
   // returning a function that returns an action object
   return async (dispatch: AppDispatch) => {
-    const data: SignUpData = {
-      firstName: userData.firstName,
-      lastName: userData.lastName,
+    const data = {
+      fullName: `${userData.firstName} ${userData.lastName}`,
       email: userData.email,
-      phoneNumber: userData.phoneNumber,
       password: userData.password,
       timeStamp: userData.timeStamp,
     };
 
     try {
-      await addDoc(userCollection, data);
+      await addDoc(usersAuthCol, data);
 
       dispatch(
         uiActions.updateNotification({
@@ -203,7 +209,7 @@ export const fetchUserData = () => {
   return async (dispatch: AppDispatch) => {
     try {
       // Querying db collection for existing user
-      const dataQuery = query(userCollection, orderBy('timeStamp'));
+      const dataQuery = query(usersAuthCol, orderBy('timeStamp'));
 
       const transformedData: any[] = [];
 

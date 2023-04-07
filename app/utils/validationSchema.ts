@@ -17,9 +17,6 @@ export const SignupSchema = Yup.object().shape({
     .matches(lastNameRegEx, 'Invalid name')
     .required('Required'),
   email: Yup.string().matches(emailRegEx, 'Invalid email').required('Required'),
-  phoneNumber: Yup.string()
-    .matches(phoneNumberRegEx, 'Invalid phone number')
-    .required('Required'),
   password: Yup.string()
     .matches(mediumRegEx, 'Enter a valid Password')
     .required('Required'),

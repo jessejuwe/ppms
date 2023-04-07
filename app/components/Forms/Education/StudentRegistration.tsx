@@ -25,6 +25,7 @@ const StudentRegistration: React.FC = () => {
 
   const toast = useToast();
   const notification = useAppSelector(state => state.ui.notification);
+  const user = useAppSelector(state => state.auth.user);
 
   const handleClear = useCallback(() => {
     dispatch(uiActions.closeNotification());
@@ -78,31 +79,61 @@ const StudentRegistration: React.FC = () => {
                   timeStamp: serverTimestamp(),
                 };
 
-                console.log(studentData);
+                if (!user) {
+                  if (toast.isActive('user_not_found')) return;
+                  toast({
+                    id: 'user_not_found',
+                    title: 'User not found',
+                    description: `No user was found. Make sure you're logged in.`,
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                    position: 'bottom-left',
+                  });
+
+                  return;
+                }
 
                 // Upload Student data in Firebase
-                dispatch(uploadStudRegData(studentData));
+                dispatch(uploadStudRegData(studentData, user));
 
-                if (notification) {
+                if (notification?.status == 'error') {
                   if (toast.isActive('stud_reg')) return;
                   toast({
                     id: 'stud_reg',
                     title: notification.title,
                     description: notification.message,
                     status: notification.status,
-                    duration: 5000,
+                    duration: 4000,
                     isClosable: true,
                     onCloseComplete: handleClear,
                     position: 'bottom-left',
                   });
+
+                  action.setSubmitting(false);
+                  return;
                 }
 
-                setSchoolID(null);
-                setAdmissionLetter(null);
-                setLastResult(null);
+                if (notification?.status == 'success') {
+                  if (toast.isActive('stud_reg')) return;
+                  toast({
+                    id: 'stud_reg',
+                    title: notification.title,
+                    description: notification.message,
+                    status: notification.status,
+                    duration: 4000,
+                    isClosable: true,
+                    onCloseComplete: handleClear,
+                    position: 'bottom-left',
+                  });
 
-                action.setSubmitting(false);
-                action.resetForm();
+                  setSchoolID(null);
+                  setAdmissionLetter(null);
+                  setLastResult(null);
+
+                  action.setSubmitting(false);
+                  action.resetForm();
+                }
               }}
             >
               {({ errors, touched, isSubmitting }) => (

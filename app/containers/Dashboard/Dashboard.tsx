@@ -8,7 +8,6 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { HiHome } from 'react-icons/hi';
 
 import {
-  Drawer,
   DashboardMenu,
   CandidateRegistration,
   ProgramExecution,
@@ -16,6 +15,12 @@ import {
   IncidentReporting,
   ProjectEnlistment,
   ItemEnlistment,
+  CandidateList,
+  ScheduledProgramList,
+  StudentList,
+  ReportedIncidentList,
+  EnlistedProjectList,
+  EnlistedItemList,
 } from '@/exports/exports';
 import { dashboardActions } from '@/redux/slices/dashboard-slice';
 
@@ -53,6 +58,30 @@ const Dashboard: React.FC = () => {
 
     case 'Item Enlistment':
       content = <ItemEnlistment />;
+      break;
+
+    case 'Candidate List':
+      content = <CandidateList />;
+      break;
+
+    case 'Scheduled Program List':
+      content = <ScheduledProgramList />;
+      break;
+
+    case 'Student List':
+      content = <StudentList />;
+      break;
+
+    case 'Reported Incident List':
+      content = <ReportedIncidentList />;
+      break;
+
+    case 'Enlisted Project List':
+      content = <EnlistedProjectList />;
+      break;
+
+    case 'Enlisted Item List':
+      content = <EnlistedItemList />;
       break;
 
     default:

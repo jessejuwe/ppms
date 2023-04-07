@@ -35,41 +35,8 @@ export const storage = getStorage(app);
 // Create a storage reference
 export const storageRef = ref(storage);
 
-// Reference to specific collection (user) in firestore database
-export const userCollection = collection(firestore, 'users');
+// Reference to specific collection (users_auth) in firestore database
+export const usersAuthCol = collection(firestore, 'users_auth');
 
-// Reference to specific collection (candidate_reg) in firestore database
-export const candidateRegistrationCollection = collection(
-  firestore,
-  'candidate_registration'
-);
-
-// Reference to specific collection (candidate_reg) in firestore database
-export const programExecutionCollection = collection(
-  firestore,
-  'program_execution'
-);
-
-// Reference to specific collection (candidate_reg) in firestore database
-export const studentRegistrationCollection = collection(
-  firestore,
-  'student_registration'
-);
-
-// Reference to specific collection (candidate_reg) in firestore database
-export const incidentReportingCollection = collection(
-  firestore,
-  'incident_reporting'
-);
-
-// Reference to specific collection (candidate_reg) in firestore database
-export const projectEnlistmentCollection = collection(
-  firestore,
-  'project_enlistment'
-);
-
-// Reference to specific collection (candidate_reg) in firestore database
-export const itemEnlistmentCollection = collection(
-  firestore,
-  'item_enlistment'
-);
+// Reference to specific collection (users_auth) in firestore database
+export const usersDashboardCol = collection(firestore, 'users_dashboard');

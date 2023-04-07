@@ -125,7 +125,6 @@ const SignUp: React.FC = () => {
                         firstName: values.firstName,
                         lastName: values.lastName,
                         email: values.email,
-                        phoneNumber: values.phoneNumber,
                         password: values.password,
                         timeStamp: serverTimestamp(),
                       };
@@ -175,27 +174,6 @@ const SignUp: React.FC = () => {
                             placeholder="Email address"
                             className={`input ${
                               errors.email && touched.email ? 'error' : ''
-                            }`}
-                          />
-                        </Tooltip>
-                        <Tooltip
-                          content="Example: 0803XXX1234"
-                          placement="top"
-                          style="dark"
-                          animation="duration-300"
-                          trigger="hover"
-                        >
-                          <Field
-                            name="phoneNumber"
-                            type="text"
-                            // value={value}
-                            // onChange={onChange}
-                            maxLength={11}
-                            placeholder="Phone number"
-                            className={`input ${
-                              errors.phoneNumber && touched.phoneNumber
-                                ? 'error'
-                                : ''
                             }`}
                           />
                         </Tooltip>

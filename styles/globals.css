@@ -29,7 +29,6 @@
 @import '../app/containers/Dashboard/DashboardMenu.scss';
 
 @import '../app/components/UI/Modal/Modal.scss';
-@import '../app/components/UI/Modal/DashboardModal.scss';
 @import '../app/components/Drawer/Drawer.scss';
 @import '../app/components/Button/GoogleButton.scss';
 @import '../app/components/Forms/Empowerment/CandidateRegistration.scss';
@@ -38,6 +37,12 @@
 @import '../app/components/Forms/Emergency/IncidentReporting.scss';
 @import '../app/components/Forms/Project/ProjectEnlistment.scss';
 @import '../app/components/Forms/Inventory/ItemEnlistment.scss';
+@import '../app/components/Tables/Empowerment/CandidateList.scss';
+@import '../app/components/Tables/Community/ScheduledProgramList.scss';
+@import '../app/components/Tables/Education/StudentList.scss';
+@import '../app/components/Tables/Emergency/ReportedIncidentList.scss';
+@import '../app/components/Tables/Project/EnlistedProjectList.scss';
+@import '../app/components/Tables/Item/EnlistedItemList.scss';
 
 @tailwind base;
 @tailwind components;

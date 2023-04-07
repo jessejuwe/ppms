@@ -25,7 +25,6 @@ export { default as DashboardMenu } from '../app/containers/Dashboard/DashboardM
 
 // exporting RFC default export from React Server Component folder (components)
 export { default as Modal } from '../app/components/UI/Modal/Modal';
-export { default as DashboardModal } from '../app/components/UI/Modal/DashboardModal';
 export { default as GoogleButton } from '../app/components/Button/GoogleButton';
 export { default as Drawer } from '../app/components/Drawer/Drawer';
 export { default as CandidateRegistration } from '../app/components/Forms/Empowerment/CandidateRegistration';
@@ -34,3 +33,9 @@ export { default as StudentRegistration } from '../app/components/Forms/Educatio
 export { default as IncidentReporting } from '../app/components/Forms/Emergency/IncidentReporting';
 export { default as ProjectEnlistment } from '../app/components/Forms/Project/ProjectEnlistment';
 export { default as ItemEnlistment } from '../app/components/Forms/Inventory/ItemEnlistment';
+export { default as CandidateList } from '../app/components/Tables/Empowerment/CandidateList';
+export { default as ScheduledProgramList } from '../app/components/Tables/Community/ScheduledProgramList';
+export { default as StudentList } from '../app/components/Tables/Education/StudentList';
+export { default as ReportedIncidentList } from '../app/components/Tables/Emergency/ReportedIncidentList';
+export { default as EnlistedProjectList } from '../app/components/Tables/Project/EnlistedProjectList';
+export { default as EnlistedItemList } from '../app/components/Tables/Inventory/EnlistedItemList';

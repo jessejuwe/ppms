@@ -20,6 +20,7 @@ const ItemEnlistment: React.FC = () => {
 
   const toast = useToast();
   const notification = useAppSelector(state => state.ui.notification);
+  const user = useAppSelector(state => state.auth.user);
 
   const handleGoBack = useCallback(() => {
     dispatch(dashboardActions.setActive({ alpha: 'Dashboard', beta: null }));
@@ -69,25 +70,57 @@ const ItemEnlistment: React.FC = () => {
                   timeStamp: serverTimestamp(),
                 };
 
-                // Upload Item Enlistment data in Firebase
-                dispatch(uploadItemEnlistmentData(data));
+                if (!user) {
+                  if (toast.isActive('user_not_found')) return;
+                  toast({
+                    id: 'user_not_found',
+                    title: 'User not found',
+                    description: `No user was found. Make sure you're logged in.`,
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                    position: 'bottom-left',
+                  });
 
-                if (notification) {
+                  return;
+                }
+
+                // Upload Item Enlistment data in Firebase
+                dispatch(uploadItemEnlistmentData(data, user));
+
+                if (notification?.status == 'error') {
                   if (toast.isActive('item_enlistment')) return;
                   toast({
                     id: 'item_enlistment',
                     title: notification.title,
                     description: notification.message,
                     status: notification.status,
-                    duration: 5000,
+                    duration: 4000,
                     isClosable: true,
                     onCloseComplete: handleClear,
                     position: 'bottom-left',
                   });
+
+                  action.setSubmitting(false);
+                  return;
                 }
 
-                action.setSubmitting(false);
-                action.resetForm();
+                if (notification?.status == 'success') {
+                  if (toast.isActive('item_enlistment')) return;
+                  toast({
+                    id: 'item_enlistment',
+                    title: notification.title,
+                    description: notification.message,
+                    status: notification.status,
+                    duration: 4000,
+                    isClosable: true,
+                    onCloseComplete: handleClear,
+                    position: 'bottom-left',
+                  });
+
+                  action.setSubmitting(false);
+                  action.resetForm();
+                }
               }}
             >
               {({ errors, touched, isSubmitting }) => (

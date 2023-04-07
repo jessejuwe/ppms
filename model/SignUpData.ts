@@ -5,7 +5,6 @@ class SignUpData {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
   password: string;
   timeStamp?: FieldValue;
 
@@ -14,7 +13,6 @@ class SignUpData {
     this.firstName = '';
     this.lastName = '';
     this.email = '';
-    this.phoneNumber = '';
     this.password = '';
     this.timeStamp = undefined;
   }

@@ -10,7 +10,6 @@ import { FormControl, FormLabel } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { uploadProjectExecutionData } from '@/redux/actions/dashboard-actions';
-import { dashboardActions } from '@/redux/slices/dashboard-slice';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { initialValues } from '@/model/ProgramExecution';
 import { ProgramExecutionModel } from '@/model';
@@ -22,6 +21,7 @@ const ProgramExecution: React.FC = () => {
 
   const toast = useToast();
   const notification = useAppSelector(state => state.ui.notification);
+  const user = useAppSelector(state => state.auth.user);
 
   const handleClear = useCallback(() => {
     dispatch(uiActions.closeNotification());
@@ -68,25 +68,57 @@ const ProgramExecution: React.FC = () => {
                   timeStamp: serverTimestamp(),
                 };
 
-                // Upload candidate data in Firebase
-                dispatch(uploadProjectExecutionData(data));
+                if (!user) {
+                  if (toast.isActive('user_not_found')) return;
+                  toast({
+                    id: 'user_not_found',
+                    title: 'User not found',
+                    description: `No user was found. Make sure you're logged in.`,
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                    position: 'bottom-left',
+                  });
 
-                if (notification) {
+                  return;
+                }
+
+                // Upload candidate data in Firebase
+                dispatch(uploadProjectExecutionData(data, user));
+
+                if (notification?.status == 'error') {
                   if (toast.isActive('program_execution')) return;
                   toast({
                     id: 'program_execution',
                     title: notification.title,
                     description: notification.message,
                     status: notification.status,
-                    duration: 5000,
+                    duration: 4000,
                     isClosable: true,
                     onCloseComplete: handleClear,
                     position: 'bottom-left',
                   });
+
+                  action.setSubmitting(false);
+                  return;
                 }
 
-                action.setSubmitting(false);
-                action.resetForm();
+                if (notification?.status == 'success') {
+                  if (toast.isActive('program_execution')) return;
+                  toast({
+                    id: 'program_execution',
+                    title: notification.title,
+                    description: notification.message,
+                    status: notification.status,
+                    duration: 4000,
+                    isClosable: true,
+                    onCloseComplete: handleClear,
+                    position: 'bottom-left',
+                  });
+
+                  action.setSubmitting(false);
+                  action.resetForm();
+                }
               }}
             >
               {({ errors, touched, isSubmitting }) => (
