@@ -42,7 +42,7 @@
 @import '../app/components/Tables/Education/StudentList.scss';
 @import '../app/components/Tables/Emergency/ReportedIncidentList.scss';
 @import '../app/components/Tables/Project/EnlistedProjectList.scss';
-@import '../app/components/Tables/Item/EnlistedItemList.scss';
+@import '../app/components/Tables/Inventory/EnlistedItemList.scss';
 
 @tailwind base;
 @tailwind components;
