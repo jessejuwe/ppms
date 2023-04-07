@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .enlisted-project-list {
+    @apply h-screen;
+  }
+}
