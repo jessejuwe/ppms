@@ -4,8 +4,8 @@ import React from 'react';
 
 import { Providers } from '../providers';
 import Fonts from '../fonts/Fonts';
-import { NavBar, Footer } from '../../exports/exports';
-import '../../styles/globals.css';
+import { ScrollToTop, NavBar, Footer } from '@/exports/exports';
+import '@/styles/globals.css';
 
 export default function RootLayout({
   children,
@@ -18,6 +18,7 @@ export default function RootLayout({
         <Providers>
           <Fonts />
           <NavBar />
+          <ScrollToTop />
           {children}
           <Footer />
         </Providers>

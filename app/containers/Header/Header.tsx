@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Button } from 'flowbite-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,12 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { images } from '@/constants';
 
 const Header: React.FC = () => {
-  // useEffect for scrolling to top onload
-  // useEffect(() => {
-  //   const element = document.getElementById('landing__page');
-  //   if (element) element.scrollIntoView({ behavior: 'smooth' });
-  // }, []);
-
   return (
     <>
       <AnimatePresence>

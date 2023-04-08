@@ -16,7 +16,7 @@ import {
 import { useAppDispatch } from '@/redux/hooks/hooks';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { dashboardActions } from '@/redux/slices/dashboard-slice';
-import { Drawer, DashboardModal } from '@/exports/exports';
+import { Drawer } from '@/exports/exports';
 
 const DashboardMenu: React.FC = () => {
   const dispatch = useAppDispatch();

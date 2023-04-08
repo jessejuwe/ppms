@@ -8,8 +8,6 @@ import store, { persistor } from '@/redux/store/store';
 import { CacheProvider } from '@chakra-ui/next-js';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
-import { ScrollToTop } from '@/exports/exports';
-
 const colors = {
   primary: { 900: '#209CEE', 800: '#5AF', 700: '#5DBBF8' },
   secondary: { 900: '#1a365d', 800: '#153e75', 700: '#2a69ac' },
@@ -57,7 +55,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ChakraProvider theme={theme}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <ScrollToTop />
             {children}
           </PersistGate>
         </Provider>
