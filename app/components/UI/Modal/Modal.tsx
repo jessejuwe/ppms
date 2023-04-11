@@ -23,9 +23,6 @@ type Props = {
   title: String;
   message: String;
   focus?: any;
-  btnText?: string;
-  hidden?: boolean;
-  altAction?: () => void;
 };
 
 const MainModal: React.FC<Props> = props => {
@@ -71,7 +68,7 @@ const MainModal: React.FC<Props> = props => {
           <ModalBody>
             <Center>
               <VStack>
-                <Heading textTransform="capitalize" size="lg">
+                <Heading textTransform="capitalize" size="md">
                   {props.title}
                 </Heading>
                 <Text>{props.message}</Text>
@@ -87,14 +84,6 @@ const MainModal: React.FC<Props> = props => {
               ref={props.focus}
             >
               Close
-            </Button>
-            <Button
-              variant="ghost"
-              className="modal-proceed-btn"
-              onClick={props.altAction}
-              hidden={props.hidden}
-            >
-              {props.btnText}
             </Button>
           </ModalFooter>
         </ModalContent>

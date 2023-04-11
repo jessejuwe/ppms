@@ -48,7 +48,7 @@
   }
 
   .tabbed-section {
-    @apply flex flex-col items-center justify-center gap-4 py-8 bg-primary-brightest;
+    @apply hidden items-center justify-center gap-4 py-8 bg-primary-brightest;
 
     h2 {
       @apply text-lg font-semibold uppercase text-secondary-brightest;

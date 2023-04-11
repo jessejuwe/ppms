@@ -4,16 +4,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Box,
-  Button,
-  CloseButton,
-  useToast,
-} from '@chakra-ui/react';
+import { Button, useToast } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
 import {
@@ -28,10 +19,10 @@ import {
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { signInUser, signInUserGoogle } from '@/redux/actions/auth-actions';
-import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
 import { SigninSchema } from '@/app/utils/validationSchema';
 import { GoogleButton } from '@/exports/exports';
+import { uiActions } from '@/redux/slices/ui-slice';
 
 const initialValues = { email: '', password: '' };
 
@@ -43,15 +34,19 @@ const SignIn: React.FC = () => {
   const dispatch = useAppDispatch();
   const loggedIn = useAppSelector(state => state.auth.loggedIn);
   const notification = useAppSelector(state => state.ui.notification);
+  const user = useAppSelector(state => state.auth.user);
 
   // focusing on input field on load
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
+  const clearNotification = useCallback(() => {
+    dispatch(uiActions.closeNotification());
+  }, [dispatch]);
+
   const handleGoogleSignIn = useCallback(async () => {
     if (loggedIn) {
-      if (toast.isActive('already-signed-in')) return;
       toast({
         id: 'already-signed-in',
         title: 'Already signed in',
@@ -67,212 +62,197 @@ const SignIn: React.FC = () => {
 
     dispatch(signInUserGoogle());
 
-    if (loggedIn) {
+    if (loggedIn && notification?.status == 'info') {
       // go to dashboard
       router.push('/dashboard');
 
-      if (toast.isActive('dashboard')) return;
       toast({
-        id: 'dashboard',
-        title: 'Sign in successful',
-        description: 'Welcome to your dashboard.',
-        status: 'info',
+        id: 'sign-in-info',
+        title: notification.title,
+        description: notification.message,
+        status: notification.status,
         duration: 5000,
         isClosable: true,
         position: 'bottom-left',
+        onCloseComplete: clearNotification,
       });
+
+      return;
     }
-  }, [loggedIn, dispatch, router, toast]);
 
-  let alert;
+    if (!loggedIn && notification?.status == 'error') {
+      toast({
+        id: 'sign-in-error',
+        title: notification.title,
+        description: notification.message,
+        status: notification.status,
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom-left',
+        onCloseComplete: clearNotification,
+      });
 
-  if (notification && notification.status == 'error') {
-    alert = (
-      <Alert status={notification.status}>
-        <AlertIcon />
-        <Box width="full">
-          <AlertTitle>{notification.title}</AlertTitle>
-          <AlertDescription>{notification.message}</AlertDescription>
-        </Box>
-        <CloseButton
-          alignSelf="flex-start"
-          position="relative"
-          right={-1}
-          top={-1}
-          onClick={() => dispatch(uiActions.closeNotification())}
-        />
-      </Alert>
-    );
-  }
-
-  if (notification && notification.status != 'error') {
-    alert = <div></div>;
-  }
+      return;
+    }
+  }, [loggedIn, dispatch, router, toast, notification, clearNotification]);
 
   return (
     <>
       <AnimatePresence>
-        <main className="sign-in-align">
+        <main className="sign-in-section">
           <motion.div
-            className="alert-section"
-            key="alert-section"
-            initial={{ y: 65, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            whileInView={{ y: [65, 0], opacity: [0, 1] }}
+            className="sign-in-section-img"
+            key="sign-in-section-img"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
             transition={{
               duration: 1,
               ease: 'easeInOut',
               delayChildren: 0.5,
             }}
-            exit={{ y: 65, opacity: 0 }}
+            exit={{ opacity: 0 }}
           >
-            {alert}
+            <Image src={images.join} alt="sign-in" priority />
           </motion.div>
-          <div className="sign-in-section">
-            <motion.div
-              className="sign-in-section-img"
-              key="sign-in-section-img"
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{
-                duration: 1,
-                ease: 'easeInOut',
-                delayChildren: 0.5,
-              }}
-              exit={{ opacity: 0 }}
+          <motion.div
+            className="sign-in-section-form"
+            key="sign-in-section-form"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{
+              duration: 1,
+              ease: 'easeInOut',
+              delayChildren: 0.5,
+            }}
+            exit={{ opacity: 0 }}
+          >
+            <Card
+              align="center"
+              overflow="hidden"
+              color="white"
+              background="blue.700"
+              size="sm"
+              className="card"
+              shadow="xl"
+              rounded="lg"
             >
-              <Image src={images.join} alt="sign-in" priority />
-            </motion.div>
-            <motion.div
-              className="sign-in-section-form"
-              key="sign-in-section-form"
-              initial={{ x: 100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{
-                duration: 1,
-                ease: 'easeInOut',
-                delayChildren: 0.5,
-              }}
-              exit={{ opacity: 0 }}
-            >
-              <Card
-                align="center"
-                overflow="hidden"
-                color="white"
-                background="blue.700"
-                size="sm"
-                className="card"
-                shadow="xl"
-                rounded="lg"
-              >
-                <CardHeader className="card-header">
-                  <Heading textTransform="uppercase">Sign in</Heading>
-                </CardHeader>
-                <CardBody className="card-body">
-                  <Formik
-                    initialValues={initialValues}
-                    validationSchema={SigninSchema}
-                    onSubmit={async (values, action) => {
-                      action.setSubmitting(true);
+              <CardHeader className="card-header">
+                <Heading textTransform="uppercase">Sign in</Heading>
+              </CardHeader>
+              <CardBody className="card-body">
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={SigninSchema}
+                  onSubmit={async (values, action) => {
+                    action.setSubmitting(true);
 
-                      if (loggedIn) {
-                        if (toast.isActive('already-signed-in')) return;
-                        toast({
-                          id: 'already-signed-in',
-                          title: 'Already signed in',
-                          description: 'Current user needs to sign out.',
-                          status: 'error',
-                          duration: 9000,
-                          isClosable: true,
-                          position: 'bottom-left',
-                        });
-
-                        action.setSubmitting(false);
-                        return;
-                      }
-
-                      // signing user in
-                      const verified = await dispatch(
-                        signInUser(values.email, values.password)
-                      );
+                    if (loggedIn) {
+                      toast({
+                        id: 'already-signed-in',
+                        title: 'Already signed in',
+                        description: 'Current user needs to sign out.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'bottom-left',
+                      });
 
                       action.setSubmitting(false);
+                      return;
+                    }
 
-                      if (verified !== undefined) {
-                        // go to dashboard
-                        router.push('/dashboard');
+                    // signing user in
+                    dispatch(signInUser(values.email, values.password));
 
-                        if (toast.isActive('dashboard')) return;
-                        toast({
-                          id: 'dashboard',
-                          title: 'Sign in successful',
-                          description: 'Welcome to your dashboard.',
-                          status: 'success',
-                          duration: 9000,
-                          isClosable: true,
-                          position: 'bottom-left',
-                        });
+                    action.setSubmitting(false);
 
-                        action.resetForm();
-                      }
-                    }}
-                  >
-                    {({ errors, touched, isSubmitting }) => (
-                      <Form>
-                        <Field
-                          name="email"
-                          type="email"
-                          placeholder="Email address"
-                          className={`input ${
-                            errors.email && touched.email ? 'error' : ''
-                          }`}
-                          innerRef={inputRef}
-                        />
+                    if (loggedIn && notification?.status == 'info') {
+                      // go to dashboard
+                      router.push('/dashboard');
 
-                        <Field
-                          name="password"
-                          type="password"
-                          placeholder="Password"
-                          className={`input ${
-                            errors.password && touched.password ? 'error' : ''
-                          }`}
-                        />
-                        <Button
-                          type="submit"
-                          colorScheme="blue"
-                          variant="solid"
-                          loadingText="Signing in ..."
-                          isLoading={isSubmitting}
-                          disabled={isSubmitting}
-                        >
-                          Sign in
-                        </Button>
-                      </Form>
-                    )}
-                  </Formik>
-                  <Text fontSize="lg" marginBottom="4" align="center">
-                    OR
+                      toast({
+                        id: 'sign-in-info',
+                        title: notification.title,
+                        description: notification.message,
+                        status: notification.status,
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'bottom-left',
+                        onCloseComplete: clearNotification,
+                      });
+
+                      action.resetForm();
+                    }
+
+                    if (!loggedIn && notification?.status == 'error') {
+                      toast({
+                        id: 'sign-in-error',
+                        title: notification.title,
+                        description: notification.message,
+                        status: notification.status,
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'bottom-left',
+                        onCloseComplete: clearNotification,
+                      });
+                    }
+                  }}
+                >
+                  {({ errors, touched, isSubmitting }) => (
+                    <Form>
+                      <Field
+                        name="email"
+                        type="email"
+                        placeholder="Email address"
+                        className={`input ${
+                          errors.email && touched.email ? 'error' : ''
+                        }`}
+                        innerRef={inputRef}
+                      />
+
+                      <Field
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        className={`input ${
+                          errors.password && touched.password ? 'error' : ''
+                        }`}
+                      />
+                      <Button
+                        type="submit"
+                        colorScheme="blue"
+                        variant="solid"
+                        loadingText="Signing in ..."
+                        isLoading={isSubmitting}
+                        disabled={isSubmitting}
+                      >
+                        Sign in
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
+                <Text fontSize="lg" marginBottom="4" align="center">
+                  OR
+                </Text>
+                <GoogleButton onClick={handleGoogleSignIn} />
+              </CardBody>
+              <CardFooter className="card-footer">
+                <VStack>
+                  <Text fontSize="sm">
+                    Not registered? {}{' '}
+                    <Link href="/sign-up" className="sign-up-text">
+                      Create account
+                    </Link>
                   </Text>
-                  <GoogleButton onClick={handleGoogleSignIn} />
-                </CardBody>
-                <CardFooter className="card-footer">
-                  <VStack>
-                    <Text fontSize="sm">
-                      Not registered? {}{' '}
-                      <Link href="/sign-up" className="sign-up-text">
-                        Create account
-                      </Link>
-                    </Text>
-                    <Text fontSize="sm">
-                      <Link href="/" className="homepage-text">
-                        Back to homepage
-                      </Link>
-                    </Text>
-                  </VStack>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          </div>
+                  <Text fontSize="sm">
+                    <Link href="/" className="homepage-text">
+                      Back to homepage
+                    </Link>
+                  </Text>
+                </VStack>
+              </CardFooter>
+            </Card>
+          </motion.div>
         </main>
       </AnimatePresence>
     </>

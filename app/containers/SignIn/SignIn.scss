@@ -3,56 +3,46 @@
 @tailwind utilities;
 
 @layer components {
-  .sign-in-align {
-    @apply big:py-8 bg-primary-brightest h-screen flex flex-col justify-center relative;
+  .sign-in-section {
+    @apply h-screen bg-primary-brightest flex flex-row items-center justify-center big:justify-around  big:gap-6 align-middle px-6;
 
-    .alert-section {
-      @apply w-full absolute top-14 z-[50];
+    &-img {
+      @apply big:max-w-lg hidden big:flex;
+
+      img {
+        @apply w-full;
+      }
     }
 
-    .sign-in-section {
-      @apply h-full flex flex-col big:flex-row items-center justify-center big:justify-around py-36 px-6 big:px-8 big:mt-8 big:gap-6 align-middle;
+    &-form {
+      @apply w-full big:w-[35rem];
 
-      &-img {
-        @apply big:max-w-lg hidden big:flex;
+      .card {
+        .card-body {
+          form {
+            @apply w-full flex flex-col items-center justify-center gap-4;
 
-        img {
-          @apply w-full;
-        }
-      }
-
-      &-form {
-        @apply w-full big:w-[35rem];
-
-        .card {
-          .card-body {
-            form {
-              @apply w-full flex flex-col items-center justify-center gap-4;
-
-              .input {
-                @apply p-2 big:p-4 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
-              }
-
-              .error {
-                @apply ring ring-red-700 transition-all duration-150 ease-in;
-              }
-
-              button {
-                @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in mb-4;
-              }
+            .input {
+              @apply p-2 big:p-4 rounded-md w-full border-transparent outline-none focus:ring focus:ring-primary transition-all duration-150 ease-in text-black;
             }
 
-            
+            .error {
+              @apply ring ring-red-700 transition-all duration-150 ease-in;
+            }
+
+            button {
+              @apply w-full outline-none ring-0 bg-secondary-brightest hover:bg-secondary-bright transition-all duration-150 ease-in mb-4;
+            }
+          }
+        }
+
+        .card-footer {
+          .sign-up-text {
+            @apply hover:text-primary-bright cursor-pointer transition-all duration-150 ease-in;
           }
 
-          .card-footer {
-            .sign-up-text {
-              @apply hover:text-primary-bright cursor-pointer transition-all duration-150 ease-in;
-            }
-
-            .homepage-text {
-              @apply hover:underline cursor-pointer transition-all duration-150 ease-in;
-            }
+          .homepage-text {
+            @apply hover:underline cursor-pointer transition-all duration-150 ease-in;
           }
         }
       }

@@ -28,6 +28,7 @@ import { authActions } from '../slices/auth-slice';
 import { uiActions } from '../slices/ui-slice';
 import { AppDispatch } from '../store/store';
 import { SignUpData } from '@/model';
+import { use } from 'react';
 
 const provider = new GoogleAuthProvider();
 
@@ -42,7 +43,14 @@ export const createNewUser = (userData: SignUpData) => {
         if (!auth.currentUser) throw new Error('We could not register you');
 
         dispatch(sendUserData(userData)); // Upload user data
-        dispatch(authActions.login(cred.user)); // Log user in
+
+        dispatch(
+          uiActions.updateNotification({
+            status: 'info',
+            title: 'Congratulations',
+            message: `${userData.firstName} ${userData.lastName}, you have been registered.`,
+          })
+        );
 
         return updateProfile(auth.currentUser, {
           displayName: `${userData.firstName} ${userData.lastName}`,
@@ -73,15 +81,21 @@ export const signInUser = (email: string, password: string) => {
       // New sign-in will be persisted with session persistence.
 
       const cred = await signInWithEmailAndPassword(auth, email, password);
-      if (!cred.user) throw new Error('User credentials not found');
 
       dispatch(authActions.login(cred.user)); // set login state in store
+
       setCookie('loggedIn', JSON.stringify(cred.user), {
         path: '/',
         sameSite: true,
       }); // for enabling route protection
 
-      return cred.user.uid;
+      dispatch(
+        uiActions.updateNotification({
+          status: 'info',
+          title: 'Sign in successful',
+          message: `Welcome to your Dashboard, ${cred.user.displayName}`,
+        })
+      );
     } catch (error: any) {
       dispatch(
         uiActions.updateNotification({
@@ -100,7 +114,6 @@ export const signInUserGoogle = () => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await signInWithPopup(auth, provider);
-      if (!result) return;
 
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -109,6 +122,8 @@ export const signInUserGoogle = () => {
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
       // ...
+
+      if (!user) throw new Error('User not found');
 
       const data = {
         fullName: user.displayName,
@@ -124,6 +139,14 @@ export const signInUserGoogle = () => {
         path: '/',
         sameSite: true,
       }); // for enabling route protection
+
+      dispatch(
+        uiActions.updateNotification({
+          status: 'info',
+          title: 'Sign in successful',
+          message: `Welcome to your Dashboard, ${user.displayName}`,
+        })
+      );
     } catch (error: any) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -182,14 +205,6 @@ export const sendUserData = (userData: SignUpData | any) => {
 
     try {
       await addDoc(usersAuthCol, data);
-
-      dispatch(
-        uiActions.updateNotification({
-          status: 'success',
-          title: 'Congratulations',
-          message: 'Registration done successfully',
-        })
-      );
     } catch (error: any) {
       dispatch(
         uiActions.updateNotification({

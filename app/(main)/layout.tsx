@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 
+import Loading from './loading';
 import { Providers } from '../providers';
 import Fonts from '../fonts/Fonts';
 import { ScrollToTop, NavBar, Footer } from '@/exports/exports';
@@ -19,7 +20,7 @@ export default function RootLayout({
           <Fonts />
           <NavBar />
           <ScrollToTop />
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
           <Footer />
         </Providers>
       </body>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,6 +17,7 @@ import {
   Text,
   VStack,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -26,15 +27,15 @@ import { createNewUser } from '@/redux/actions/auth-actions';
 import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
 import { SignupSchema } from '@/app/utils/validationSchema';
-// import { Modal } from '@/exports/exports';
 
 // prettier-ignore
 const initialValues = { firstName: '', lastName: '', email: '', phoneNumber: '', password: '' };
 
 const SignUp: React.FC = () => {
-  // const [value, setValue] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
   const finalRef = useRef<HTMLInputElement>(null);
+
+  const toast = useToast();
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -44,20 +45,19 @@ const SignUp: React.FC = () => {
   // dynamic import for lazy loading
   const Modal = dynamic(() => import('../../components/UI/Modal/Modal'));
 
-  const handleProceed = useCallback(() => {
-    router.replace('/sign-in');
-    dispatch(uiActions.closeNotification());
-  }, [dispatch, router]);
-
-  // const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const targetValue = phoneNumberAutoFormat(e.target.value);
-  //   setValue(targetValue);
-  // };
-
   // setting focus to input element on load
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  const handleRedirect = useCallback(() => {
+    dispatch(uiActions.closeNotification());
+    router.push('/sign-in');
+  }, [dispatch, router]);
+
+  const handleClose = useCallback(() => {
+    dispatch(uiActions.closeNotification());
+  }, [dispatch]);
 
   return (
     <>
@@ -67,9 +67,6 @@ const SignUp: React.FC = () => {
           title={notification.title}
           message={notification.message}
           focus={finalRef}
-          btnText="Sign in"
-          altAction={handleProceed}
-          hidden={true}
         />
       )}
       <AnimatePresence>
@@ -134,12 +131,33 @@ const SignUp: React.FC = () => {
 
                       action.setSubmitting(false);
 
-                      if (!loggedIn) return;
+                      if (notification?.status == 'info') {
+                        toast({
+                          id: 'signed-up-info',
+                          title: notification.title,
+                          description: notification.message,
+                          status: notification.status,
+                          duration: 5000,
+                          isClosable: true,
+                          position: 'bottom-left',
+                          onCloseComplete: handleRedirect,
+                        });
 
-                      action.resetForm();
+                        action.resetForm();
+                      }
 
-                      // go to dashboard
-                      router.push('/dashboard');
+                      if (notification?.status == 'error') {
+                        toast({
+                          id: 'signed-up-error',
+                          title: notification.title,
+                          description: notification.message,
+                          status: notification.status,
+                          duration: 5000,
+                          isClosable: true,
+                          position: 'bottom-left',
+                          onCloseComplete: handleClose,
+                        });
+                      }
                     }}
                   >
                     {({ errors, touched, isSubmitting }) => (
