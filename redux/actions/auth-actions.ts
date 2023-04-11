@@ -28,7 +28,6 @@ import { authActions } from '../slices/auth-slice';
 import { uiActions } from '../slices/ui-slice';
 import { AppDispatch } from '../store/store';
 import { SignUpData } from '@/model';
-import { use } from 'react';
 
 const provider = new GoogleAuthProvider();
 
