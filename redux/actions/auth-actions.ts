@@ -124,14 +124,6 @@ export const signInUserGoogle = () => {
 
       if (!user) throw new Error('User not found');
 
-      const data = {
-        fullName: user.displayName,
-        email: user.email,
-        password: 'RESERVED',
-        timeStamp: serverTimestamp(),
-      };
-
-      dispatch(sendUserData(data)); // Upload user data
       dispatch(authActions.login(user)); // set login state in store
 
       setCookie('loggedIn', JSON.stringify(user), {

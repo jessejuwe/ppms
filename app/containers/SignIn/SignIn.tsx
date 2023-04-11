@@ -62,30 +62,13 @@ const SignIn: React.FC = () => {
 
     dispatch(signInUserGoogle());
 
-    if (loggedIn && notification?.status == 'info') {
-      // go to dashboard
-      router.push('/dashboard');
-
-      toast({
-        id: 'sign-in-info',
-        title: notification.title,
-        description: notification.message,
-        status: notification.status,
-        duration: 5000,
-        isClosable: true,
-        position: 'bottom-left',
-        onCloseComplete: clearNotification,
-      });
-
-      return;
-    }
-
-    if (!loggedIn && notification?.status == 'error') {
+    // Guard clause
+    if (!loggedIn) {
       toast({
         id: 'sign-in-error',
-        title: notification.title,
-        description: notification.message,
-        status: notification.status,
+        title: notification && notification.title,
+        description: notification && notification.message,
+        status: 'error',
         duration: 5000,
         isClosable: true,
         position: 'bottom-left',
@@ -94,6 +77,20 @@ const SignIn: React.FC = () => {
 
       return;
     }
+
+    // go to dashboard
+    router.push('/dashboard');
+
+    toast({
+      id: 'sign-in-info',
+      title: notification && notification.title,
+      description: notification && notification.message,
+      status: 'info',
+      duration: 5000,
+      isClosable: true,
+      position: 'bottom-left',
+      onCloseComplete: clearNotification,
+    });
   }, [loggedIn, dispatch, router, toast, notification, clearNotification]);
 
   return (
@@ -166,36 +163,37 @@ const SignIn: React.FC = () => {
 
                     action.setSubmitting(false);
 
-                    if (loggedIn && notification?.status == 'info') {
-                      // go to dashboard
-                      router.push('/dashboard');
-
-                      toast({
-                        id: 'sign-in-info',
-                        title: notification.title,
-                        description: notification.message,
-                        status: notification.status,
-                        duration: 5000,
-                        isClosable: true,
-                        position: 'bottom-left',
-                        onCloseComplete: clearNotification,
-                      });
-
-                      action.resetForm();
-                    }
-
-                    if (!loggedIn && notification?.status == 'error') {
+                    // Guard clause
+                    if (!loggedIn) {
                       toast({
                         id: 'sign-in-error',
-                        title: notification.title,
-                        description: notification.message,
-                        status: notification.status,
+                        title: notification && notification.title,
+                        description: notification && notification.message,
+                        status: 'error',
                         duration: 5000,
                         isClosable: true,
                         position: 'bottom-left',
                         onCloseComplete: clearNotification,
                       });
+
+                      return;
                     }
+
+                    action.resetForm();
+
+                    // go to dashboard
+                    router.push('/dashboard');
+
+                    toast({
+                      id: 'sign-in-info',
+                      title: notification && notification.title,
+                      description: notification && notification.message,
+                      status: 'info',
+                      duration: 5000,
+                      isClosable: true,
+                      position: 'bottom-left',
+                      onCloseComplete: clearNotification,
+                    });
                   }}
                 >
                   {({ errors, touched, isSubmitting }) => (
