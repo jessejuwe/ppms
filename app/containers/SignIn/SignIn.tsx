@@ -62,35 +62,20 @@ const SignIn: React.FC = () => {
 
     dispatch(signInUserGoogle());
 
-    // Guard clause
-    if (!loggedIn) {
+    notification &&
       toast({
-        id: 'sign-in-error',
-        title: notification && notification.title,
-        description: notification && notification.message,
-        status: 'error',
+        id: 'sign-in-notification',
+        title: notification.title,
+        description: notification.message,
+        status: notification.status == 'info' ? 'info' : 'error',
         duration: 5000,
         isClosable: true,
         position: 'bottom-left',
         onCloseComplete: clearNotification,
       });
 
-      return;
-    }
-
     // go to dashboard
-    router.push('/dashboard');
-
-    toast({
-      id: 'sign-in-info',
-      title: notification && notification.title,
-      description: notification && notification.message,
-      status: 'info',
-      duration: 5000,
-      isClosable: true,
-      position: 'bottom-left',
-      onCloseComplete: clearNotification,
-    });
+    if (loggedIn) router.push('/dashboard');
   };
 
   return (
@@ -140,7 +125,7 @@ const SignIn: React.FC = () => {
                 <Formik
                   initialValues={initialValues}
                   validationSchema={SigninSchema}
-                  onSubmit={async (values, action) => {
+                  onSubmit={(values, action) => {
                     action.setSubmitting(true);
 
                     if (loggedIn) {
@@ -163,37 +148,25 @@ const SignIn: React.FC = () => {
 
                     action.setSubmitting(false);
 
-                    // Guard clause
-                    if (!loggedIn) {
+                    notification &&
                       toast({
-                        id: 'sign-in-error',
-                        title: notification && notification.title,
-                        description: notification && notification.message,
-                        status: 'error',
+                        id: 'sign-in-notification',
+                        title: notification.title,
+                        description: notification.message,
+                        status:
+                          notification.status == 'info' ? 'info' : 'error',
                         duration: 5000,
                         isClosable: true,
                         position: 'bottom-left',
                         onCloseComplete: clearNotification,
                       });
 
-                      return;
+                    if (loggedIn) {
+                      action.resetForm();
+
+                      // go to dashboard
+                      router.push('/dashboard');
                     }
-
-                    action.resetForm();
-
-                    // go to dashboard
-                    router.push('/dashboard');
-
-                    toast({
-                      id: 'sign-in-info',
-                      title: notification && notification.title,
-                      description: notification && notification.message,
-                      status: 'info',
-                      duration: 5000,
-                      isClosable: true,
-                      position: 'bottom-left',
-                      onCloseComplete: clearNotification,
-                    });
                   }}
                 >
                   {({ errors, touched, isSubmitting }) => (
