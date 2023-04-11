@@ -45,10 +45,10 @@ const SignIn: React.FC = () => {
     dispatch(uiActions.closeNotification());
   }, [dispatch]);
 
-  const handleGoogleSignIn = useCallback(async () => {
+  const handleGoogleSignIn = () => {
     if (loggedIn) {
       toast({
-        id: 'already-signed-in',
+        id: 'already-signed-in-google',
         title: 'Already signed in',
         description: 'Current user needs to sign out.',
         status: 'error',
@@ -91,7 +91,7 @@ const SignIn: React.FC = () => {
       position: 'bottom-left',
       onCloseComplete: clearNotification,
     });
-  }, [loggedIn, dispatch, router, toast, notification, clearNotification]);
+  };
 
   return (
     <>

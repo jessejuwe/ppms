@@ -26,6 +26,7 @@ import { setCookie, deleteCookie } from 'cookies-next';
 import { firestore, auth, usersAuthCol } from '@/firebase/clientApp';
 import { authActions } from '../slices/auth-slice';
 import { uiActions } from '../slices/ui-slice';
+import { dashboardActions } from '../slices/dashboard-slice';
 import { AppDispatch } from '../store/store';
 import { SignUpData } from '@/model';
 
@@ -166,7 +167,12 @@ export const signOutUser = () => {
     await signOut(auth); // sign out from firebase auth
     await persistor.purge(); // clear redux persisted state
 
-    dispatch(authActions.logout()); // clear login state in store
+    dispatch(authActions.logout()); // clear auth-slice state in store
+    dispatch(uiActions.closeNotification()); // clear notification-slice state in store
+    dispatch(uiActions.closeDrawer()); // clear notification-slice state in store
+    dispatch(dashboardActions.clearActive()); // clear dashboard-slice state in store
+    dispatch(dashboardActions.clearDrawer()); // clear dashboard-slice state in store
+
     deleteCookie('loggedIn'); // delete cookie
   };
 }; // End of function body
