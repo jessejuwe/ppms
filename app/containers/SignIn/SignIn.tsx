@@ -45,7 +45,7 @@ const SignIn: React.FC = () => {
     dispatch(uiActions.closeNotification());
   }, [dispatch]);
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     if (loggedIn) {
       toast({
         id: 'already-signed-in-google',
@@ -60,22 +60,34 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    dispatch(signInUserGoogle());
+    const currentUser = await dispatch(signInUserGoogle());
 
-    notification &&
+    if (currentUser) {
       toast({
         id: 'sign-in-notification',
-        title: notification.title,
-        description: notification.message,
-        status: notification.status == 'info' ? 'info' : 'error',
+        title: 'Sign in successful',
+        description: `Welcome to your Dashboard, ${currentUser.displayName}`,
+        status: 'info',
         duration: 5000,
         isClosable: true,
         position: 'bottom-left',
         onCloseComplete: clearNotification,
       });
 
-    // go to dashboard
-    if (loggedIn) router.push('/dashboard');
+      // go to dashboard
+      router.push('/dashboard');
+    } else {
+      toast({
+        id: 'sign-in-notification',
+        title: 'Sign in failed',
+        description: `Failed to authenticate user`,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom-left',
+        onCloseComplete: clearNotification,
+      });
+    }
   };
 
   return (
@@ -125,7 +137,7 @@ const SignIn: React.FC = () => {
                 <Formik
                   initialValues={initialValues}
                   validationSchema={SigninSchema}
-                  onSubmit={(values, action) => {
+                  onSubmit={async (values, action) => {
                     action.setSubmitting(true);
 
                     if (loggedIn) {
@@ -144,28 +156,39 @@ const SignIn: React.FC = () => {
                     }
 
                     // signing user in
-                    dispatch(signInUser(values.email, values.password));
+                    const currentUser = await dispatch(
+                      signInUser(values.email, values.password)
+                    );
 
                     action.setSubmitting(false);
 
-                    notification &&
+                    if (currentUser) {
                       toast({
                         id: 'sign-in-notification',
-                        title: notification.title,
-                        description: notification.message,
-                        status:
-                          notification.status == 'info' ? 'info' : 'error',
+                        title: 'Sign in successful',
+                        description: `Welcome to your Dashboard, ${currentUser.displayName}`,
+                        status: 'info',
                         duration: 5000,
                         isClosable: true,
                         position: 'bottom-left',
                         onCloseComplete: clearNotification,
                       });
 
-                    if (loggedIn) {
                       action.resetForm();
 
                       // go to dashboard
                       router.push('/dashboard');
+                    } else {
+                      toast({
+                        id: 'sign-in-notification',
+                        title: 'Sign in failed',
+                        description: `Failed to authenticate user`,
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'bottom-left',
+                        onCloseComplete: clearNotification,
+                      });
                     }
                   }}
                 >

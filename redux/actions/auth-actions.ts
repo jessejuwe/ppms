@@ -89,13 +89,7 @@ export const signInUser = (email: string, password: string) => {
         sameSite: true,
       }); // for enabling route protection
 
-      dispatch(
-        uiActions.updateNotification({
-          status: 'info',
-          title: 'Sign in successful',
-          message: `Welcome to your Dashboard, ${cred.user.displayName}`,
-        })
-      );
+      return cred.user;
     } catch (error: any) {
       dispatch(
         uiActions.updateNotification({
@@ -132,13 +126,7 @@ export const signInUserGoogle = () => {
         sameSite: true,
       }); // for enabling route protection
 
-      dispatch(
-        uiActions.updateNotification({
-          status: 'info',
-          title: 'Sign in successful',
-          message: `Welcome to your Dashboard, ${user.displayName}`,
-        })
-      );
+      return user;
     } catch (error: any) {
       // Handle Errors here.
       const errorCode = error.code;

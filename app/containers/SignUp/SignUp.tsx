@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,14 +17,12 @@ import {
   Text,
   VStack,
   Button,
-  useToast,
 } from '@chakra-ui/react';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { SignUpData } from '@/model';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { createNewUser } from '@/redux/actions/auth-actions';
-import { uiActions } from '@/redux/slices/ui-slice';
 import { images } from '@/constants';
 import { SignupSchema } from '@/app/utils/validationSchema';
 
@@ -35,11 +33,8 @@ const SignUp: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const finalRef = useRef<HTMLInputElement>(null);
 
-  const toast = useToast();
-
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const loggedIn = useAppSelector(state => state.auth.loggedIn);
   const notification = useAppSelector(state => state.ui.notification);
 
   // dynamic import for lazy loading
@@ -49,15 +44,6 @@ const SignUp: React.FC = () => {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-
-  const handleRedirect = useCallback(() => {
-    dispatch(uiActions.closeNotification());
-    router.push('/sign-in');
-  }, [dispatch, router]);
-
-  const handleClose = useCallback(() => {
-    dispatch(uiActions.closeNotification());
-  }, [dispatch]);
 
   return (
     <>
@@ -131,33 +117,10 @@ const SignUp: React.FC = () => {
 
                       action.setSubmitting(false);
 
-                      if (notification?.status == 'info') {
-                        toast({
-                          id: 'signed-up-info',
-                          title: notification.title,
-                          description: notification.message,
-                          status: notification.status,
-                          duration: 5000,
-                          isClosable: true,
-                          position: 'bottom-left',
-                          onCloseComplete: handleRedirect,
-                        });
+                      if (notification?.status == 'error') return;
 
-                        action.resetForm();
-                      }
-
-                      if (notification?.status == 'error') {
-                        toast({
-                          id: 'signed-up-error',
-                          title: notification.title,
-                          description: notification.message,
-                          status: notification.status,
-                          duration: 5000,
-                          isClosable: true,
-                          position: 'bottom-left',
-                          onCloseComplete: handleClose,
-                        });
-                      }
+                      action.resetForm();
+                      router.push('/sign-in');
                     }}
                   >
                     {({ errors, touched, isSubmitting }) => (
