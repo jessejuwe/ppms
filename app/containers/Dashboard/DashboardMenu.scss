@@ -5,5 +5,33 @@
 @layer components {
   .dashboard-menu {
     @apply h-screen;
+
+    .modules {
+      @apply grid grid-cols-2 md:grid-cols-3 gap-x-0 gap-y-6 py-8 pl-8 md:pl-16 md:pr-0 bg-secondary rounded-md;
+
+      .module {
+        @apply w-[80%] bg-white flex-col rounded-lg cursor-pointer transition-all duration-150 ease-linear shadow-lg md:hover:shadow-2xl md:hover:shadow-black/20 md:hover:scale-105 border-none items-center justify-center outline-none;
+
+        .module-group {
+          @apply w-full relative h-3/4 bg-transparent;
+
+          &-img {
+            @apply w-full h-full rounded-t-md object-cover;
+          }
+
+          &-hover {
+            @apply absolute inset-0 w-full h-full bg-black/50 rounded-lg opacity-0 flex flex-row justify-center items-center;
+          }
+        }
+
+        .module-link {
+          @apply pt-4 pb-0 text-center;
+
+          p {
+            @apply text-secondary font-semibold uppercase hover:underline transition-all duration-150 ease-in text-[0.45rem] md:text-sm;
+          }
+        }
+      }
+    }
   }
 }

@@ -6,6 +6,12 @@ interface Modules {
   img: any;
 }
 
+interface DashboardModules {
+  title: String;
+  drawer: string;
+  img: any;
+}
+
 export const MODULES: Modules[] = [
   {
     to: '/services/epmm',
@@ -36,6 +42,40 @@ export const MODULES: Modules[] = [
   {
     to: '/services/simm',
     title: 'Store-Inventory Management',
+    img: images.inventory,
+  },
+];
+
+export const DASHOARD_MODULES: DashboardModules[] = [
+  {
+    title: 'Youth Empowerment',
+    drawer: 'Youth Empowerment',
+    img: images.empowerment,
+  },
+  {
+    title: 'Community Empowerment',
+    drawer: 'Community Empowerment',
+    img: images.community,
+  },
+
+  {
+    title: 'Education Empowerment',
+    drawer: 'Education Empowerment',
+    img: images.education,
+  },
+  {
+    title: 'Emergency Management',
+    drawer: 'Emergency Management',
+    img: images.emergency,
+  },
+  {
+    title: 'Project Management',
+    drawer: 'Project Management',
+    img: images.project,
+  },
+  {
+    title: 'Store-Inventory Management',
+    drawer: 'Store-Inventory Management',
     img: images.inventory,
   },
 ];
