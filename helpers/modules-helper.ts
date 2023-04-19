@@ -74,8 +74,8 @@ export const DASHOARD_MODULES: DashboardModules[] = [
     img: images.project,
   },
   {
-    title: 'Store-Inventory Management',
-    drawer: 'Store-Inventory Management',
+    title: 'Inventory Management',
+    drawer: 'Inventory Management',
     img: images.inventory,
   },
 ];
