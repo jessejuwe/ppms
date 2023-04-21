@@ -699,9 +699,23 @@ const MainDrawer: React.FC = () => {
                     >
                       Inventory Item Enlistments
                     </MenuItem>
-                    <MenuItem className="menu-item">
-                      Inventory Transactions
-                    </MenuItem>
+                    <MenuDivider />
+                    <MenuGroup title="Inventory Transactions">
+                      <MenuItem className="menu-item">Receivig</MenuItem>
+                      <MenuItem className="menu-item">Issuing</MenuItem>
+                      <MenuItem className="menu-item">
+                        Real-time quantity on-hand
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Transfers and Adjustments
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Auto-calculates costs for adjustments
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Attach supporting documents & images
+                      </MenuItem>
+                    </MenuGroup>
                     <MenuDivider />
                     <MenuGroup title="Reports">
                       <MenuItem
@@ -709,6 +723,15 @@ const MainDrawer: React.FC = () => {
                         onClick={handleEnlistedItemList}
                       >
                         List of Enlisted Items
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        List of Items Issued out
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Inventory cost report
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Excel export for spreadsheet analysis
                       </MenuItem>
                     </MenuGroup>
                   </MenuList>
