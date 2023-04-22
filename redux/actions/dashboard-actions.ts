@@ -93,7 +93,7 @@ export const uploadProjectExecutionData = (
 
     if (!user.email) return;
 
-    const id = `project_execution`;
+    const id = `program_execution`;
     const col = collection(firestore, 'users_dashboard', user.email, id);
 
     try {
