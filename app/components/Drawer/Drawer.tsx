@@ -646,7 +646,13 @@ const MainDrawer: React.FC = () => {
                     </MenuItem>
                     <MenuItem className="menu-item">Project Tracking</MenuItem>
                     <MenuItem className="menu-item">
-                      Project Inspection
+                      Schedule Project Inspection
+                    </MenuItem>
+                    <MenuItem className="menu-item">
+                      Nominate Inspection Team
+                    </MenuItem>
+                    <MenuItem className="menu-item">
+                      Inspection Findings
                     </MenuItem>
                     <MenuDivider />
                     <MenuGroup title="Reports">
@@ -655,6 +661,19 @@ const MainDrawer: React.FC = () => {
                         onClick={handleEnlistedProjectList}
                       >
                         List of Enlisted Projects
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        List of Approved Projects
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        List of Projects Awarded for Execution
+                      </MenuItem>
+                      <MenuItem className="menu-item">Project Status</MenuItem>
+                      <MenuItem className="menu-item">
+                        Inspection/Contractor Performance
+                      </MenuItem>
+                      <MenuItem className="menu-item">
+                        Completion Certificate
                       </MenuItem>
                     </MenuGroup>
                   </MenuList>
